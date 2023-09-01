@@ -1,0 +1,18 @@
+.pattern {
+  background: repeating-linear-gradient(to right, #49543d, #49543d 5px, #b3cb9b 5px, #b3cb9b 10px);
+  width: 119px;
+}
+
+@media (min-width: 768) {
+  .pattern {
+    background: repeating-linear-gradient(to right, #49543d, #49543d 6px, #b3cb9b 6px, #b3cb9b 12px);
+    width: 203px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pattern {
+    background: repeating-linear-gradient(to right, #49543d, #49543d 7px, #b3cb9b 7px, #b3cb9b 14px);
+    @apply w-1/2;
+  }
+}

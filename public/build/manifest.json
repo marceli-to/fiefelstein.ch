@@ -1,0 +1,24 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-8635b833.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/css/fonts/Europa-Regular.ttf": {
+    "file": "assets/Europa-Regular-cd073e34.ttf",
+    "src": "resources/css/fonts/Europa-Regular.ttf"
+  },
+  "resources/css/fonts/Europa-Regular.woff": {
+    "file": "assets/Europa-Regular-83c7774a.woff",
+    "src": "resources/css/fonts/Europa-Regular.woff"
+  },
+  "resources/css/fonts/Europa-Regular.woff2": {
+    "file": "assets/Europa-Regular-df784ed4.woff2",
+    "src": "resources/css/fonts/Europa-Regular.woff2"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  }
+}

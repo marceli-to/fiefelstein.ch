@@ -1,0 +1,11 @@
+/**
+ * Typography - Webfonts
+ * -----------------------------------------------------------------------------
+ */
+
+ @font-face {
+  font-family: 'Europa-Regular';
+  src: local('Europa-Regular'), local('Europa-Regular'),url('../fonts/Europa-Regular.woff2') format('woff2'), url('../fonts/Europa-Regular.woff') format('woff'), url('../fonts/Europa-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}

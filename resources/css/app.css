@@ -1,0 +1,9 @@
+@import "typo/webfonts.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply antialiased font-regular;
+}
