@@ -1,6 +1,6 @@
 @extends('web.app')
 @section('content')
-<x-layout.section class="lg:col-span-6 lg:col-start-4">
+<x-layout.section class="xl:col-span-6 xl:col-start-4">
   <x-layout.inner>
     <x-layout.grid>
       <x-layout.span class="mt-28 sm:mt-0 sm:order-1">
