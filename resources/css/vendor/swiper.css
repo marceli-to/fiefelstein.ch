@@ -1,0 +1,33 @@
+
+.swiper {
+  @apply h-full w-full
+}
+
+.swiper-slide {
+
+  /* @apply flex items-center justify-center aspect-square */
+}
+
+/* .swiper .swiper-slide figure {
+  @apply aspect-square relative
+}
+ */
+.swiper .swiper-slide {
+  @apply h-[calc(100vh_-_40px)] w-full  
+}
+.swiper .swiper-slide img {
+  @apply h-[calc(100vh_-_40px)] w-full object-cover 
+}
+
+/* .swiper-button-next,
+.swiper-button-prev {
+  @apply absolute z-10 block h-30 w-20 bg-black top-1/2;
+}
+
+.swiper-button-prev {
+  @apply left-[calc(25%_+_48px)]
+}
+
+.swiper-button-next {
+  @apply right-[calc(25%_+_48px)]
+} */
