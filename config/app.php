@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'de_CH',
+    'locale' => 'de',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +167,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
 
@@ -184,7 +185,4 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
       // 'Example' => App\Facades\Example::class,
     ])->toArray(),
-    'ApartmentHelper' => App\Helpers\ApartmentHelper::class,
-
-
 ];

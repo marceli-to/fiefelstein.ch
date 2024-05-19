@@ -1,6 +1,9 @@
 @extends('app')
 @section('content')
 <div class="relative h-[calc(100%_-_40px)]">
+
+  <h1 class="font-europa-regular text-xl">Test</h1>
+
   <x-swiper.wrapper>
     <x-swiper.slide>
         <picture>
