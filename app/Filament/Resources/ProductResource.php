@@ -11,8 +11,10 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Filament\Resources\Resource;
@@ -61,7 +63,7 @@ class ProductResource extends Resource
             ->required()
             ->columnSpan('full'),
 
-            Repeater::make('attributes')
+          Repeater::make('attributes')
             ->simple(
               TextInput::make('description')
               ->label('Beschreibung')
@@ -94,9 +96,32 @@ class ProductResource extends Resource
             ->label('Publizieren')
             ->inline(false),
 
+          Repeater::make('cards')
+          ->schema([
+            Select::make('type')
+              ->options([
+                  'Image' => 'Bild',
+                  'Text' => 'Text',
+              ])
+              ->live()
+              ->reactive(),
+            FileUpload::make('image')
+              ->image()
+              ->imageEditor()
+              ->label('Bild')
+              ->visible(fn ($get) => $get('type') === 'Image'),
+            Textarea::make('text')
+              ->label('Text')
+              ->rows(6)
+              ->visible(fn ($get) => $get('type') === 'Text'),
+          ])
+          ->label('Slides')
+          ->itemLabel(fn (array $state): ?string => $state['type'] ?? null)
+          ->addActionLabel('Slide hinzufügen')
+          ->columnSpan('full'),
         ])->columnSpan([
           'default' => 12,
-          'lg' => 7,
+          'lg' => 8,
         ]),
         Section::make('Bilder')
         ->collapsible()

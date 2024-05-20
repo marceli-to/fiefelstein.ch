@@ -1,0 +1,98 @@
+<?php
+namespace App\Livewire;
+
+use App\Models\Product;
+use Livewire\Component;
+use Illuminate\Support\Collection;
+
+class CartButton extends Component
+{
+  public $productId;
+  public $cart;
+
+  public function mount($productId)
+  {
+    $this->productId = $productId;
+    $this->cart = session()->get('cart', [
+      'items' => [],
+      'quantity' => 0,
+      'total' => 0,
+    ]);
+  }
+
+  public function addToCart($quantity)
+  {
+    $product = Product::findOrFail($this->productId);
+    $cartItems = collect($this->cart['items']);
+
+    $cartItem = $cartItems->where('product_id', $product->id)->first();
+
+    if ($cartItem)
+    {
+      if ($quantity == 0)
+      {
+        $this->removeFromCart($product);
+      }
+      else
+      {
+        $cartItem['quantity'] = $quantity;
+        $this->updateCartItem($cartItem);
+      }
+    } 
+    else
+    {
+      $this->addProductToCart($product, $quantity);
+    }
+
+    $this->updateCartTotal();
+  }
+
+  private function removeFromCart($product)
+  {
+    $this->cart['items'] = collect($this->cart['items'])
+      ->reject(function ($item) use ($product) {
+        return $item['product_id'] == $product->id;
+      })
+      ->values()
+      ->all();
+
+    $this->cart['quantity']--;
+  }
+
+  private function updateCartItem($cartItem)
+  {
+    $this->cart['items'] = collect($this->cart['items'])
+      ->map(function ($item) use ($cartItem) {
+        return $item['product_id'] == $cartItem['product_id'] ? $cartItem : $item;
+      })
+      ->values()
+      ->all();
+  }
+
+  private function addProductToCart($product, $quantity)
+  {
+    $this->cart['items'][] = [
+      'product_id' => $product->id,
+      'title' => $product->title,
+      'price' => $product->price,
+      'quantity' => $quantity,
+    ];
+
+    $this->cart['quantity']++;
+  }
+
+  public function updateCartTotal()
+  {
+    $this->cart['total'] = collect($this->cart['items'])->sum(function ($item) {
+      return $item['price'] * $item['quantity'];
+    });
+
+    session()->put('cart', $this->cart);
+    $this->dispatch('cart-updated');
+  }
+
+  public function render()
+  {
+    return view('livewire.cart-button');
+  }
+}

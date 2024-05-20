@@ -21,6 +21,7 @@ class Product extends Model implements HasMedia
     'price',
     'quantity',
     'attributes',
+    'cards',
     'publish',
     'product_category_id',
     'user_id',
@@ -30,6 +31,7 @@ class Product extends Model implements HasMedia
     'publish' => 'boolean',
     'price' => 'decimal:2',
     'attributes' => 'array',
+    'cards' => 'array',
   ];
 
   /**

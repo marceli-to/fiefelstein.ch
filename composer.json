@@ -15,7 +15,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/scout": "^10.5",
         "laravel/tinker": "^2.8",
-        "livewire/livewire": "^3.0",
+        "livewire/livewire": "^3.4",
         "spatie/image": "^3.6",
         "spatie/laravel-honeypot": "^4.3",
         "spatie/laravel-ray": "^1.33"

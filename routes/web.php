@@ -15,3 +15,4 @@ use App\Http\Controllers\PageController;
 */
 
 Route::view('/', 'pages.home')->name('page.home');
+Route::view('/produkt/{id}', 'pages.product')->name('page.product');
