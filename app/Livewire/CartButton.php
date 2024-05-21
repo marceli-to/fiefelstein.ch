@@ -1,6 +1,5 @@
 <?php
 namespace App\Livewire;
-
 use App\Models\Product;
 use Livewire\Component;
 use Illuminate\Support\Collection;
@@ -8,6 +7,7 @@ use Illuminate\Support\Collection;
 class CartButton extends Component
 {
   public $productId;
+  public $itemsInCart;
   public $cart;
 
   public function mount($productId)
@@ -18,14 +18,16 @@ class CartButton extends Component
       'quantity' => 0,
       'total' => 0,
     ]);
+
+    $product = collect($this->cart['items'])->where('product_id', $this->productId)->first();
+    $this->itemsInCart = $product ? $product['quantity'] : 0;
   }
 
   public function addToCart($quantity)
   {
-    $product = Product::findOrFail($this->productId);
+    $product   = Product::findOrFail($this->productId);
     $cartItems = collect($this->cart['items']);
-
-    $cartItem = $cartItems->where('product_id', $product->id)->first();
+    $cartItem  = $cartItems->where('product_id', $product->id)->first();
 
     if ($cartItem)
     {
@@ -41,7 +43,10 @@ class CartButton extends Component
     } 
     else
     {
-      $this->addProductToCart($product, $quantity);
+      if ($quantity > 0)
+      {
+        $this->addProductToCart($product, $quantity);
+      }
     }
 
     $this->updateCartTotal();

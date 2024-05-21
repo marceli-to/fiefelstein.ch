@@ -19,11 +19,6 @@ class CartIcon extends Component
     $this->cartItemCount = $cart['quantity'] ?? 0;
   }
 
-  public function toggleCart()
-  {
-    $this->dispatch('cart-toggle');
-  }
-
   public function render()
   {
     return view('livewire.cart-icon');

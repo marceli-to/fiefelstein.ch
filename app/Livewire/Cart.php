@@ -14,16 +14,12 @@ class Cart extends Component
     $this->cart = session()->get('cart');
   }
 
-  #[On('cart-toggle')]
-  public function toggleCart()
-  {
-    $this->showCart = !$this->showCart;
-  }
-
   #[On('cart-updated')]
   public function updateCart()
   {
     $this->cart = session()->get('cart');
+    $this->dispatch('toggle-updated-cart');
+    $this->showCart = true;
   }
 
   public function render()
