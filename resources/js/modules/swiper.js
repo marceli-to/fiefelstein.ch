@@ -4,7 +4,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-let swiper = new Swiper('.swiper', {
+let swiper = new Swiper('.js-swiper-product', {
   modules: [Navigation],
   direction: 'horizontal',
   slidesPerView: "1",

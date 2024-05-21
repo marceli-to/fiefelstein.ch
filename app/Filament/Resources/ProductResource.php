@@ -95,46 +95,22 @@ class ProductResource extends Resource
           Toggle::make('publish')
             ->label('Publizieren')
             ->inline(false),
-
-          Repeater::make('cards')
-          ->schema([
-            Select::make('type')
-              ->options([
-                  'Image' => 'Bild',
-                  'Text' => 'Text',
-              ])
-              ->live()
-              ->reactive(),
-            FileUpload::make('image')
-              ->image()
-              ->imageEditor()
-              ->label('Bild')
-              ->visible(fn ($get) => $get('type') === 'Image'),
-            Textarea::make('text')
-              ->label('Text')
-              ->rows(6)
-              ->visible(fn ($get) => $get('type') === 'Text'),
-          ])
-          ->label('Slides')
-          ->itemLabel(fn (array $state): ?string => $state['type'] ?? null)
-          ->addActionLabel('Slide hinzufügen')
-          ->columnSpan('full'),
         ])->columnSpan([
           'default' => 12,
-          'lg' => 8,
+          'lg' => 7,
         ]),
-        Section::make('Bilder')
-        ->collapsible()
-        ->collapsed()
-        ->schema([
+
+        Section::make('Medien')
+          ->collapsible()
+          ->collapsed()
+          ->schema([
 
           SpatieMediaLibraryFileUpload::make('image')
-            ->label('Bilder')
+            ->label('Hauptbild')
             ->collection('product_images')
             ->image()
             ->imageEditor()
             ->downloadable()
-            ->multiple()
             ->reorderable()
             ->helperText('Erlaubte Dateitypen: JPG, PNG')
             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file, $get): string {
@@ -142,6 +118,30 @@ class ProductResource extends Resource
               $name = $fileName . '-' . uniqid() . '.' . $file->extension();
               return (string) str($name);
             }),
+
+            Repeater::make('cards')
+              ->label('Bilder / Texte')
+              ->itemLabel(fn (array $state): ?string => $state['type'] ?? null)
+              ->addActionLabel('Bild/Text hinzufügen')
+              ->columnSpan('full')
+              ->schema([
+                Select::make('type')
+                  ->options([
+                      'Image' => 'Bild',
+                      'Text' => 'Text',
+                  ])
+                  ->live()
+                  ->reactive(),
+                FileUpload::make('image')
+                  ->image()
+                  ->imageEditor()
+                  ->label('Bild')
+                  ->visible(fn ($get) => $get('type') === 'Image'),
+                Textarea::make('text')
+                  ->label('Text')
+                  ->rows(6)
+                  ->visible(fn ($get) => $get('type') === 'Text'),
+            ])
         ])->columnSpan([
           'default' => 12,
           'lg' => 5,

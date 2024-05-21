@@ -18,8 +18,15 @@ class Cart extends Component
   public function updateCart()
   {
     $this->cart = session()->get('cart');
-    $this->dispatch('toggle-updated-cart');
-    $this->showCart = true;
+
+    if ($this->cart['quantity'] == 0) {
+      $this->dispatch('hide-updated-cart');
+      $this->showCart = false;
+    }
+    else {
+      $this->dispatch('display-updated-cart');
+      $this->showCart = true;
+    }
   }
 
   public function render()

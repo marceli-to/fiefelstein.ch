@@ -21,6 +21,7 @@ export default {
       },
 
       colors: {
+        'flame': '#FF5000'
       },
 
       fontFamily: {
@@ -36,6 +37,14 @@ export default {
         'xl' : '1.875rem', // 30px
       },
 
+      zIndex: {
+        '60': '60',
+        '70': '70',
+        '80': '80',
+        '90': '90',
+        '100': '100',
+      },
+      
     },
 
     spacing: {

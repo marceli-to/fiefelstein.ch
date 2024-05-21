@@ -1,5 +1,9 @@
-<div class="swiper">
-  <div class="swiper-wrapper">
+@props([
+  'containerClass' => '',
+  'wrapperClass' => '',
+])
+<div class="swiper {{ $containerClass ?? '' }}">
+  <div class="swiper-wrapper {{ $wrapperClass ?? '' }}">
     {{ $slot }}
   </div>
   <div class="swiper-button-prev"></div>

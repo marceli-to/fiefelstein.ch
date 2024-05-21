@@ -9,9 +9,11 @@ $product = collect([
 ]);
 @endphp
 
-<div class="relative h-[calc(100%_-_90px)] mt-50">
+<div class="relative">
 
-  <x-swiper.wrapper>
+  <x-swiper.wrapper 
+    containerClass="js-swiper-product"
+    wrapperClass="swiper-product">
     <x-swiper.slide>
         <picture>
           <img src="/media/alice_01.jpg" alt="" height="1600" width="1600">
