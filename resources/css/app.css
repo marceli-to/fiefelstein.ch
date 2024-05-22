@@ -1,4 +1,5 @@
 @import "typo/webfonts.css";
+@import "components/headings.css";
 @import "vendor/swiper.css";
 
 @tailwind base;

@@ -79,6 +79,7 @@ class CartButton extends Component
     $this->cart['items'][] = [
       'product_id' => $product->id,
       'title' => $product->title,
+      'description' => $product->description,
       'price' => $product->price,
       'quantity' => $quantity,
     ];

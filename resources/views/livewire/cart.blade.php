@@ -3,21 +3,21 @@
   @toggle-cart.window="toggleCart"
   @display-updated-cart.window="showCart = true"
   @hide-updated-cart.window="showCart = false"
-  class="absolute">
+  class="relative">
   <div 
     x-cloak 
     x-show="showCart" 
-    class="fixed z-50 h-full w-1/6 bg-white top-0 right-16 pt-120 px-16 border-l border-l-black">
+    class="fixed z-50 h-full w-1/6 bg-white top-0 right-0 pt-80 px-16 border-l border-l-black">
     <h2>Warenkorb</h2>
-    <ul>
+    <ul class="w-full mt-40">
       @if (isset($cart['items']))
         @foreach($cart['items'] as $item)
-          <li>{{ $item['title'] }} - {{ $item['price'] }} - {{ $item['quantity'] }}</li>
+          <x-cart.item :item="$item" />
         @endforeach
       @endif
+      @if (isset($cart['total']))
+        <x-cart.total :cart="$cart" />
+      @endif
     </ul>
-    @if (isset($cart['total']))
-      Total: {{ $cart['total'] }}
-    @endif
   </div>
 </div>
