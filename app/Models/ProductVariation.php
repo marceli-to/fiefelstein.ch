@@ -4,13 +4,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Scout\Searchable;
 
-class Product extends Model
+class ProductVariation extends Model
 {
   use SoftDeletes;
 
   protected $fillable = [
-    'group_title',
     'title',
     'description',
     'price',
@@ -20,7 +20,7 @@ class Product extends Model
     'image',
     'publish',
     'sort',
-    'product_category_id',
+    'product_id',
     'user_id',
   ];
 
@@ -45,9 +45,9 @@ class Product extends Model
     ];
   }
 
-  public function category(): BelongsTo
+  public function product(): BelongsTo
   {
-    return $this->belongsTo(ProductCategory::class);
+    return $this->belongsTo(Product::class);
   }
 
   public function user(): BelongsTo
@@ -55,13 +55,4 @@ class Product extends Model
     return $this->belongsTo(User::class);
   }
 
-  public function variations(): HasMany
-  {
-    return $this->hasMany(ProductVariation::class);
-  }
-
-  public function scopePublished($query)
-  {
-    return $query->where('publish', true);
-  }
 }

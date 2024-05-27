@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductCategoryResource extends Resource
 {
+  protected static bool $shouldRegisterNavigation = false;
+  
   protected static ?string $model = ProductCategory::class;
 
   protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';

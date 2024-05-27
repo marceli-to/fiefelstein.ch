@@ -8,23 +8,26 @@
 }
 
 .swiper-wrapper.swiper-landing .swiper-slide img {
-  @apply w-full aspect-square object-cover
+  @apply h-[calc(100vh_-_60px)] w-full object-cover aspect-square
 }
 
-.swiper-wrapper.swiper-landing .swiper-slide div {
+/* .swiper-wrapper.swiper-landing .swiper-slide div {
   @apply bg-white flex items-center justify-center aspect-square
-}
+} */
+
+
+
 
 .swiper-wrapper.swiper-product .swiper-slide {
-  @apply w-full aspect-square
+  @apply w-full
 }
 
 .swiper-wrapper.swiper-product .swiper-slide img {
-  @apply h-[calc(100vh_-_145px)] w-full object-cover 
+  @apply h-[calc(100vh_-_185px)] w-full object-cover aspect-square
 }
 
 .swiper-wrapper.swiper-product .swiper-slide div {
-  @apply h-[calc(100vh_-_145px)] w-full object-cover 
+  @apply h-[calc(100vh_-_185px)] w-full object-cover 
 }
 
 .swiper-slide {

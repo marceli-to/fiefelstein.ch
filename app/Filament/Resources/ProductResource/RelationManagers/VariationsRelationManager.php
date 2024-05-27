@@ -1,9 +1,6 @@
 <?php
-namespace App\Filament\Resources;
-use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
+namespace App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
-use App\Models\ProductCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\Grid;
@@ -16,7 +13,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\FileUpload;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
@@ -33,37 +30,29 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Notifications\Notification; 
 
-class ProductResource extends Resource
+
+class VariationsRelationManager extends RelationManager
 {
-  protected static ?string $model = Product::class;
-  
-  protected static ?string $navigationIcon = 'heroicon-o-photo';
+  protected static string $relationship = 'variations';
 
-  protected static ?string $navigationLabel = 'Produkte';
+  protected static ?string $modelLabel = 'Produktvariation';
 
-  protected static ?string $modelLabel = 'Produkt';
+  protected static ?string $pluralModelLabel = 'Produktvariationen';
 
-  protected static ?string $pluralModelLabel = 'Produkte';
-
-  public static function form(Form $form): Form
+  public function form(Form $form): Form
   {
     return $form->schema([
       Grid::make()->schema([
         Section::make('Produkt')
         ->schema([
-
+          
           TextInput::make('title')
             ->label('Titel')
             ->required()
             ->columnSpan('full'),
 
-          TextInput::make('group_title')
-            ->label('Gruppen Titel')
-            ->columnSpan('full'),
-
           TextInput::make('description')
             ->label('Beschreibung')
-            ->required()
             ->columnSpan('full'),
 
           Repeater::make('attributes')
@@ -75,26 +64,9 @@ class ProductResource extends Resource
             ->addActionLabel('Attribut hinzufügen')
             ->columnSpan('full'),
 
-          Select::make('product_category_id')
-            ->label('Kategorie')
-            ->default(ProductCategory::first()->id)
-            ->options(ProductCategory::all()->sortBy('name')->pluck('name', 'id'))
-            ->columnSpan('full')
-            ->selectablePlaceholder(false)
-            ->createOptionForm([
-              TextInput::make('name')
-                ->required()
-                ->label('Kategorie'),
-            ])
-            ->createOptionAction(fn ($action) => $action->modalWidth('md'))
-            ->createOptionUsing(function (array $data): int {
-              return ProductCategory::create($data)->getKey();
-            }),
-
           TextInput::make('price')
             ->label('Preis')
             ->numeric()
-            ->required()
             ->columnSpan('full'),
 
           TextInput::make('quantity')
@@ -167,13 +139,14 @@ class ProductResource extends Resource
     ]);
   }
 
-  public static function table(Table $table): Table
+  public function table(Table $table): Table
   {
     return $table
+      ->heading('Variationen')
+      ->recordTitleAttribute('title')
       ->striped()
-      ->defaultSort('title', 'ASC')
       ->reorderable('sort')
-      ->defaultSort('sort', 'ASC')
+      ->defaultSort('title', 'ASC')
       ->columns([
         
         ImageColumn::make('image')
@@ -201,45 +174,34 @@ class ProductResource extends Resource
             ->searchable()
             ->sortable(),
       ])
+
       ->filters([
-        Tables\Filters\TrashedFilter::make(),
+      ])
+      ->headerActions([
+        Tables\Actions\CreateAction::make()->modalWidth('6xl'),
       ])
       ->actions([
         ActionGroup::make([
           EditAction::make(),
           DeleteAction::make(),
+          Action::make('duplicate')
+            ->label('Duplizieren')
+            ->icon('heroicon-o-clipboard-document')
+            ->action(function (array $data, $record): bool {
+              $record->title = $record->title . ' (Kopie)';
+              return $record->replicate()->save();
+            Notification::make()
+              ->title('Variation dupliziert')
+              ->body('Die Produktvariation wurde dupliziert')
+              ->success()
+              ->send();
+            })
         ]),
       ])
       ->bulkActions([
         Tables\Actions\BulkActionGroup::make([
           Tables\Actions\DeleteBulkAction::make(),
-          Tables\Actions\ForceDeleteBulkAction::make(),
-          Tables\Actions\RestoreBulkAction::make(),
         ]),
-      ]);
-  }
-
-  public static function getRelations(): array
-  {
-    return [
-      RelationManagers\VariationsRelationManager::class,
-    ];
-  }
-
-  public static function getPages(): array
-  {
-    return [
-      'index' => Pages\ListProducts::route('/'),
-      'create' => Pages\CreateProduct::route('/create'),
-      'edit' => Pages\EditProduct::route('/{record}/edit'),
-    ];
-  }
-
-  public static function getEloquentQuery(): Builder
-  {
-    return parent::getEloquentQuery()
-      ->withoutGlobalScopes([
-        SoftDeletingScope::class,
       ]);
   }
 }

@@ -1,5 +1,6 @@
 @extends('app')
 @section('content')
+{{-- 
 @php
 $product = collect([
   'id' => $id,
@@ -56,6 +57,6 @@ $product = collect([
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 
 @endsection

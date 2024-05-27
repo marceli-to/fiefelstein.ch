@@ -7,7 +7,7 @@
   <div 
     x-cloak 
     x-show="showCart" 
-    class="fixed z-50 h-full w-1/6 bg-white top-0 right-0 pt-80 px-16 border-l border-l-black">
+    class="fixed z-60 h-full w-full lg:w-1/6 bg-white top-0 right-0 pt-80 px-16 border-l border-l-black">
     <h2>Warenkorb</h2>
     <ul class="w-full mt-40">
       @if (isset($cart['items']))
