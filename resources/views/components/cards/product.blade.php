@@ -1,6 +1,6 @@
 @props(['product' => ''])
 <a 
-  href="{{ route('page.product.show', ['slug' => Str::slug($product->title), 'id' => $product->id]) }}"
+  href="{{ route('page.product.show', ['product' => $product->slug]) }}"
   title="{{ $product->title }}">
   <figure>
     <picture>

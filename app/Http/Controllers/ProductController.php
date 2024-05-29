@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use App\Actions\Product\GetProduct;
 use App\Models\Product;
 
 class ProductController extends BaseController
@@ -14,7 +15,7 @@ class ProductController extends BaseController
   public function show(Product $product)
   {  
     return view('pages.product.show', [
-      'product' => $product,
+      'product' => (new GetProduct())->execute($product),
     ]);
   }
 

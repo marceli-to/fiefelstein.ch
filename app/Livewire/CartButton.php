@@ -13,18 +13,14 @@ class CartButton extends Component
   public function mount($productId)
   {
     $this->productId = $productId;
-    $this->cart = session()->get('cart', [
-      'items' => [],
-      'quantity' => 0,
-      'total' => 0,
-    ]);
-
+    $this->cart = $this->getCart();
     $product = collect($this->cart['items'])->where('product_id', $this->productId)->first();
-    $this->itemsInCart = $product ? $product['quantity'] : 0;
+    $this->itemsInCart = $product ? 1 : 0;
   }
 
   public function addToCart($quantity)
   {
+    $this->cart = $this->getCart();
     $product   = Product::findOrFail($this->productId);
     $cartItems = collect($this->cart['items']);
     $cartItem  = $cartItems->where('product_id', $product->id)->first();
@@ -45,11 +41,30 @@ class CartButton extends Component
     {
       if ($quantity > 0)
       {
-        $this->addProductToCart($product, $quantity);
+        $this->addItemToCart($product, $quantity);
       }
     }
 
     $this->updateCartTotal();
+  }
+
+  public function updateCartTotal()
+  {
+    $this->cart['total'] = collect($this->cart['items'])->sum(function ($item) {
+      return $item['price'] * $item['quantity'];
+    });
+
+    session()->put('cart', $this->cart);
+    $this->dispatch('cart-updated');
+  }
+
+  public function getCart()
+  {
+    return session()->get('cart', [
+      'items' => [],
+      'quantity' => 0,
+      'total' => 0,
+    ]);
   }
 
   private function removeFromCart($product)
@@ -74,7 +89,7 @@ class CartButton extends Component
       ->all();
   }
 
-  private function addProductToCart($product, $quantity)
+  private function addItemToCart($product, $quantity)
   {
     $this->cart['items'][] = [
       'product_id' => $product->id,
@@ -83,18 +98,7 @@ class CartButton extends Component
       'price' => $product->price,
       'quantity' => $quantity,
     ];
-
     $this->cart['quantity']++;
-  }
-
-  public function updateCartTotal()
-  {
-    $this->cart['total'] = collect($this->cart['items'])->sum(function ($item) {
-      return $item['price'] * $item['quantity'];
-    });
-
-    session()->put('cart', $this->cart);
-    $this->dispatch('cart-updated');
   }
 
   public function render()

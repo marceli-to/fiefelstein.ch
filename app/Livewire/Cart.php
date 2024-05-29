@@ -6,7 +6,6 @@ use Livewire\Attributes\On;
 class Cart extends Component
 {
   public $cart;
-
   public $showCart = false;
 
   public function mount()
@@ -27,6 +26,31 @@ class Cart extends Component
       $this->dispatch('display-updated-cart');
       $this->showCart = true;
     }
+  }
+
+  public function removeCartItem($productId)
+  {
+    $this->cart = session()->get('cart');
+
+    // Remove the item from the cart
+    $this->cart['items'] = collect($this->cart['items'])
+      ->reject(function ($item) use ($productId) {
+        return $item['product_id'] == $productId;
+      })
+      ->values()
+      ->all();
+    
+    // update cart quantity
+    $this->cart['quantity'] = collect($this->cart['items'])->sum('quantity');
+
+    // update cart total
+    $this->cart['total'] = collect($this->cart['items'])->sum(function ($item) {
+      return $item['quantity'] * $item['price'];
+    });
+
+    session()->put('cart', $this->cart);
+    $this->dispatch('cart-updated');
+
   }
 
   public function render()

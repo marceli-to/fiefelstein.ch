@@ -1,5 +1,7 @@
 <?php
 namespace App\Models;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -7,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
-  use SoftDeletes;
+  use SoftDeletes, HasSlug;
 
   protected $fillable = [
     'group_title',
@@ -30,6 +32,14 @@ class Product extends Model
     'attributes' => 'array',
     'cards' => 'array',
   ];
+
+  /**
+   * Get the options for generating the slug.
+   */
+  public function getSlugOptions(): SlugOptions
+  {
+    return SlugOptions::create()->generateSlugsFrom('group_title')->saveSlugsTo('slug');
+  }
 
   /**
    * Get the indexable data array for the model.
@@ -63,5 +73,10 @@ class Product extends Model
   public function scopePublished($query)
   {
     return $query->where('publish', true);
+  }
+
+  public function getRouteKeyName()
+  {
+    return 'slug';
   }
 }

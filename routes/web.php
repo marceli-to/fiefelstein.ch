@@ -17,7 +17,7 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/', [LandingController::class, 'index'])->name('page.home');
 
-Route::get('/produkt/{slug?}/{id}', [ProductController::class, 'show'])->name('page.product.show');
+Route::get('/produkt/{product}', [ProductController::class, 'show'])->name('page.product.show');
 Route::get('/boutique', [ProductController::class, 'listing'])->name('page.product.listing');
 
 Route::get('/brocante', [PageController::class, 'brocante'])->name('page.brocante');

@@ -4,7 +4,7 @@
 }
 
 .swiper-wrapper.swiper-landing .swiper-slide {
-  @apply w-full aspect-square
+  @apply w-full
 }
 
 .swiper-wrapper.swiper-landing .swiper-slide img {

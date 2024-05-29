@@ -13,9 +13,9 @@ class BaseController extends Controller
     foreach($products as $product)
     {
       $menuItems[] = [
-        'title' => $product->title,
-        'url' => route('page.product.show', ['slug' => \Str::slug($product->title), 'id' => $product->id]),
-        'current' => request()->route()->parameter('id') == $product->id,
+        'title' => $product->group_title ?? $product->title,
+        'url' => route('page.product.show', ['product' => $product->slug]),
+        'current' => request()->route()->parameter('product') == $product->slug,
       ];
     }
     view()->share(['menuItems' => $menuItems]);

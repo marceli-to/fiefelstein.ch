@@ -3,7 +3,7 @@
   x-on:click="menu = ! menu"
   class="block mt-60 lg:mt-80 w-25 h-25">
   <span x-show="menu === false">
-    <x-icons.burger />
+    <x-icons.burger class="w-full h-20" />
   </span>
   <span x-cloak x-show="menu === true">
     <x-icons.cross-large />
