@@ -8,6 +8,12 @@ class EditProductVariation extends EditRecord
 {
   protected static string $resource = ProductVariationResource::class;
 
+  protected function mutateFormDataBeforeSave(array $data): array
+  {
+    $data['uuid'] = \Str::uuid();
+    return $data;
+  }
+
   protected function getHeaderActions(): array
   {
     return [

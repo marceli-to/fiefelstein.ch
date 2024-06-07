@@ -20,7 +20,7 @@ const SwiperLanding = (function() {
     spaceBetween: "16",
     breakpoints: {
       1024: {
-        slidesPerView: "2",
+        slidesPerView: "1.5",
       },
     },
     navigation: {

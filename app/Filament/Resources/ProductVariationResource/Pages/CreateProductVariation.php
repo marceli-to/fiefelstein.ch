@@ -7,4 +7,10 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateProductVariation extends CreateRecord
 {
   protected static string $resource = ProductVariationResource::class;
+
+  protected function mutateFormDataBeforeCreate(array $data): array
+  {
+    $data['uuid'] = \Str::uuid();
+    return $data;
+  }
 }

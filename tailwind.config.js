@@ -16,12 +16,18 @@ export default {
         'xs': '500px',
       },
 
+      minHeight: {
+        '30': '1.875rem',
+        '32': '2rem',
+      },
+
       maxWidth: {
         'screen': '1600px',
       },
 
       colors: {
-        'flame': '#FF5000'
+        'flame': '#FF5000',
+        'ivory': '#F0F0EB',
       },
 
       fontFamily: {

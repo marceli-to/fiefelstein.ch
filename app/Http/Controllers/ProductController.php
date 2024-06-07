@@ -14,6 +14,7 @@ class ProductController extends BaseController
    */
   public function show(Product $product)
   {  
+    //dd((new GetProduct())->execute($product));
     return view('pages.product.show', [
       'product' => (new GetProduct())->execute($product),
     ]);

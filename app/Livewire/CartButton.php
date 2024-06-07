@@ -1,30 +1,34 @@
 <?php
 namespace App\Livewire;
 use App\Models\Product;
+use App\Models\ProductVariation;
+use App\Actions\Product\FindProduct;
+use App\Actions\Product\FindProductVariation;
 use Livewire\Component;
 use Illuminate\Support\Collection;
 
 class CartButton extends Component
 {
-  public $productId;
+  public $productUuid;
+  public $isVariation;
   public $itemsInCart;
   public $cart;
 
-  public function mount($productId)
+  public function mount($productUuid, $isVariation)
   {
-    $this->productId = $productId;
+    $this->productUuid = $productUuid;
+    $this->isVariation = $isVariation;
     $this->cart = $this->getCart();
-    $product = collect($this->cart['items'])->where('product_id', $this->productId)->first();
-    $this->itemsInCart = $product ? 1 : 0;
+    $product = collect($this->cart['items'])->where('uuid', $this->productUuid)->first();
+    $this->itemsInCart = $product['quantity'] ?? 1;
   }
 
   public function addToCart($quantity)
   {
     $this->cart = $this->getCart();
-    $product   = Product::findOrFail($this->productId);
+    $product   = $this->isVariation ? (new FindProductVariation())->execute($this->productUuid) : (new FindProduct())->execute($this->productUuid);
     $cartItems = collect($this->cart['items']);
-    $cartItem  = $cartItems->where('product_id', $product->id)->first();
-
+    $cartItem  = $cartItems->where('uuid', $product->uuid)->first();
     if ($cartItem)
     {
       if ($quantity == 0)
@@ -71,7 +75,7 @@ class CartButton extends Component
   {
     $this->cart['items'] = collect($this->cart['items'])
       ->reject(function ($item) use ($product) {
-        return $item['product_id'] == $product->id;
+        return $item['uuid'] == $product->uuid;
       })
       ->values()
       ->all();
@@ -83,7 +87,7 @@ class CartButton extends Component
   {
     $this->cart['items'] = collect($this->cart['items'])
       ->map(function ($item) use ($cartItem) {
-        return $item['product_id'] == $cartItem['product_id'] ? $cartItem : $item;
+        return $item['uuid'] == $cartItem['uuid'] ? $cartItem : $item;
       })
       ->values()
       ->all();
@@ -92,7 +96,7 @@ class CartButton extends Component
   private function addItemToCart($product, $quantity)
   {
     $this->cart['items'][] = [
-      'product_id' => $product->id,
+      'uuid' => $product->uuid,
       'title' => $product->title,
       'description' => $product->description,
       'price' => $product->price,

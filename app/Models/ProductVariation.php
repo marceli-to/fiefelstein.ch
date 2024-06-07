@@ -11,6 +11,7 @@ class ProductVariation extends Model
   use SoftDeletes;
 
   protected $fillable = [
+    'uuid',
     'title',
     'description',
     'price',

@@ -3,7 +3,7 @@
 <section class="pb-20">
   <div class="flex flex-col gap-y-16 lg:hidden">
     @foreach ($products as $product)
-      <x-cards.product :product="$product" />
+      <x-product.cards.teaser :product="$product" />
     @endforeach
   </div>
 
@@ -13,7 +13,7 @@
       wrapperClass="swiper-landing">
       @foreach ($products as $product)
         <x-swiper.slide>
-          <x-cards.product :product="$product" />
+          <x-product.cards.teaser :product="$product" />
         </x-swiper.slide>
       @endforeach
     </x-swiper.wrapper>

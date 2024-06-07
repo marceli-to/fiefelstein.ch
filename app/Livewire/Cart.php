@@ -28,20 +28,18 @@ class Cart extends Component
     }
   }
 
-  public function removeCartItem($productId)
+  public function removeCartItem($productUuid)
   {
     $this->cart = session()->get('cart');
-
-    // Remove the item from the cart
     $this->cart['items'] = collect($this->cart['items'])
-      ->reject(function ($item) use ($productId) {
-        return $item['product_id'] == $productId;
+      ->reject(function ($item) use ($productUuid) {
+        return $item['uuid'] == $productUuid;
       })
       ->values()
       ->all();
     
     // update cart quantity
-    $this->cart['quantity'] = collect($this->cart['items'])->sum('quantity');
+    $this->cart['quantity']--;
 
     // update cart total
     $this->cart['total'] = collect($this->cart['items'])->sum(function ($item) {

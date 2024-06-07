@@ -12,6 +12,7 @@ class Product extends Model
   use SoftDeletes, HasSlug;
 
   protected $fillable = [
+    'uuid',
     'group_title',
     'title',
     'description',
@@ -67,7 +68,7 @@ class Product extends Model
 
   public function variations(): HasMany
   {
-    return $this->hasMany(ProductVariation::class);
+    return $this->hasMany(ProductVariation::class)->orderBy('sort');
   }
 
   public function scopePublished($query)

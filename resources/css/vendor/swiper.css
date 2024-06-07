@@ -23,11 +23,11 @@
 }
 
 .swiper-wrapper.swiper-product .swiper-slide img {
-  @apply h-[calc(100vh_-_185px)] w-full object-cover aspect-square
+  @apply md:h-[calc(100vh_-_185px)] w-full object-cover aspect-square
 }
 
 .swiper-wrapper.swiper-product .swiper-slide div {
-  @apply h-[calc(100vh_-_185px)] w-full object-cover 
+  @apply md:h-[calc(100vh_-_185px)] w-full object-cover 
 }
 
 .swiper-slide {

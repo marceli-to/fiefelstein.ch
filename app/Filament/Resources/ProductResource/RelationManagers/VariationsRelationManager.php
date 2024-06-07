@@ -178,7 +178,12 @@ class VariationsRelationManager extends RelationManager
       ->filters([
       ])
       ->headerActions([
-        Tables\Actions\CreateAction::make()->modalWidth('6xl'),
+        Tables\Actions\CreateAction::make()
+          ->modalWidth('6xl')
+          ->mutateFormDataUsing(function (array $data): array {
+            $data['uuid'] = \Str::uuid();
+            return $data;
+        })
       ])
       ->actions([
         ActionGroup::make([
