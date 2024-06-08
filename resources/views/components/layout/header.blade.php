@@ -1,4 +1,4 @@
-<header class="sticky lg:fixed top-0 lg:left-16 z-70 pt-20 w-full lg:w-157 h-145 lg:h-105 bg-white lg:bg-red-50 lg:bg-opacity-60 flex justify-between xl:justify-start">
+<header class="sticky lg:fixed top-0 lg:left-16 3xl:left-[calc((100vw/12)_-_118px)] z-70 pt-20 w-full lg:w-132 h-145 lg:h-79 bg-white lg:bg-transparent flex justify-between xl:justify-start">
   <x-icons.logo />
   <livewire:cart-icon />
   <livewire:cart />

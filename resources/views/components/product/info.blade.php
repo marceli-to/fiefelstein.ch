@@ -1,6 +1,6 @@
 @props(['product', 'parent' => null, 'isVariation' => false])
 <div 
-  {{ $attributes->merge(['class' => 'bg-white w-full mt-32 md:mt-0 lg:pl-16 md:absolute md:h-full md:z-30 md:top-0 lg:left-[calc((100%_/_12)_-_16px)] md:w-[calc((100%/6)+5px)]']) }}
+  {{ $attributes->merge(['class' => 'bg-white w-full mt-32 md:mt-0 lg:pl-16 md:absolute md:h-full md:z-30 md:top-0 lg:left-[calc((100%_/_12)_-_15px)] md:w-[calc((100%/6)_+_4px)]']) }}
   data-variation-wrapper="{{ $product->uuid }}">
   <div>
     <x-table.row class="font-europa-bold font-bold">
@@ -20,7 +20,7 @@
       CHF {{ $product->price }}
     </x-table.row>
 
-    <x-table.row class="italic">
+    <x-table.row class="italic border-b border-b-black">
       {{ $product->quantity }} Stück abholbereit
     </x-table.row>
 

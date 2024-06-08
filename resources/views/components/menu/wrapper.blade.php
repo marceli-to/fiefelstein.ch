@@ -7,7 +7,7 @@
   x-transition:leave="transition ease-in duration-0"
   x-transition:leave-start="opacity-100"
   x-transition:leave-end="opacity-0"
-  class="fixed left-0 top-145 lg:top-0 bg-white bg-opacity-90 w-full h-[calc(100vh_-_145px)] lg:h-full z-50">
+  class="fixed left-0 top-145 lg:top-0 bg-white bg-opacity-95 w-full h-[calc(100vh_-_145px)] lg:h-full z-50">
   <div class="px-16 lg:grid lg:grid-cols-12 lg:gap-x-16">
     <ul class="text-lg -mt-10 lg:mt-90 lg:col-span-5 lg:col-start-3">
       <li>Produkte</li>

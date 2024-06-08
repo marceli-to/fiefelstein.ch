@@ -15,9 +15,6 @@
   @apply bg-white flex items-center justify-center aspect-square
 } */
 
-
-
-
 .swiper-wrapper.swiper-product .swiper-slide {
   @apply w-full
 }
