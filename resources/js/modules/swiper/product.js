@@ -10,8 +10,18 @@ const Product = (function() {
     variation: {
       btn: '[data-variation-btn]',
       wrapper: '[data-variation-wrapper]',
-    }
+    },
+    swiper: {
+      container: '.js-swiper-product',
+      btns: {
+        prev: '.js-swiper-prev',
+        next: '.js-swiper-next',
+      },
+    },
+
   };
+
+  let swiper = null;
 
   const init = () => {
     initSwiper();
@@ -26,7 +36,7 @@ const Product = (function() {
   };
 
   const initSwiper = () => {
-    let swiper = new Swiper('.js-swiper-product', {
+    swiper = new Swiper(selectors.swiper.container, {
       modules: [Navigation],
       direction: 'horizontal',
       slidesPerView: "1",
@@ -38,10 +48,24 @@ const Product = (function() {
         },
       },
       navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        nextEl: selectors.swiper.btns.next,
+        prevEl: selectors.swiper.btns.prev,
       },
-    });  
+    }); 
+    
+    const prevBtn = document.querySelector(selectors.swiper.btns.prev);
+    const nextBtn = document.querySelector(selectors.swiper.btns.next);
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        swiper.slidePrev();
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        swiper.slideNext();
+      });
+    }
+
   };
 
   const toggleVariation = (uuid) => {

@@ -11,9 +11,9 @@
   @apply h-[calc(100vh_-_60px)] w-full object-cover aspect-square
 }
 
-/* .swiper-wrapper.swiper-landing .swiper-slide div {
-  @apply bg-white flex items-center justify-center aspect-square
-} */
+.swiper-wrapper.swiper-product {
+  @apply aspect-square md:aspect-auto
+}
 
 .swiper-wrapper.swiper-product .swiper-slide {
   @apply w-full
@@ -26,38 +26,3 @@
 .swiper-wrapper.swiper-product .swiper-slide div {
   @apply md:h-[calc(100vh_-_185px)] w-full object-cover 
 }
-
-.swiper-slide {
-  /* @apply flex items-center justify-center aspect-square */
-}
-
-/* .swiper .swiper-slide figure {
-  @apply aspect-square relative
-}
- */
-.swiper .swiper-slide {
-  /* @apply h-[calc(100vh_-_40px)] w-full   */
-}
-
-/* .swiper .swiper-slide img,
-.swiper .swiper-slide div {
-  @apply h-[calc(100vh_-_90px)] w-full object-cover 
-}
-
-.swiper .swiper-slide div {
-  @apply flex items-center justify-center p-32 bg-blue-100 aspect-square
-
-} */
-
-/* .swiper-button-next,
-.swiper-button-prev {
-  @apply absolute z-10 block h-30 w-20 bg-black top-1/2;
-}
-
-.swiper-button-prev {
-  @apply left-[calc(25%_+_48px)]
-}
-
-.swiper-button-next {
-  @apply right-[calc(25%_+_48px)]
-} */

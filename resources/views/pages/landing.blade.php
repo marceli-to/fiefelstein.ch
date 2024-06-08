@@ -9,6 +9,7 @@
 
   <div class="hidden lg:block lg:mt-20">
     <x-swiper.wrapper 
+      type="landing"
       containerClass="js-swiper-landing"
       wrapperClass="swiper-landing">
       @foreach ($products as $product)

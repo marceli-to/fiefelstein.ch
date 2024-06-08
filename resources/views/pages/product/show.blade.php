@@ -2,7 +2,10 @@
 @section('content')
 <div class="relative pb-32 md:pb-0 lg:mt-160">
 
-  <x-swiper.wrapper containerClass="js-swiper-product" wrapperClass="swiper-product">
+  <x-swiper.wrapper 
+    type="product"
+    containerClass="js-swiper-product" 
+    wrapperClass="swiper-product">
     @if ($product->image)
       <x-swiper.slide>
         <x-media.picture :image="$product->image" :alt="$product->title" />
