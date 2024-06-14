@@ -18,7 +18,6 @@ const Product = (function() {
         next: '.js-swiper-next',
       },
     },
-
   };
 
   let swiper = null;
@@ -29,13 +28,17 @@ const Product = (function() {
     // Add event listener for variation.btn click
     document.querySelectorAll(selectors.variation.btn).forEach(btn => {
       btn.addEventListener('click', function(e) {
-        toggleVariation(e.target.dataset.variationBtn);
+        // get event target parent a dataset.variationBtn
+        const uuid = e.target.closest(selectors.variation.btn).dataset.variationBtn;
+        toggleVariation(uuid);
+
       });
     });
 
   };
 
   const initSwiper = () => {
+    
     swiper = new Swiper(selectors.swiper.container, {
       modules: [Navigation],
       direction: 'horizontal',
@@ -43,6 +46,9 @@ const Product = (function() {
       centeredSlides: true,
       spaceBetween: "16",
       breakpoints: {
+        768: {
+          slidesPerView: "1.2",
+        },
         1024: {
           slidesPerView: "2",
         },
@@ -55,11 +61,13 @@ const Product = (function() {
     
     const prevBtn = document.querySelector(selectors.swiper.btns.prev);
     const nextBtn = document.querySelector(selectors.swiper.btns.next);
+
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
         swiper.slidePrev();
       });
     }
+
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
         swiper.slideNext();

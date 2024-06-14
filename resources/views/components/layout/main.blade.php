@@ -1,1 +1,3 @@
-{{ $slot }}
+<main>
+  {{ $slot }}
+</main>

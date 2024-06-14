@@ -1,8 +1,16 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-5a980b9f.css",
+    "file": "assets/app-0ac4a5d3.css",
     "isEntry": true,
     "src": "resources/css/app.css"
+  },
+  "resources/icons/radio-checked.svg": {
+    "file": "assets/radio-checked-755ab6e3.svg",
+    "src": "resources/icons/radio-checked.svg"
+  },
+  "resources/icons/radio-unchecked.svg": {
+    "file": "assets/radio-unchecked-dc084a9a.svg",
+    "src": "resources/icons/radio-unchecked.svg"
   },
   "resources/js/app.css": {
     "file": "assets/app-d66ac298.css",
@@ -12,7 +20,7 @@
     "css": [
       "assets/app-d66ac298.css"
     ],
-    "file": "assets/app-508b3682.js",
+    "file": "assets/app-0c1fcddc.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
