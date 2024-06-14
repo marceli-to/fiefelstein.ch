@@ -13,7 +13,7 @@
     containerClass="js-swiper-product" 
     wrapperClass="swiper-product">
     @if ($product->image)
-      <x-swiper.slide>
+      <x-swiper.slide productUuid="{{ $product->uuid }}">
         <x-media.picture :image="$product->image" :alt="$product->title" />
       </x-swiper.slide>
     @endif
@@ -33,7 +33,7 @@
       @foreach($product->variations as $variation)
         @if ($variation->cards)
           @foreach($variation->cards as $card)
-            <x-swiper.slide>
+            <x-swiper.slide productUuid="{{ $loop->first ? $variation->uuid : '' }}">
               @if ($card['type'] == 'Bild')
                 <x-media.picture :image="$card['image']" :alt="$product->title" />
               @endif

@@ -86,6 +86,21 @@ const Product = (function() {
     // show variation wrapper
     document.querySelector(`[data-variation-wrapper="${uuid}"]`).classList.remove('hidden');
 
+    // find the slide with data-product-uuid
+    const slide = document.querySelector(`[data-product-uuid="${uuid}"]`);
+   
+    // get all slides
+    const slides = document.querySelectorAll('.swiper-slide');
+
+    // get the index of the slide in the slides
+    const index = Array.from(slides).indexOf(slide);
+
+    // slide to the index
+    swiper.slideTo(index);
+
+    console.log(slides);
+
+
   };
 
   return {
