@@ -35,7 +35,7 @@
           @foreach($variation->cards as $card)
             <x-swiper.slide productUuid="{{ $loop->first ? $variation->uuid : '' }}">
               @if ($card['type'] == 'Bild')
-                <x-media.picture :image="$card['image']" :alt="$product->title" />
+                <x-media.picture :image="$card['image']" :alt="$product->title" :lazy="false" />
               @endif
               @if ($card['type'] == 'Text')
                 <x-product.cards.text :text="$card['text']" />
