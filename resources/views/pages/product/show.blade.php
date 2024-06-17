@@ -13,12 +13,14 @@
   <div 
     class="hidden lg:block absolute inset-0 z-20 m-32 left-[calc((100%_/_4))] top-0 w-[calc((100%/2)_-_64px)] h-[calc(100vh_-_249px)]"
     x-cloak
-    x-show="shippingInfo">
-    <div class="bg-flame font-europa-bold font-bold text-white text-lg w-full h-full p-32 relative">
+    x-show="shippingInfo"
+    x-on:click.outside="shippingInfo = false"
+    x-on:keyup.escape.window="shippingInfo = false">
+    <div class="bg-flame font-europa-bold font-bold text-white text-lg w-full h-full p-22 pr-64 relative">
       <a
         href="javascript:;"
         x-on:click="shippingInfo = !shippingInfo"
-        class="absolute right-16 top-16"
+        class="absolute right-32 top-32"
         title="Versandinstruktionen verbergen">
         <x-icons.cross-large />
       </a>
