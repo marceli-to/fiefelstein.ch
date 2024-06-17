@@ -1,5 +1,5 @@
 import Swiper from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -21,17 +21,15 @@ const Product = (function() {
   };
 
   let swiper = null;
+  let currentProductUuid = null;
 
   const init = () => {
     initSwiper();
 
-    // Add event listener for variation.btn click
     document.querySelectorAll(selectors.variation.btn).forEach(btn => {
       btn.addEventListener('click', function(e) {
-        // get event target parent a dataset.variationBtn
         const uuid = e.target.closest(selectors.variation.btn).dataset.variationBtn;
         toggleVariation(uuid);
-
       });
     });
 
@@ -57,6 +55,23 @@ const Product = (function() {
         nextEl: selectors.swiper.btns.next,
         prevEl: selectors.swiper.btns.prev,
       },
+      on: {
+
+        init: function () {
+          const currentSlide = document.querySelector('.swiper-slide-active');
+          currentProductUuid = currentSlide.dataset.productUuid;
+        },
+
+        slideChangeTransitionStart: function () {
+          const currentSlide = document.querySelector('.swiper-slide-active');
+          let nextProductUuid = currentSlide.dataset.productUuid;
+
+          if (nextProductUuid && currentProductUuid !== nextProductUuid) {
+            toggleVariation(nextProductUuid, false);
+            currentProductUuid = nextProductUuid;
+          }
+        }
+      },
     }); 
     
     const prevBtn = document.querySelector(selectors.swiper.btns.prev);
@@ -76,7 +91,7 @@ const Product = (function() {
 
   };
 
-  const toggleVariation = (uuid) => {
+  const toggleVariation = (uuid, changeSlides = true) => {
 
     // hide all variation wrappers
     document.querySelectorAll(selectors.variation.wrapper).forEach(wrapper => {
@@ -87,7 +102,9 @@ const Product = (function() {
     document.querySelector(`[data-variation-wrapper="${uuid}"]`).classList.remove('hidden');
 
     // go to slide
-    goToSlide(uuid);
+    if (changeSlides) {
+      goToSlide(uuid);
+    }
 
   };
 

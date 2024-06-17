@@ -1,21 +1,21 @@
 <div class="fixed left-16 top-0 w-[calc(100%_-_32px)] h-full -z-[1] hidden md:block pointer-events-auto">
   <div class="md:grid md:grid-cols-12 gap-x-16">
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
-    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200 2xl:bg-red-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
+    <div class="md:col-span-1 bg-opacity-50 min-h-screen bg-orange-200"></div>
   </div>
 </div>
 <div class="fixed right-16 bottom-16 px-10 py-5 bg-red-500 text-white text-sm uppercase z-[2000]">

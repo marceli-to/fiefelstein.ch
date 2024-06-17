@@ -53,5 +53,17 @@
     @endif
 
     <livewire:cart-button :productUuid="$product->uuid" :key="$product->uuid" :isVariation="$isVariation" />
+
+    <x-table.row class="hidden lg:flex mt-64 border-none">
+      <a 
+        href="javascript:;" 
+        :class="{ '!border-y-flame !text-flame': shippingInfo }"
+        x-on:click="shippingInfo = !shippingInfo"
+        class="min-h-32 w-full flex items-center leading-none space-x-6 hover:text-flame group-hover:text-flame border-y border-y-black hover:border-y-flame transition-all"
+        title="Versandinstruktionen anzeigen">
+        <x-icons.chevron-right-tiny class="w-6 h-auto" />
+        <span>Versandinformationen</span>
+      </a>
+    </x-table.row>
   </div>
 </div>
