@@ -69,6 +69,11 @@ class VariationsRelationManager extends RelationManager
             ->numeric()
             ->columnSpan('full'),
 
+          TextInput::make('shipping')
+            ->label('Verpackung und Versand')
+            ->numeric()
+            ->columnSpan('full'),
+
           TextInput::make('quantity')
             ->label('Anzahl verfügbar')
             ->integer()

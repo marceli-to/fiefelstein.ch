@@ -97,6 +97,11 @@ class ProductResource extends Resource
             ->required()
             ->columnSpan('full'),
 
+          TextInput::make('shipping')
+            ->label('Verpackung und Versand')
+            ->numeric()
+            ->columnSpan('full'),
+
           TextInput::make('quantity')
             ->label('Anzahl verfügbar')
             ->integer()

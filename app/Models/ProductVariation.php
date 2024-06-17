@@ -15,6 +15,7 @@ class ProductVariation extends Model
     'title',
     'description',
     'price',
+    'shipping',
     'quantity',
     'attributes',
     'cards',
@@ -28,6 +29,7 @@ class ProductVariation extends Model
   protected $casts = [
     'publish' => 'boolean',
     'price' => 'decimal:2',
+    'shipping' => 'decimal:2',
     'attributes' => 'array',
     'cards' => 'array',
   ];
