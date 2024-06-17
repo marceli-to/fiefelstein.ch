@@ -23,7 +23,7 @@ Route::get('/brocante', [PageController::class, 'brocante'])->name('page.brocant
 Route::get('/idee', [PageController::class, 'idea'])->name('page.idea');
 Route::get('/kontakt', [PageController::class, 'contact'])->name('page.contact');
 
-Route::get('/warenkorb/uebersicht', [CheckoutController::class, 'index'])->name('page.basket.overview');
+Route::get('/bestellung/uebersicht', [CheckoutController::class, 'index'])->name('page.order.overview');
 
 Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}/{ratio?}', [ImageController::class, 'getResponse']);
 

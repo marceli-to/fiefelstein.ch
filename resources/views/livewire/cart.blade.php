@@ -77,7 +77,7 @@
           </x-table.row>
           <x-table.row class="border-none">
             <a 
-              href="{{ route('page.basket.overview') }}" 
+              href="{{ route('page.order.overview') }}" 
               class="font-europa-bold font-bold min-h-32 w-full flex items-center leading-none space-x-6 hover:text-flame group-hover:text-flame border-y border-y-black hover:border-y-flame transition-all"
               title="Bestellung abschliessen">
               <x-icons.chevron-right-tiny class="w-6 h-auto" />
