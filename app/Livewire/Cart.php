@@ -48,7 +48,6 @@ class Cart extends Component
       return $item['quantity'] * $item['price'];
     });
 
-    // session()->put('cart', $this->cart);
     (new StoreCart())->execute($this->cart);
     $this->dispatch('cart-updated');
 

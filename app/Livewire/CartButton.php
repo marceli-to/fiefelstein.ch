@@ -55,7 +55,6 @@ class CartButton extends Component
       return $item['price'] * $item['quantity'];
     });
 
-    // session()->put('cart', $this->cart);
     (new StoreCart())->execute($this->cart);
     $this->dispatch('cart-updated');
   }
@@ -89,7 +88,9 @@ class CartButton extends Component
       'title' => $product->title,
       'description' => $product->description,
       'price' => $product->price,
+      'shipping' => $product->shipping,
       'quantity' => $quantity,
+      'image' => $product->image,
     ];
     $this->cart['quantity']++;
   }
