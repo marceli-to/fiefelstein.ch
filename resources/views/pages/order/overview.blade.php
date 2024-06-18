@@ -7,8 +7,11 @@
   <div class="hidden md:block md:col-span-2 md:col-start-2">
     [Basket Nav]
   </div>
-  <div class="md:col-span-6">
-    <livewire:cart-summary />
+  <div class="md:col-span-4 bg-yellow-100">
+    @foreach($cart['items'] as $item)
+      <livewire:cart-item :productUuid="$item['uuid']" :key="$item['uuid']" />
+    @endforeach
+    {{-- <livewire:cart-total /> --}}
   </div>
 </div>
 @endsection

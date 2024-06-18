@@ -66,7 +66,7 @@
 
   @if ($product->variations->count() > 0)
     @foreach($product->variations as $variation)
-      <x-product.info :product="$variation" :parent="$product" isVariation="true" class="hidden" />
+      <x-product.info :product="$variation" :parent="$product" class="hidden" />
     @endforeach
   @endif
 

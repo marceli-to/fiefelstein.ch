@@ -1,4 +1,4 @@
-@props(['product', 'parent' => null, 'isVariation' => false])
+@props(['product', 'parent' => null])
 <div 
   {{ $attributes->merge(['class' => 'bg-white w-full mt-32 md:mt-0 lg:pl-16 md:absolute md:h-full md:z-30 md:top-0 lg:left-[calc((100%_/_12)_-_15px)] md:w-[calc((100%/6)_+_19px)]']) }}
   data-variation-wrapper="{{ $product->uuid }}">
@@ -52,7 +52,7 @@
 
     @endif
 
-    <livewire:cart-button :productUuid="$product->uuid" :key="$product->uuid" :isVariation="$isVariation" />
+    <livewire:cart-button :productUuid="$product->uuid" :key="$product->uuid" />
 
     <x-table.row class="hidden lg:flex mt-64 border-none">
       <a 

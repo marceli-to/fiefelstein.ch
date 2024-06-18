@@ -2,6 +2,8 @@
 namespace App\Livewire;
 use Livewire\Component;
 use Livewire\Attributes\On; 
+use App\Actions\Cart\GetCart;
+use App\Actions\Cart\StoreCart;
 
 class Cart extends Component
 {
@@ -10,13 +12,13 @@ class Cart extends Component
 
   public function mount()
   {
-    $this->cart = session()->get('cart');
+    $this->cart = (new GetCart())->execute();
   }
 
   #[On('cart-updated')]
   public function updateCart()
   {
-    $this->cart = session()->get('cart');
+    $this->cart = (new GetCart())->execute();
 
     if ($this->cart['quantity'] == 0) {
       $this->dispatch('hide-updated-cart');
@@ -30,7 +32,7 @@ class Cart extends Component
 
   public function removeCartItem($productUuid)
   {
-    $this->cart = session()->get('cart');
+    $this->cart = (new GetCart())->execute();
     $this->cart['items'] = collect($this->cart['items'])
       ->reject(function ($item) use ($productUuid) {
         return $item['uuid'] == $productUuid;
@@ -46,7 +48,8 @@ class Cart extends Component
       return $item['quantity'] * $item['price'];
     });
 
-    session()->put('cart', $this->cart);
+    // session()->put('cart', $this->cart);
+    (new StoreCart())->execute($this->cart);
     $this->dispatch('cart-updated');
 
   }

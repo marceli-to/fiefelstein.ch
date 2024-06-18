@@ -6,9 +6,10 @@ use App\Actions\Product\FindProduct;
 use App\Actions\Cart\GetCart;
 use App\Actions\Cart\StoreCart;
 
-class CartButton extends Component
+class CartItem extends Component
 {
   public $productUuid;
+  public $product;
   public $itemsInCart;
   public $cart;
 
@@ -16,7 +17,7 @@ class CartButton extends Component
   {
     $this->productUuid = $productUuid;
     $this->cart = (new GetCart())->execute();
-    $product = collect($this->cart['items'])->where('uuid', $this->productUuid)->first();
+    $this->product = collect($this->cart['items'])->where('uuid', $this->productUuid)->first();
     $this->itemsInCart = $product['quantity'] ?? 1;
   }
 
@@ -55,7 +56,6 @@ class CartButton extends Component
       return $item['price'] * $item['quantity'];
     });
 
-    // session()->put('cart', $this->cart);
     (new StoreCart())->execute($this->cart);
     $this->dispatch('cart-updated');
   }
@@ -96,6 +96,6 @@ class CartButton extends Component
 
   public function render()
   {
-    return view('livewire.cart-button');
+    return view('livewire.cart-item');
   }
 }

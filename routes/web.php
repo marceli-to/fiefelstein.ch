@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ Route::get('/brocante', [PageController::class, 'brocante'])->name('page.brocant
 Route::get('/idee', [PageController::class, 'idea'])->name('page.idea');
 Route::get('/kontakt', [PageController::class, 'contact'])->name('page.contact');
 
-Route::get('/bestellung/uebersicht', [CheckoutController::class, 'index'])->name('page.order.overview');
+Route::get('/bestellung/uebersicht', [OrderController::class, 'index'])->name('page.order.overview');
 
 Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}/{ratio?}', [ImageController::class, 'getResponse']);
 
