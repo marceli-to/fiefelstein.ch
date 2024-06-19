@@ -21,7 +21,7 @@
     </x-table.row>
 
     <x-table.row class="italic border-b border-b-black">
-      {{ $product->quantity }} Stück abholbereit
+      {{ $product->stock }} Stück abholbereit
     </x-table.row>
 
     @if ($parent && $parent->variations && $parent->variations->count() > 0)

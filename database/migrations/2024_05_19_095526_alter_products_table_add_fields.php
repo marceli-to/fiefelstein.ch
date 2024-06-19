@@ -14,7 +14,7 @@ return new class extends Migration
       Schema::table('products', function (Blueprint $table) {
         $table->text('description')->nullable()->after('title');
         $table->decimal('price', 10, 2)->nullable()->after('description');
-        $table->integer('quantity')->nullable()->after('price');
+        $table->integer('stock')->nullable()->after('price');
       });
     }
 

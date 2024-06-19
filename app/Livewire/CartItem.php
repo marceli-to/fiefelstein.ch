@@ -8,90 +8,74 @@ use App\Actions\Cart\StoreCart;
 
 class CartItem extends Component
 {
-  public $productUuid;
+  public $uuid;
+  public $item;
+  public $quantity;
+  public $total;
+  public $shipping;
   public $product;
-  public $itemsInCart;
   public $cart;
 
-  public function mount($productUuid)
+  public function mount($uuid)
   {
-    $this->productUuid = $productUuid;
+    $this->uuid = $uuid;
     $this->cart = (new GetCart())->execute();
-    $this->product = collect($this->cart['items'])->where('uuid', $this->productUuid)->first();
-    $this->itemsInCart = $product['quantity'] ?? 1;
+    $this->item = collect($this->cart['items'])->where('uuid', $this->uuid)->first();
+    $this->quantity = $this->item['quantity'] ?? 1;
+    $this->product = (new FindProduct())->execute($this->uuid);
+    $this->setTotal();
   }
 
-  public function addToCart($quantity)
+  public function decrement()
   {
-    $this->cart = (new GetCart())->execute();
-    $product   = (new FindProduct())->execute($this->productUuid);
-    $cartItems = collect($this->cart['items']);
-    $cartItem  = $cartItems->where('uuid', $product->uuid)->first();
-    if ($cartItem)
+    if ($this->quantity > 1)
     {
-      if ($quantity == 0)
-      {
-        $this->removeFromCart($product);
-      }
-      else
-      {
-        $cartItem['quantity'] = $quantity;
-        $this->updateCartItem($cartItem);
-      }
+      $this->quantity--;
     } 
     else
     {
-      if ($quantity > 0)
-      {
-        $this->addItemToCart($product, $quantity);
-      }
+      $this->quantity = 1;
     }
 
-    $this->updateCartTotal();
+    $this->update();
   }
 
-  public function updateCartTotal()
+  public function increment()
   {
+    $this->quantity = ($this->quantity < $this->product->stock) ? $this->quantity + 1 : $this->product->stock;
+    $this->update();
+  }
+
+  public function update()
+  {
+    if ($this->quantity < 1)
+    {
+      $this->quantity = 1;
+    }
+    $this->quantity = ($this->quantity < $this->product->stock) ? $this->quantity + 1 : $this->product->stock;
+    $this->setTotal();
+
+    // update the cart
+    $this->cart['items'] = collect($this->cart['items'])->map(function ($item) {
+      if ($item['uuid'] == $this->uuid) {
+        $item['quantity'] = $this->quantity;
+      }
+      return $item;
+    })->toArray();
+
+    // update the cart total
     $this->cart['total'] = collect($this->cart['items'])->sum(function ($item) {
       return $item['price'] * $item['quantity'];
     });
 
+    // store the cart
     (new StoreCart())->execute($this->cart);
-    $this->dispatch('cart-updated');
   }
 
-  private function removeFromCart($product)
+  private function setTotal()
   {
-    $this->cart['items'] = collect($this->cart['items'])
-      ->reject(function ($item) use ($product) {
-        return $item['uuid'] == $product->uuid;
-      })
-      ->values()
-      ->all();
-
-    $this->cart['quantity']--;
-  }
-
-  private function updateCartItem($cartItem)
-  {
-    $this->cart['items'] = collect($this->cart['items'])
-      ->map(function ($item) use ($cartItem) {
-        return $item['uuid'] == $cartItem['uuid'] ? $cartItem : $item;
-      })
-      ->values()
-      ->all();
-  }
-
-  private function addItemToCart($product, $quantity)
-  {
-    $this->cart['items'][] = [
-      'uuid' => $product->uuid,
-      'title' => $product->title,
-      'description' => $product->description,
-      'price' => $product->price,
-      'quantity' => $quantity,
-    ];
-    $this->cart['quantity']++;
+    $this->total = number_format($this->item['price'] * $this->quantity, 2, '.', '&thinsp;');
+    $this->shipping = number_format($this->item['shipping'] * $this->quantity, 2, '.', '&thinsp;');
   }
 
   public function render()

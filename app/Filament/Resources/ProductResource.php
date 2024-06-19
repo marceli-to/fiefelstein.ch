@@ -102,7 +102,7 @@ class ProductResource extends Resource
             ->numeric()
             ->columnSpan('full'),
 
-          TextInput::make('quantity')
+          TextInput::make('stock')
             ->label('Anzahl verfügbar')
             ->integer()
             ->required()
@@ -201,7 +201,7 @@ class ProductResource extends Resource
             ->searchable()
             ->sortable(),
 
-          TextColumn::make('quantity')
+          TextColumn::make('stock')
             ->label('Verfügbar')
             ->searchable()
             ->sortable(),

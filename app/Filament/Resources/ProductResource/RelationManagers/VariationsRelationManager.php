@@ -74,7 +74,7 @@ class VariationsRelationManager extends RelationManager
             ->numeric()
             ->columnSpan('full'),
 
-          TextInput::make('quantity')
+          TextInput::make('stock')
             ->label('Anzahl verfügbar')
             ->integer()
             ->required()
@@ -174,7 +174,7 @@ class VariationsRelationManager extends RelationManager
             ->searchable()
             ->sortable(),
 
-          TextColumn::make('quantity')
+          TextColumn::make('stock')
             ->label('Verfügbar')
             ->searchable()
             ->sortable(),
