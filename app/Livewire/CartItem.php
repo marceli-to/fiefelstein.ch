@@ -28,15 +28,11 @@ class CartItem extends Component
 
   public function decrement()
   {
-    if ($this->quantity > 1)
+    $this->quantity--;
+    if ($this->quantity == 0)
     {
-      $this->quantity--;
-    } 
-    else
-    {
-      $this->quantity = 1;
+      return $this->remove();
     }
-
     $this->update();
   }
 
@@ -46,13 +42,18 @@ class CartItem extends Component
     $this->update();
   }
 
+  public function change()
+  {
+    if ($this->quantity == 0)
+    {
+      return $this->remove();
+    }
+    $this->quantity = ($this->quantity < $this->product->stock) ? $this->quantity : $this->product->stock;
+    $this->update();
+  }
+
   public function update()
   {
-    if ($this->quantity < 1)
-    {
-      $this->quantity = 1;
-    }
-    $this->quantity = ($this->quantity < $this->product->stock) ? $this->quantity + 1 : $this->product->stock;
     $this->setTotal();
 
     // update the cart
@@ -70,6 +71,22 @@ class CartItem extends Component
 
     // store the cart
     (new StoreCart())->execute($this->cart);
+  }
+
+  private function remove()
+  {
+    $this->cart['items'] = collect($this->cart['items'])
+    ->reject(function ($item) {
+      return $item['uuid'] == $this->uuid;
+    })
+    ->values()
+    ->all();
+    $this->cart['quantity']--;
+    $this->cart['total'] = collect($this->cart['items'])->sum(function ($item) {
+      return $item['price'] * $item['quantity'];
+    });
+    (new StoreCart())->execute($this->cart);
+    return redirect()->route('order.overview');
   }
 
   private function setTotal()

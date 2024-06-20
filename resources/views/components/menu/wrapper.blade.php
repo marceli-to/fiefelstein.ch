@@ -19,16 +19,16 @@
         @endforeach
       @endif
       <li class="my-12">
-        <x-menu.item title="Brocante" :url="route('page.brocante')" :current="request()->routeIs('page.brocante')" />
+        <x-menu.item title="Brocante" :url="route('brocante')" :current="request()->routeIs('brocante')" />
       </li>
       <li class="my-12">
-        <x-menu.item title="Boutique" :url="route('page.product.listing')" :current="request()->routeIs('page.product.listing')" />
+        <x-menu.item title="Boutique" :url="route('product.listing')" :current="request()->routeIs('product.listing')" />
       </li>
       <li class="my-12">
-        <x-menu.item title="Idee" :url="route('page.idea')" :current="request()->routeIs('page.idea')" />
+        <x-menu.item title="Idee" :url="route('idea')" :current="request()->routeIs('idea')" />
       </li>
       <li class="my-12">
-        <x-menu.item title="Kontakt" :url="route('page.contact')" :current="request()->routeIs('page.contact')" />
+        <x-menu.item title="Kontakt" :url="route('contact')" :current="request()->routeIs('contact')" />
       </li>
     </ul>
   </div>

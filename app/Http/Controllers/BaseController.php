@@ -6,6 +6,7 @@ use App\Models\Product;
 
 class BaseController extends Controller
 {
+  protected $cart;
   public function __construct()
   {
     $products = Product::published()->orderBy('sort')->get();
@@ -14,7 +15,7 @@ class BaseController extends Controller
     {
       $menuItems[] = [
         'title' => $product->group_title ?? $product->title,
-        'url' => route('page.product.show', ['product' => $product->slug]),
+        'url' => route('product.show', ['product' => $product->slug]),
         'current' => request()->route()->parameter('product') == $product->slug,
       ];
     }

@@ -1,8 +1,12 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-a9aa3285.css",
+    "file": "assets/app-ebdf0adf.css",
     "isEntry": true,
     "src": "resources/css/app.css"
+  },
+  "resources/icons/chevron-down-tiny.svg": {
+    "file": "assets/chevron-down-tiny-07bd5436.svg",
+    "src": "resources/icons/chevron-down-tiny.svg"
   },
   "resources/icons/radio-checked.svg": {
     "file": "assets/radio-checked-755ab6e3.svg",
