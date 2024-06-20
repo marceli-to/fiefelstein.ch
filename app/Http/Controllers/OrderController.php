@@ -4,6 +4,7 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use App\Http\Requests\InvoiceAddressStoreRequest;
 use App\Http\Requests\ShippingAddressStoreRequest;
+use App\Http\Requests\PaymentMethodStoreRequest;
 use App\Actions\Cart\GetCart;
 use App\Actions\Cart\StoreCart;
 use App\Actions\Cart\UpdateCart;
@@ -22,7 +23,7 @@ class OrderController extends BaseController
   {
     return view('pages.order.invoice-address', [
       'cart' => (new GetCart())->execute(),
-      'order_step' => $this->handleStep(2),
+      'order_step' => $this->handleStep(1),
     ]);
   }
 
@@ -30,7 +31,7 @@ class OrderController extends BaseController
   {
     $cart = (new UpdateCart())->execute([
       'invoice_address' => $request->only(
-        ['firstname', 'name']
+        ['salutation', 'company', 'firstname', 'name', 'street', 'zip', 'city', 'country', 'email']
       ),
       'order_step' => $this->handleStep(2),
     ]);
@@ -48,7 +49,9 @@ class OrderController extends BaseController
   public function storeShipping(ShippingAddressStoreRequest $request)
   {
     $cart = (new UpdateCart())->execute([
-      'shipping_address' => $request->only(['firstname', 'name']),
+      'shipping_address' => $request->only(
+        ['use_invoice_address', 'company', 'firstname', 'name', 'street', 'zip', 'city', 'country']
+      ),
       'order_step' => $this->handleStep(3),
     ]);
     return redirect()->route('order.payment');
@@ -62,10 +65,20 @@ class OrderController extends BaseController
     ]);
   }
 
+  public function storePaymentMethod(PaymentMethodStoreRequest $request)
+  {
+    $cart = (new UpdateCart())->execute([
+      'payment_method' => $request->payment_method,
+      'order_step' => $this->handleStep(4),
+    ]);
+    return redirect()->route('order.summary');
+  }
+
   public function summary()
   {
     return view('pages.order.summary', [
       'cart' => (new GetCart())->execute(),
+      'order_step' => $this->handleStep(5),
     ]);
   }
 

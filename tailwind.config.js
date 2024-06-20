@@ -20,6 +20,8 @@ export default {
       minHeight: {
         '30': '1.875rem',
         '32': '2rem',
+        '34': '2.125rem',
+        '64': '4rem',
       },
 
       maxWidth: {

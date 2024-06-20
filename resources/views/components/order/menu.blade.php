@@ -16,15 +16,19 @@ $routes = [
     'label' => 'Zahlung',
     'order_step' => 4
   ],
+  'summary' => [
+    'label' => 'Zusammenfassung',
+    'order_step' => 5
+  ],
   'confirmation' => [
     'label' => 'Bestätigung',
-    'order_step' => 5
+    'order_step' => 6
   ],
 ];  
 @endphp
 @props(['order_step' => 1])
 <nav>
-  <ul class="divide-y divide-black border-t border-t-black">
+  <ul class="divide-y divide-black border-y border-y-black">
     @foreach ($routes as $key => $route)
       <li>
         @if ($order_step >= $route['order_step'] || request()->routeIs('order.' . $key))

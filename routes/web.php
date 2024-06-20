@@ -29,6 +29,7 @@ Route::post('/bestellung/rechnungsadresse/speichern', [OrderController::class, '
 Route::get('/bestellung/lieferadresse', [OrderController::class, 'shipping'])->name('order.shipping-address');
 Route::post('/bestellung/lieferadresse/speichern', [OrderController::class, 'storeShipping'])->name('order.shipping-address-store');
 Route::get('/bestellung/zahlung', [OrderController::class, 'payment'])->name('order.payment');
+Route::post('/bestellung/zahlungsmethode/speichern', [OrderController::class, 'storePaymentMethod'])->name('order.payment-method-store');
 Route::get('/bestellung/zusammenfassung', [OrderController::class, 'summary'])->name('order.summary');
 Route::get('/bestellung/bestaetigung', [OrderController::class, 'confirmation'])->name('order.confirmation');
 

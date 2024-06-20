@@ -1,8 +1,14 @@
 @extends('app')
 @section('content')
-<x-layout.page-title>
-  Rechnungsadresse
-</x-layout.page-title>
+@if ($errors->any())
+  <x-form.errors>
+    Bitte fülle alle Pflichtfelder aus.
+  </x-form.errors>
+@else
+  <x-layout.page-title>
+    Rechnungsadresse
+  </x-layout.page-title>
+@endif
 <div class="md:grid md:grid-cols-12 gap-x-16 lg:mt-30">
   <div class="hidden md:block md:col-span-2 md:col-start-2">
     <x-order.menu order_step="{{ $order_step }}" />
@@ -80,7 +86,6 @@
             value="{{ $cart['invoice_address']['email'] ?? old('email') }}" />
         </x-table.row>
       </div>
-
       <x-table.row class="border-none mt-32">
         <x-buttons.primary label="Lieferadresse" type="button" />
       </x-table.row>

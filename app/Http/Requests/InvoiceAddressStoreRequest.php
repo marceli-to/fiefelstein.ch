@@ -24,8 +24,14 @@ class InvoiceAddressStoreRequest extends FormRequest
   public function rules()
   {
     return [
-      'firstname' => 'required',
-      'name' => 'required',
+      'company' => 'required_if:firstname,null|required_if:name,null',
+      'name' => 'required_if:company,null',
+      'firstname' => 'required_if:company,null',
+      'street' => 'required',
+      'zip' => 'required',
+      'city' => 'required',
+      'country' => 'required',
+      'email' => 'required|email',
     ];
   }
 
@@ -38,8 +44,15 @@ class InvoiceAddressStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'firstname.required' => 'Vorname fehlt',
-      'name.required' => 'Name fehlt',
+      'company.required_if' => 'Firma fehlt',
+      'name.required_if' => 'Name fehlt',
+      'firstname.required_if' => 'Vorname fehlt',
+      'street.required' => 'Strasse fehlt',
+      'zip.required' => 'PLZ fehlt',
+      'city.required' => 'Ort fehlt',
+      'country.required' => 'Land fehlt',
+      'email.required' => 'E-Mail fehlt',
+      'email.email' => 'E-Mail ist nicht gültig',
     ];
   }
 }

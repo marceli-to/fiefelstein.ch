@@ -1,8 +1,14 @@
 @extends('app')
 @section('content')
-<x-layout.page-title>
-  Lieferadresse
-</x-layout.page-title>
+@if ($errors->any())
+  <x-form.errors>
+    Bitte fülle alle Pflichtfelder aus.
+  </x-form.errors>
+@else
+  <x-layout.page-title>
+    Lieferadresse
+  </x-layout.page-title>
+@endif
 <div class="md:grid md:grid-cols-12 gap-x-16 lg:mt-30">
   <div class="hidden md:block md:col-span-2 md:col-start-2">
     <x-order.menu order_step="{{ $order_step }}" />
@@ -10,27 +16,73 @@
   <div class="md:col-span-6 lg:col-span-5 xl:col-span-4">
     <form method="POST" action="{{ route('order.shipping-address-store') }}">
       @csrf
-      <div>
-        <label>Vorname</label>
-        <input 
-          type="text" 
-          name="firstname" 
-          class="w-full border-black @error('firstname') border-red-400 @enderror" 
-          placeholder="Vorname" 
-          value="{{ $cart['shipping_address']['firstname'] ?? old('firstname') }}">
+      <div class="space-y-1">
+        <x-table.row class="border-b border-b-black !min-h-34">
+          <x-form.checkbox 
+            name="use_invoice_address" 
+            value="1" 
+            label="Die Rechnungsadresse entspricht der Lieferadresse" 
+            checked="{{ $cart['shipping_address']['use_invoice_address'] ?? old('use_invoice_address') }}" />
+        </x-table.row>
+        <x-table.row class="!mt-32">
+          <x-form.input 
+            name="firstname" 
+            placeholder="Vorname"
+            required="true"
+            value="{{ $cart['shipping_address']['firstname'] ?? old('firstname') }}" />
+        </x-table.row>
+        <x-table.row>
+          <x-form.input 
+            name="name" 
+            placeholder="Nachname" 
+            required="true"
+            value="{{ $cart['shipping_address']['name'] ?? old('name') }}" />
+        </x-table.row>
+        <x-table.row>
+          <x-form.input 
+            name="company" 
+            placeholder="Firma" 
+            value="{{ $cart['shipping_address']['company'] ?? old('company') }}" />
+        </x-table.row>
+        <x-table.row>
+          <x-form.input 
+            name="street" 
+            placeholder="Strasse" 
+            required="true"
+            value="{{ $cart['shipping_address']['street'] ?? old('street') }}" />
+        </x-table.row>
+        <x-table.row>
+          <x-form.input 
+            name="street_number" 
+            placeholder="Hausnummer" 
+            value="{{ $cart['shipping_address']['street_number'] ?? old('street_number') }}" />
+        </x-table.row>
+        <x-table.row>
+          <x-form.input 
+            name="zip" 
+            placeholder="PLZ" 
+            required="true"
+            value="{{ $cart['shipping_address']['zip'] ?? old('zip') }}" />
+        </x-table.row>
+        <x-table.row>
+          <x-form.input 
+            name="city" 
+            placeholder="Ort" 
+            required="true"
+            value="{{ $cart['shipping_address']['city'] ?? old('city') }}" />
+        </x-table.row>
+        <x-table.row class="border-b border-b-black">
+          <x-form.select 
+            name="country" 
+            placeholder="Land" 
+            required="true"
+            :options="config('countries')"
+            value="{{ $cart['shipping_address']['country'] ?? old('country') }}" />
+        </x-table.row>
       </div>
-      <div>
-        <label>Name</label>
-        <input 
-          type="text" 
-          name="name" 
-          class="w-full border-black @error('firstname') border-red-400 @enderror" 
-          placeholder="Name" 
-          value="{{ $cart['shipping_address']['name'] ?? old('name') }}">
-      </div>
-      <div>
-        <button type="submit">Zahlung</button>
-      </div>
+      <x-table.row class="border-none mt-32">
+        <x-buttons.primary label="Zahlung" type="button" />
+      </x-table.row>
     </form>
   </div>
 </div>
