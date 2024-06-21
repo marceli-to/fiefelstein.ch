@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\InvoiceAddressStoreRequest;
 use App\Http\Requests\ShippingAddressStoreRequest;
 use App\Http\Requests\PaymentMethodStoreRequest;
+use App\Http\Requests\OrderStoreRequest;
 use App\Actions\Cart\GetCart;
 use App\Actions\Cart\StoreCart;
 use App\Actions\Cart\UpdateCart;
@@ -31,7 +32,7 @@ class OrderController extends BaseController
   {
     $cart = (new UpdateCart())->execute([
       'invoice_address' => $request->only(
-        ['salutation', 'company', 'firstname', 'name', 'street', 'zip', 'city', 'country', 'email']
+        ['salutation', 'company', 'firstname', 'name', 'street', 'street_number', 'zip', 'city', 'country', 'email']
       ),
       'order_step' => $this->handleStep(2),
     ]);
@@ -49,9 +50,9 @@ class OrderController extends BaseController
   public function storeShipping(ShippingAddressStoreRequest $request)
   {
     $cart = (new UpdateCart())->execute([
-      'shipping_address' => $request->only(
-        ['use_invoice_address', 'company', 'firstname', 'name', 'street', 'zip', 'city', 'country']
-      ),
+      'shipping_address' => !$request->use_invoice_address ? 
+        $request->only(['use_invoice_address', 'company', 'firstname', 'name', 'street', 'street_number', 'zip', 'city', 'country']) : 
+        $request->only(['use_invoice_address']),
       'order_step' => $this->handleStep(3),
     ]);
     return redirect()->route('order.payment');
@@ -67,8 +68,13 @@ class OrderController extends BaseController
 
   public function storePaymentMethod(PaymentMethodStoreRequest $request)
   {
+    $payment_methods = config('invoice.payment_methods');
+
     $cart = (new UpdateCart())->execute([
-      'payment_method' => $request->payment_method,
+      'payment_method' => [
+        'name' => $payment_methods[$request->payment_method]['name'],
+        'key' => $payment_methods[$request->payment_method]['key'],
+      ],
       'order_step' => $this->handleStep(4),
     ]);
     return redirect()->route('order.summary');
@@ -80,6 +86,14 @@ class OrderController extends BaseController
       'cart' => (new GetCart())->execute(),
       'order_step' => $this->handleStep(5),
     ]);
+  }
+
+  public function finalize(OrderStoreRequest $request)
+  {
+    $cart = (new UpdateCart())->execute([
+      'order_step' => $this->handleStep(6),
+    ]);
+    return redirect()->route('order.confirmation');
   }
 
   public function confirmation()

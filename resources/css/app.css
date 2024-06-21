@@ -10,3 +10,7 @@
 main {
   @apply flex-1;
 }
+
+strong {
+  @apply font-europa-bold font-bold;
+}

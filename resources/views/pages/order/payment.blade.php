@@ -9,7 +9,7 @@
     Zahlung
   </x-layout.page-title>
 @endif
-<div class="md:grid md:grid-cols-12 gap-x-16 lg:mt-30">
+<div class="md:grid md:grid-cols-12 gap-x-16 lg:mt-30 pb-20 lg:pb-40">
   <div class="hidden md:block md:col-span-2 md:col-start-2">
     <x-order.menu order_step="{{ $order_step }}" />
   </div>
@@ -19,38 +19,18 @@
       <x-table.row class="border-b border-b-black min-h-34">
         <span>Zahlungsmittel</span>
       </x-table.row>
-      <x-table.row class="!border-t-0 !min-h-64 flex items-center">
-        <x-form.radio 
-          name="payment_method" 
-          value="twint" 
-          checked="{{ isset($cart['payment_method']) && $cart['payment_method'] == 'twint' ? true : false  }}">
-          <x-icons.twint />
-        </x-form.radio>
-      </x-table.row>
-      <x-table.row class="!min-h-64 !mt-1 flex items-center">
-        <x-form.radio 
-          name="payment_method" 
-          value="postfinance" 
-          checked="{{ isset($cart['payment_method']) && $cart['payment_method'] == 'postfinance' ? true : false  }}">
-          <x-icons.postfinance />
-        </x-form.radio>
-      </x-table.row>
-      <x-table.row class="!min-h-64 !mt-2 flex items-center">
-        <x-form.radio 
-          name="payment_method" 
-          value="mastercard" 
-          checked="{{ isset($cart['payment_method']) && $cart['payment_method'] == 'mastercard' ? true : false  }}">
-          <x-icons.mastercard />
-        </x-form.radio>
-      </x-table.row>
-      <x-table.row class="!min-h-64 !mt-1 flex items-center">
-        <x-form.radio 
-          name="payment_method" 
-          value="visa" 
-          checked="{{ isset($cart['payment_method']) && $cart['payment_method'] == 'visa' ? true : false  }}">
-          <x-icons.visa />
-        </x-form.radio>
-      </x-table.row>
+        {{-- get payment methods from config (invoice.payment_methods) and loop through them --}}
+        @foreach (config('invoice.payment_methods') as $payment_method)
+          <x-table.row class="!min-h-64 !mt-1 flex items-center {{ $loop->first ? '!border-t-0' : '' }}">
+            <x-form.radio 
+              name="payment_method" 
+              value="{{ $payment_method['key'] }}" 
+              checked="{{ isset($cart['payment_method']['key']) && $cart['payment_method']['key'] == $payment_method['key'] ? true : false  }}">
+              <x-dynamic-component :component="'icons.' .  $payment_method['key']" />
+            </x-form.radio>
+          </x-table.row>
+        @endforeach
+
       <x-table.row class="border-none">
         <x-buttons.primary label="Weiter" type="button" />
       </x-table.row>
