@@ -56,10 +56,12 @@ class CartItem extends Component
   {
     $this->setTotal();
 
-    // update the cart
+    // update the item in the cart
     $this->cart['items'] = collect($this->cart['items'])->map(function ($item) {
       if ($item['uuid'] == $this->uuid) {
         $item['quantity'] = $this->quantity;
+        $item['total'] = $this->total;
+        $item['total_shipping'] = $this->shipping;
       }
       return $item;
     })->toArray();
@@ -91,8 +93,8 @@ class CartItem extends Component
 
   private function setTotal()
   {
-    $this->total = number_format($this->item['price'] * $this->quantity, 2, '.', '&thinsp;');
-    $this->shipping = number_format($this->item['shipping'] * $this->quantity, 2, '.', '&thinsp;');
+    $this->total = $this->item['price'] * $this->quantity;
+    $this->shipping = $this->item['shipping'] * $this->quantity;
   }
 
   public function render()

@@ -31,7 +31,7 @@
     </x-table.row>
     <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
       <span>CHF</span>
-      <span>{!! $total !!}</span>
+      <span>{{ number_format($total, 2, '.', '&thinsp;') }}</span>
     </x-table.row>
   </div>
   <div class="grid grid-cols-4 !border-b border-b-black">
@@ -40,7 +40,7 @@
     </x-table.row>
     <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
       <span>CHF</span>
-      <span>{!! $shipping !!}</span>
+      <span>{{ number_format($shipping, 2, '.', '&thinsp;') }}</span>
     </x-table.row>
   </div>
 </div>

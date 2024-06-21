@@ -17,7 +17,7 @@
       {{-- <livewire:cart-total /> --}}
 
       <x-table.row class="border-none">
-        <x-buttons.primary route="{{ route('order.invoice-address') }}" label="Rechnungsadresse" />
+        <x-buttons.primary route="{{ route('order.invoice-address') }}" label="Rechnungsadresse" class="!min-h-34" />
       </x-table.row>
     @endempty
   </div>

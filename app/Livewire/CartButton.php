@@ -91,6 +91,8 @@ class CartButton extends Component
       'shipping' => $product->shipping,
       'quantity' => $quantity,
       'image' => $product->image,
+      'total' => $product->price * $quantity,
+      'total_shipping' => $product->shipping * $quantity,
     ];
     $this->cart['quantity']++;
   }
