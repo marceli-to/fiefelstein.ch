@@ -73,6 +73,9 @@ class CartItem extends Component
 
     // store the cart
     (new StoreCart())->execute($this->cart);
+
+    // dispatch a cart updated event
+    $this->dispatch('cart-updated');
   }
 
   private function remove()

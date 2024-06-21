@@ -14,7 +14,7 @@
       @foreach($cart['items'] as $item)
         <livewire:cart-item :uuid="$item['uuid']" :key="$item['uuid']" />
       @endforeach
-      {{-- <livewire:cart-total /> --}}
+      <livewire:cart-total />
 
       <x-table.row class="border-none">
         <x-buttons.primary route="{{ route('order.invoice-address') }}" label="Rechnungsadresse" class="!min-h-34" />
