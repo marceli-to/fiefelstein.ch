@@ -4,6 +4,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,9 @@ Route::post('/bestellung/abschliessen', [OrderController::class, 'finalize'])->n
 Route::get('/bestellung/bestaetigung', [OrderController::class, 'confirmation'])->name('order.confirmation');
 
 Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}/{ratio?}', [ImageController::class, 'getResponse']);
+
+
+Route::get('/pdf/invoice', [TestController::class, 'invoice']);
 
 
 // Route::view('/', 'pages.home')->name('home');
