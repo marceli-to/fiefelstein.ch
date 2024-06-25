@@ -34,6 +34,11 @@ class ProductVariation extends Model
     'cards' => 'array',
   ];
 
+  protected $appends = [
+    'isVariation'
+  ];
+
+
   /**
    * Get the indexable data array for the model.
    *
@@ -56,6 +61,11 @@ class ProductVariation extends Model
   public function user(): BelongsTo
   {
     return $this->belongsTo(User::class);
+  }
+
+  public function getIsVariationAttribute(): bool
+  {
+    return true;
   }
 
 }

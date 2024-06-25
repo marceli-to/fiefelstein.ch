@@ -1,5 +1,5 @@
 <div class="mb-32 last-of-type:mb-0 divide-y divide-black border-t border-t-black">
-  <div class="grid grid-cols-4 border-b border-b-black">
+  {{-- <div class="grid grid-cols-4 border-b border-b-black">
     <x-table.row class="border-none col-span-3 md:col-span-3">
       <span>Nettobetrag</span>
     </x-table.row>
@@ -14,14 +14,14 @@
       <span>CHF</span>
       <span>{{ number_format($tax, 2, '.', '&thinsp;') }}</span>
     </x-table.row>
-  </div>
-  <div class="grid grid-cols-4 !border-b border-b-black font-europa-bold font-bold mt-32">
+  </div> --}}
+  <div class="grid grid-cols-4 !border-b border-b-black font-europa-bold font-bold">
     <x-table.row class="border-none col-span-3 md:col-span-3">
-      <span>Total</span>
+      <span>Gesamttotal</span>
     </x-table.row>
     <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
       <span>CHF</span>
-      <span>{{ number_format($total, 2, '.', '&thinsp;') }}</span>
+      <span>{!! number_format($total, 2, '.', '&thinsp;') !!}</span>
     </x-table.row>
   </div>
 </div>

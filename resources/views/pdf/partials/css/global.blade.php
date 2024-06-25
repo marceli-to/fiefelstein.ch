@@ -103,7 +103,7 @@ li {
   left: 6.5mm;
   position: fixed;
   top: -50mm;
-  width: 36mm;
+  width: 30.96mm;
 }
 
 .page-header h1 {

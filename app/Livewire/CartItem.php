@@ -12,6 +12,7 @@ class CartItem extends Component
   public $item;
   public $quantity;
   public $total;
+  public $grandTotal;
   public $shipping;
   public $product;
   public $cart;
@@ -62,13 +63,14 @@ class CartItem extends Component
         $item['quantity'] = $this->quantity;
         $item['total'] = $this->total;
         $item['total_shipping'] = $this->shipping;
+        $item['grand_total'] = $this->total + $this->shipping;
       }
       return $item;
     })->toArray();
 
     // update the cart total
     $this->cart['total'] = collect($this->cart['items'])->sum(function ($item) {
-      return $item['price'] * $item['quantity'];
+      return $item['total'] * $item['quantity'] + $item['total_shipping'] * $item['quantity'];
     });
 
     // store the cart
@@ -88,7 +90,7 @@ class CartItem extends Component
     ->all();
     $this->cart['quantity']--;
     $this->cart['total'] = collect($this->cart['items'])->sum(function ($item) {
-      return $item['price'] * $item['quantity'];
+      return $item['total'] * $item['quantity'] + $item['total_shipping'] * $item['quantity'];
     });
     (new StoreCart())->execute($this->cart);
     return redirect()->route('order.overview');
@@ -98,6 +100,7 @@ class CartItem extends Component
   {
     $this->total = $this->item['price'] * $this->quantity;
     $this->shipping = $this->item['shipping'] * $this->quantity;
+    $this->grandTotal = $this->total + $this->shipping;
   }
 
   public function render()

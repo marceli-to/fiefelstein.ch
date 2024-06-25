@@ -35,7 +35,7 @@
             </x-table.row>
             <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
               <span>CHF</span>
-              <span>{{ number_format($item['total'], 2, '.', '&thinsp;') }}</span>
+              <span>{!! number_format($item['total'], 2, '.', '&thinsp;') !!}</span>
             </x-table.row>
           </div>
           <div class="grid grid-cols-4 !border-b border-b-black">

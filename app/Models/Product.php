@@ -36,6 +36,10 @@ class Product extends Model
     'cards' => 'array',
   ];
 
+  protected $appends = [
+    'isVariation'
+  ];
+
   /**
    * Get the options for generating the slug.
    */
@@ -78,8 +82,13 @@ class Product extends Model
     return $query->where('publish', true);
   }
 
-  public function getRouteKeyName()
+  public function getRouteKeyName(): string
   {
     return 'slug';
+  }
+
+  public function getIsVariationAttribute(): bool
+  {
+    return false;
   }
 }

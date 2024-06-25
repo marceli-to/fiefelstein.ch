@@ -85,6 +85,7 @@ class CartButton extends Component
   {
     $this->cart['items'][] = [
       'uuid' => $product->uuid,
+      'isVariation' => $product->isVariation,
       'title' => $product->title,
       'description' => $product->description,
       'price' => $product->price,
@@ -93,6 +94,7 @@ class CartButton extends Component
       'image' => $product->image,
       'total' => $product->price * $quantity,
       'total_shipping' => $product->shipping * $quantity,
+      'grand_total' => $product->price * $quantity + $product->shipping * $quantity,
     ];
     $this->cart['quantity']++;
   }
