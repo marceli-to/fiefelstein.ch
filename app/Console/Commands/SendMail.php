@@ -1,6 +1,7 @@
 <?php
 namespace App\Console\Commands;
 use Illuminate\Console\Command;
+use App\Models\Order;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\OrderConfirmationNotification;
 
@@ -37,10 +38,11 @@ class SendMail extends Command
    */
   public function handle()
   {
+    $order = Order::with('products')->latest()->first();
     try {
       Notification::route('mail', env('MAIL_TO'))
         ->notify(
-          new OrderConfirmationNotification([])
+          new OrderConfirmationNotification($order)
         );
     } 
     catch (\Exception $e) {

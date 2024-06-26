@@ -22,29 +22,29 @@
       @foreach ($cart['items'] as $item)
         <div class="mb-32 last-of-type:mb-0 divide-y divide-black border-t border-t-black mt-1">
           <div class="grid grid-cols-4">
-            <x-table.row class="border-none col-span-4 md:col-span-3 flex justify-between">
+            <x-table.row class="border-none col-span-3 flex justify-between">
               <span>{{ $item['title'] }}</span>
             </x-table.row>
-            <x-table.row class="border-none col-span-4 md:col-span-1 flex justify-end">
+            <x-table.row class="border-none col-span-1 flex justify-end">
               <span>{{ $item['quantity'] }}</span>
             </x-table.row>
           </div>
           <div class="grid grid-cols-4">
-            <x-table.row class="border-none col-span-3 md:col-span-3">
+            <x-table.row class="border-none col-span-3">
               <span>{{ $item['description'] }}</span>
             </x-table.row>
             <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
               <span>CHF</span>
-              <span>{!! number_format($item['total'], 2, '.', '&thinsp;') !!}</span>
+              <span>{!! number_format($item['price'] * $item['quantity'], 2, '.', '&thinsp;') !!}</span>
             </x-table.row>
           </div>
           <div class="grid grid-cols-4 !border-b border-b-black">
-            <x-table.row class="border-none col-span-3 md:col-span-3">
+            <x-table.row class="border-none col-span-3">
               <span>Verpackung und Versand</span>
             </x-table.row>
             <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
               <span>CHF</span>
-              <span>{{ number_format($item['total_shipping'], 2, '.', '&thinsp;') }}</span>
+              <span>{{ number_format($item['shipping'] * $item['quantity'], 2, '.', '&thinsp;') }}</span>
             </x-table.row>
           </div>
         </div>

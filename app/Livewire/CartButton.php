@@ -5,13 +5,14 @@ use Illuminate\Support\Collection;
 use App\Actions\Product\FindProduct;
 use App\Actions\Cart\GetCart;
 use App\Actions\Cart\StoreCart;
+use App\Actions\Cart\DestroyCart;
 
 class CartButton extends Component
 {
   public $productUuid;
   public $itemsInCart;
   public $cart;
-
+  
   public function mount($productUuid)
   {
     $this->productUuid = $productUuid;
@@ -34,7 +35,8 @@ class CartButton extends Component
       }
       else
       {
-        $cartItem['quantity'] = $quantity;
+        $cartItem['quantity'] = $quantity > $product->stock ? $product->stock : $quantity;
+        $this->itemsInCart = $cartItem['quantity'];
         $this->updateCartItem($cartItem);
       }
     } 
@@ -69,6 +71,10 @@ class CartButton extends Component
       ->all();
 
     $this->cart['quantity']--;
+    if ($this->cart['quantity'] == 0)
+    {
+      (new DestroyCart())->execute();
+    }
   }
 
   private function updateCartItem($cartItem)
@@ -83,6 +89,8 @@ class CartButton extends Component
 
   private function addItemToCart($product, $quantity)
   {
+    $quantity = $quantity > $product->stock ? $product->stock : $quantity;
+
     $this->cart['items'][] = [
       'uuid' => $product->uuid,
       'isVariation' => $product->isVariation,
@@ -92,9 +100,6 @@ class CartButton extends Component
       'shipping' => $product->shipping,
       'quantity' => $quantity,
       'image' => $product->image,
-      'total' => $product->price * $quantity,
-      'total_shipping' => $product->shipping * $quantity,
-      'grand_total' => $product->price * $quantity + $product->shipping * $quantity,
     ];
     $this->cart['quantity']++;
   }

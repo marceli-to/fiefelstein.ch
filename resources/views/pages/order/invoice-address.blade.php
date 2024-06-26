@@ -75,7 +75,7 @@
             name="country" 
             placeholder="Land" 
             required="true"
-            :options="config('countries')"
+            :options="config('countries.invoice')"
             value="{{ $cart['invoice_address']['country'] ?? old('country') }}" />
         </x-table.row>
         <x-table.row class="border-b border-b-black">

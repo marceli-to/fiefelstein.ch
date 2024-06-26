@@ -43,8 +43,7 @@ class OrderConfirmationNotification extends Notification
       ->replyTo(env('MAIL_REPLY_TO'))
       ->subject('Bestellbestätigung fiefelstein.ch')
       //->attach(storage_path('app/wagi-lauf-2024-qr-rechnung.pdf'))
-      ->markdown('mail.order-confirmation', ['data' => null]);
-      //->markdown('mail.confirmation', ['data' => $this->data]);
+      ->markdown('mail.order-confirmation', ['data' => $this->data]);
   }
 
   /**

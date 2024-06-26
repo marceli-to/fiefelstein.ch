@@ -16,9 +16,7 @@ class OrderProduct extends Model
       'image',
       'quantity',
       'price',
-      'total',
-      'total_shipping',
-      'grand_total',
+      'shipping',
     ];
 
     public function order()

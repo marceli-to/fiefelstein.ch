@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('order_product', function (Blueprint $table) {
-          $table->string('title')->after('product_variation_id');
-          $table->text('description')->nullable()->after('title');
-          $table->string('image')->nullable()->after('description');
-          $table->boolean('is_variation')->default(0)->after('grand_total');
-        });
+      Schema::table('orders', function (Blueprint $table) {
+        $table->decimal('total', 10, 2)->nullable()->after('shipping_country');
+      });
     }
 
     /**

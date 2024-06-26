@@ -5,15 +5,16 @@ use Illuminate\Support\Collection;
 use App\Actions\Product\FindProduct;
 use App\Actions\Cart\GetCart;
 use App\Actions\Cart\StoreCart;
+use App\Actions\Cart\DestroyCart;
 
 class CartItem extends Component
 {
   public $uuid;
   public $item;
   public $quantity;
-  public $total;
-  public $grandTotal;
-  public $shipping;
+  public $itemTotal;
+  public $itemGrandTotal;
+  public $itemTotalShipping;
   public $product;
   public $cart;
 
@@ -55,22 +56,20 @@ class CartItem extends Component
 
   public function update()
   {
+    $this->cart = (new GetCart())->execute();
     $this->setTotal();
 
     // update the item in the cart
     $this->cart['items'] = collect($this->cart['items'])->map(function ($item) {
       if ($item['uuid'] == $this->uuid) {
         $item['quantity'] = $this->quantity;
-        $item['total'] = $this->total;
-        $item['total_shipping'] = $this->shipping;
-        $item['grand_total'] = $this->total + $this->shipping;
       }
       return $item;
     })->toArray();
 
     // update the cart total
     $this->cart['total'] = collect($this->cart['items'])->sum(function ($item) {
-      return $item['total'] * $item['quantity'] + $item['total_shipping'] * $item['quantity'];
+      return $item['price'] * $item['quantity'] + $item['shipping'] * $item['quantity'];
     });
 
     // store the cart
@@ -90,17 +89,23 @@ class CartItem extends Component
     ->all();
     $this->cart['quantity']--;
     $this->cart['total'] = collect($this->cart['items'])->sum(function ($item) {
-      return $item['total'] * $item['quantity'] + $item['total_shipping'] * $item['quantity'];
+      return $item['price'] * $item['quantity'] + $item['shipping'] * $item['quantity'];
     });
     (new StoreCart())->execute($this->cart);
+
+    // if there are no items in the cart, destroy the cart
+    if ($this->cart['quantity'] == 0)
+    {
+      (new DestroyCart())->execute();
+    }
     return redirect()->route('order.overview');
   }
 
   private function setTotal()
   {
-    $this->total = $this->item['price'] * $this->quantity;
-    $this->shipping = $this->item['shipping'] * $this->quantity;
-    $this->grandTotal = $this->total + $this->shipping;
+    $this->itemTotal = $this->item['price'] * $this->quantity;
+    $this->itemTotalShipping = $this->item['shipping'] * $this->quantity;
+    $this->itemGrandTotal = $this->itemTotal + $this->itemTotalShipping;
   }
 
   public function render()

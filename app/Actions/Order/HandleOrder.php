@@ -3,25 +3,26 @@ namespace App\Actions\Order;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Actions\Product\FindProduct;
+use App\Actions\Cart\GetCart;
+use App\Actions\Cart\DestroyCart;
 use App\Services\Pdf\Pdf;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\OrderConfirmationNotification;
 
 class HandleOrder
 {
-  public function execute($data)
+  public function execute()
   {
-    // dd($data);
-    // Create order
-    $this->createOrder($data);
-
-    // Send notification
-    $this->notify($data);
+    $order = $this->createOrder(
+      (new GetCart())->execute()
+    );
+    $this->notify($order);
+    (new DestroyCart())->execute();
+    return $order;
   }
 
   private function createOrder($data)
   {
-    // Create order
     $order = Order::create([
       'uuid' => \Str::uuid(),
       'salutation' => $data['invoice_address']['salutation'] ?? '',
@@ -35,14 +36,14 @@ class HandleOrder
       'country' => $data['invoice_address']['country'],
       'email' => $data['invoice_address']['email'],
       'use_invoice_address' => $data['shipping_address']['use_invoice_address'] ?? 0,
-      'shipping_company' => $data['shipping_address']['shipping_company'] ?? '',
-      'shipping_firstname' => $data['shipping_address']['shipping_firstname'] ?? '',
-      'shipping_name' => $data['shipping_address']['shipping_name'] ?? '',
-      'shipping_street' => $data['shipping_address']['shipping_street'] ?? '',
-      'shipping_street_number' => $data['shipping_address']['shipping_street_number'] ?? '',
-      'shipping_zip' => $data['shipping_address']['shipping_zip'] ?? '',
-      'shipping_city' => $data['shipping_address']['shipping_city'] ?? '',
-      'shipping_country' => $data['shipping_address']['shipping_country'] ?? '',
+      'shipping_company' => $data['shipping_address']['company'] ?? '',
+      'shipping_firstname' => $data['shipping_address']['firstname'] ?? '',
+      'shipping_name' => $data['shipping_address']['name'] ?? '',
+      'shipping_street' => $data['shipping_address']['street'] ?? '',
+      'shipping_street_number' => $data['shipping_address']['street_number'] ?? '',
+      'shipping_zip' => $data['shipping_address']['zip'] ?? '',
+      'shipping_city' => $data['shipping_address']['city'] ?? '',
+      'shipping_country' => $data['shipping_address']['country'] ?? '',
       'payment_method' => $data['payment_method']['name'],
       'payed_at' => now(),
     ]);
@@ -59,25 +60,38 @@ class HandleOrder
         'description' => $product->description,
         'image' => $product->image,
         'quantity' => $item['quantity'],
-        'price' => $item['price'],
-        'total' => $item['total'],
-        'total_shipping' => $item['total_shipping'],
-        'grand_total' => $item['grand_total'],
+        'price' => $item['price'] * $item['quantity'],
+        'shipping' => $item['shipping'] * $item['quantity'],
         'is_variation' => $product->isVariation ? 1 : 0,
       ]);
+
+      // Update product stock
+      $product->stock -= $item['quantity'];
+      $product->save();
+
     }
+
+    // Update order total
+    $order->total = $order->products->sum(function ($product) {
+      return $product->price + $product->shipping;
+    });
+    $order->save();
+
+
+    // return order with products
+    return Order::with('products')->find($order->id);
   }
 
   private function notify($data)
   {
-      try {
-        Notification::route('mail', env('MAIL_TO'))
-          ->notify(
-            new OrderConfirmationNotification($data)
-          );
-      } 
-      catch (\Exception $e) {
-        \Log::error($e->getMessage());
-      }
+    try {
+      Notification::route('mail', env('MAIL_TO'))
+        ->notify(
+          new OrderConfirmationNotification($data)
+        );
+    } 
+    catch (\Exception $e) {
+      \Log::error($e->getMessage());
+    }
   }
 }

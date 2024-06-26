@@ -4,6 +4,7 @@ use Livewire\Component;
 use Livewire\Attributes\On; 
 use App\Actions\Cart\GetCart;
 use App\Actions\Cart\StoreCart;
+use App\Actions\Cart\DestroyCart;
 
 class Cart extends Component
 {
@@ -20,9 +21,11 @@ class Cart extends Component
   {
     $this->cart = (new GetCart())->execute();
 
-    if ($this->cart['quantity'] == 0) {
+    if ($this->cart['quantity'] == 0)
+    {
       $this->dispatch('hide-updated-cart');
       $this->showCart = false;
+      (new DestroyCart())->execute();
     }
     else {
       $this->dispatch('display-updated-cart');
@@ -50,7 +53,6 @@ class Cart extends Component
 
     (new StoreCart())->execute($this->cart);
     $this->dispatch('cart-updated');
-
   }
 
   public function render()

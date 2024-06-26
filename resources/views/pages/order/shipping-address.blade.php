@@ -76,7 +76,7 @@
             name="country" 
             placeholder="Land" 
             required="true"
-            :options="config('countries')"
+             :options="config('countries.delivery')"
             value="{{ $cart['shipping_address']['country'] ?? old('country') }}" />
         </x-table.row>
       </div>

@@ -10,6 +10,7 @@ use App\Actions\Cart\GetCart;
 use App\Actions\Cart\StoreCart;
 use App\Actions\Cart\UpdateCart;
 use App\Actions\Order\HandleOrder;
+use App\Models\Order;
 
 class OrderController extends BaseController
 {
@@ -91,20 +92,25 @@ class OrderController extends BaseController
 
   public function finalize(OrderStoreRequest $request)
   {
+    // Todo: payment process
     $cart = (new UpdateCart())->execute([
       'order_step' => $this->handleStep(6),
+      'is_paid' => true,
     ]);
-    return redirect()->route('order.confirmation');
+
+    // Create the order
+    $order = (new HandleOrder())->execute();
+
+    // Redirect to the confirmation page
+    return redirect()->route('order.confirmation', $order);
   }
 
-  public function confirmation()
+  public function confirmation(Order $order)
   {
-    $order = (new HandleOrder())->execute(
-      (new GetCart())->execute()
-    );
-    // return view('pages.order.confirmation', [
-    //   'cart' => (new GetCart())->execute(),
-    // ]);
+    return view('pages.order.confirmation', [
+      'order' => $order,
+      'order_step' => $this->handleStep(6),
+    ]);
   }
 
   private function handleStep($current)

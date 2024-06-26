@@ -26,30 +26,30 @@
     </x-table.row>
   </div>
   <div class="grid grid-cols-4 mt-32">
-    <x-table.row class="border-none col-span-3 md:col-span-3">
+    <x-table.row class="border-none col-span-3">
       <span>{{ $item['description'] }}</span>
     </x-table.row>
     <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
       <span>CHF</span>
-      <span>{!! number_format($total, 2, '.', '&thinsp;') !!}</span>
+      <span>{!! number_format($itemTotal, 2, '.', '&thinsp;') !!}</span>
     </x-table.row>
   </div>
   <div class="grid grid-cols-4">
-    <x-table.row class="border-none col-span-3 md:col-span-3">
+    <x-table.row class="border-none col-span-3">
       <span>Verpackung und Versand</span>
     </x-table.row>
     <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
       <span>CHF</span>
-      <span>{!! number_format($shipping, 2, '.', '&thinsp;') !!}</span>
+      <span>{!! number_format($itemTotalShipping, 2, '.', '&thinsp;') !!}</span>
     </x-table.row>
   </div>
   <div class="grid grid-cols-4 !border-b border-b-black">
-    <x-table.row class="border-none col-span-3 md:col-span-3">
+    <x-table.row class="border-none col-span-3">
       <span>Total</span>
     </x-table.row>
     <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
       <span>CHF</span>
-      <span>{!! number_format($grandTotal, 2, '.', '&thinsp;') !!}</span>
+      <span>{!! number_format($itemGrandTotal, 2, '.', '&thinsp;') !!}</span>
     </x-table.row>
   </div>
 </div>

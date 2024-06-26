@@ -7,8 +7,6 @@ use App\Actions\Cart\GetCart;
 class CartTotal extends Component
 {
   public $cart;
-  // public $subtotal;
-  // public $tax;
   public $total;
 
   public function mount()
@@ -20,8 +18,6 @@ class CartTotal extends Component
   #[On('cart-updated')]
   public function setTotal()
   {
-    // $this->subtotal = 0;
-    // $this->tax = 0;
     $this->total = 0;
     $this->cart = (new GetCart())->execute();
 
@@ -29,12 +25,9 @@ class CartTotal extends Component
     {
       foreach ($this->cart['items'] as $item)
       {
-        $this->total += $item['grand_total'] + $item['total_shipping'];
+        $this->total += ($item['price'] + $item['shipping']) * $item['quantity'];
       }
     }
-
-    // $this->tax = round( ( ( $this->subtotal ) / 100 * config('invoice.tax_rate')) * 20 ) / 20;
-    // $this->total = $this->subtotal + $this->tax;
   }
 
   public function render()
