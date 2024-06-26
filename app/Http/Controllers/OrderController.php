@@ -9,8 +9,7 @@ use App\Http\Requests\OrderStoreRequest;
 use App\Actions\Cart\GetCart;
 use App\Actions\Cart\StoreCart;
 use App\Actions\Cart\UpdateCart;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\OrderConfirmationNotification;
+use App\Actions\Order\HandleOrder;
 
 class OrderController extends BaseController
 {
@@ -100,20 +99,12 @@ class OrderController extends BaseController
 
   public function confirmation()
   {
-    // Send order confirmation email
-    // try {
-    //   Notification::route('mail', env('MAIL_TO'))
-    //     ->notify(
-    //       new OrderConfirmationNotification([])
-    //     );
-    // } 
-    // catch (\Exception $e) {
-    //   \Log::error($e->getMessage());
-    // }
-
-    return view('pages.order.confirmation', [
-      'cart' => (new GetCart())->execute(),
-    ]);
+    $order = (new HandleOrder())->execute(
+      (new GetCart())->execute()
+    );
+    // return view('pages.order.confirmation', [
+    //   'cart' => (new GetCart())->execute(),
+    // ]);
   }
 
   private function handleStep($current)

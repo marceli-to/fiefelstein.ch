@@ -10,9 +10,15 @@ class OrderProduct extends Model
       'order_id',
       'product_id',
       'product_variation_id',
+      'is_variation',
+      'title',
+      'description',
+      'image',
       'quantity',
       'price',
-      'total'
+      'total',
+      'total_shipping',
+      'grand_total',
     ];
 
     public function order()
