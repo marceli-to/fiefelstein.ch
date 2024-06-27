@@ -18,7 +18,7 @@ class TestController extends Controller
     $pdf = (new Pdf())->create([
       'data' => '',
       'view' => 'invoice',
-      'name' => 'fiefelstein.ch-rechnung-ea029ddd-fd2e-4c6e-a215-8db35e511cc8'
+      'name' => config('invoice.invoice_prefix') . 'ea029ddd-fd2e-4c6e-a215-8db35e511cc8'
     ]);
 
     return response()->download($pdf['path'], $pdf['name'], $this->headers);

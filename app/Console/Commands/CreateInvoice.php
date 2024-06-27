@@ -43,7 +43,7 @@ class CreateInvoice extends Command
     $invoice = (new Pdf())->create([
       'data' => $order,
       'view' => 'invoice',
-      'name' => 'fiefelstein.ch-rechnung-' . $order->uuid
+      'name' => config('invoice.invoice_prefix') . $order->uuid
     ]);
     
     try {

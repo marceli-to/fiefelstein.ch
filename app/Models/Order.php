@@ -1,9 +1,12 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
+  use SoftDeletes;
+
   protected $fillable = [
     'uuid',
     'salutation',
@@ -32,23 +35,39 @@ class Order extends Model
 
   protected $appends = [
     'invoice_name', 
+    'invoice_company',
     'invoice_address', 
     'invoice_location',
-    'shipping_name',
+    //'shipping_name',
+    'shipping_fullname',
     'shipping_address',
     'shipping_location',
     'payment_info',
     'order_number',
   ];
 
+  // public function products()
+  // {
+  //   return $this->hasMany(OrderProduct::class);
+  // }
   public function products()
   {
-    return $this->hasMany(OrderProduct::class);
+    return $this->belongsToMany(Product::class, 'order_product')->withPivot(
+      'title',
+      'description',
+      'price',
+      'quantity'
+    );
   }
 
   public function getInvoiceNameAttribute()
+  { 
+    return $this->firstname . ' ' . $this->name;
+  }
+
+  public function getInvoiceCompanyAttribute()
   {
-    return $this->company ? $this->company : $this->firstname . ' ' . $this->name;
+    return $this->company ? $this->company : null;
   }
 
   public function getInvoiceAddressAttribute()

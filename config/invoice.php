@@ -28,6 +28,12 @@ return [
       'name' => 'Postfinance',
       'key' => 'postfinance',
     ],
-  ]
+  ],
+
+  /**
+   * Prefix for invoice name
+   */
+
+  'invoice_prefix' => 'fiefelstein.ch-rechnung-',
 
 ];

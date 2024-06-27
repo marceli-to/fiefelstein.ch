@@ -88,7 +88,7 @@ class HandleOrder
     $pdf = (new Pdf())->create([
       'data' => $order,
       'view' => 'invoice',
-      'name' => 'fiefelstein.ch-rechnung-' . $order->uuid . '.pdf',
+      'name' => config('invoice.invoice_prefix') . $order->uuid,
     ]);
     return $pdf;
   }
