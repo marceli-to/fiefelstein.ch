@@ -13,15 +13,16 @@ class HandleOrder
 {
   public function execute()
   {
-    $order = $this->createOrder(
+    $order = $this->create(
       (new GetCart())->execute()
     );
-    $this->notify($order);
+    $invoice = $this->invoice($order);
+    $this->notify($order, $invoice);
     (new DestroyCart())->execute();
     return $order;
   }
 
-  private function createOrder($data)
+  private function create($data)
   {
     $order = Order::create([
       'uuid' => \Str::uuid(),
@@ -82,12 +83,22 @@ class HandleOrder
     return Order::with('products')->find($order->id);
   }
 
-  private function notify($data)
+  private function invoice($order)
+  {
+    $pdf = (new Pdf())->create([
+      'data' => $order,
+      'view' => 'invoice',
+      'name' => 'fiefelstein.ch-rechnung-' . $order->uuid . '.pdf',
+    ]);
+    return $pdf;
+  }
+
+  private function notify($order, $invoice)
   {
     try {
       Notification::route('mail', env('MAIL_TO'))
         ->notify(
-          new OrderConfirmationNotification($data)
+          new OrderConfirmationNotification($order, $invoice)
         );
     } 
     catch (\Exception $e) {

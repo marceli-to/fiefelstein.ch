@@ -8,75 +8,38 @@
 <footer class="page-footer">
   Fiefelstein/Flüeler, Binzstrasse 39, 8045 Zürich, anliegen@fiefelstein.ch
 </footer>
-
-<?php
-$items = [
-  [
-    'title' => 'Ein Jahr mit Fisch und Vogel',
-    'description' => 'Kochbuch',
-    'price' => 60,
-    'shipping' => 8,
-    'quantity' => 1,
-    'total' => 68
-  ],
-  [
-    'title' => 'Palace A',
-    'description' => 'Leuchtbuchstabe',
-    'price' => 9900,
-    'shipping' => 64,
-    'quantity' => 3,
-    'total' => 9964
-  ],
-  [
-    'title' => 'Alice',
-    'description' => 'Beistelltisch',
-    'price' => 220,
-    'shipping' => 64,
-    'quantity' => 1,
-    'total' => 284
-  ],
-  // [
-  //   'title' => 'Shibuya',
-  //   'description' => 'Lederetui',
-  //   'price' => 50,
-  //   'shipping' => 8,
-  //   'quantity' => 1,
-  //   'total' => 58
-  // ],
-];
-$items = collect($items);
-?>
-
 <div class="page">
   <div class="page-address">
-    Marcel Stadelmann<br>Letzigraben 149<br>8047 Zürich
+    {{ $data->invoice_name }}<br>
+    {{ $data->invoice_address }}<br>
+    {{ $data->invoice_location }}
   </div>
   <div class="page-content">
     <div class="page-content-header">
-      <div class="font-bold">Rechnung FS2024-0000001</div>
-      <div>Zürich, 21. Juni 2024</div>
+      <div class="font-bold">Rechnung {{ $data->order_number }}</div>
+      <div>Zürich, {{ \Carbon\Carbon::now()->locale('de_CH')->isoFormat('D. MMMM YYYY') }}</div>
     </div>
-    @foreach ($items as $key => $item)
+    @foreach($data->products as $product)
       <table class="order-details">
         <tr>
           <td class="order-detail-item font-bold">
-            {{ $item['title'] }}
+            {{ $product->title }}
           </td>
           <td class="order-detail-item order-detail-item--currency">
           </td>
           <td class="order-detail-item order-detail-item--price align-right font-bold">
-            {{ $item['quantity'] }}
+            {{ $product->quantity }}
           </td>
         </tr>
         <tr>
           <td class="order-detail-item">
-            {{ $item['description'] }}
+            {{ $product->description }}
           </td>
           <td class="order-detail-item order-detail-item--currency">
             CHF
           </td>
           <td class="order-detail-item order-detail-item--price align-right">
-            {!! number_format($item['price'], 2, '.', '') !!}
+            {!! number_format($product->price, 2, '.', '') !!}
           </td>
         </tr>
         <tr>
@@ -87,7 +50,7 @@ $items = collect($items);
             CHF
           </td>
           <td class="order-detail-item order-detail-item--price align-right">
-            {!! number_format($item['shipping'], 2, '.', '') !!}
+            {!! number_format($product->shipping, 2, '.', '') !!}
           </td>
         </tr>
         <tr>
@@ -98,7 +61,7 @@ $items = collect($items);
             CHF
           </td>
           <td class="order-detail-item order-detail-item--price align-right font-bold">
-            {!! number_format($item['total'], 2, '.', '') !!}
+            {!! number_format($product->price + $product->shipping, 2, '.', '') !!}
           </td>
         </tr>
       </table>
@@ -112,7 +75,7 @@ $items = collect($items);
           CHF
         </td>
         <td class="order-detail-item order-detail-item--price align-right font-bold">
-          10'000.00
+          {{ $data->total }}
         </td>
       </tr>
     </table>
@@ -122,21 +85,63 @@ $items = collect($items);
         Lieferadresse
         </td>
       </tr>
-      <tr>
-        <td class="order-detail-item order-detail-item--address">
-          Marcel Stadelmann
-        </td>
-      </tr>
-      <tr>
-        <td class="order-detail-item order-detail-item--address">
-          Letzigraben 149
-        </td>
-      </tr>
-      <tr>
-        <td class="order-detail-item order-detail-item--address">
-          8047 Zürich
-        </td>
-      </tr>
+      @if ($data->use_invoice_address)
+        @if ($data->salutation)
+          <tr>
+            <td class="order-detail-item">
+              {{ $data->salutation }}
+            </td>
+          </tr>
+        @endif
+        <tr>
+          <td class="order-detail-item order-detail-item--address">
+            {{ $data->invoice_name }}
+          </td>
+        </tr>
+        <tr>
+          <td class="order-detail-item order-detail-item--address">
+            {{ $data->invoice_address }}
+          </td>
+        </tr>
+        <tr>
+          <td class="order-detail-item order-detail-item--address">
+            {{ $data->invoice_location }}
+          </td>
+        </tr>
+        <tr>
+          <td class="order-detail-item order-detail-item--address">
+            {{ $data->country }}
+          </td>
+        </tr>
+      @else
+        <tr>
+          <td class="order-detail-item order-detail-item--address">
+            {{ $data->shipping_full_name }}
+          </td>
+        </tr>
+        @if ($data->shipping_company)
+          <tr>
+            <td class="order-detail-item order-detail-item--address">
+              {{ $data->shipping_company }}
+            </td>
+          </tr>
+        @endif
+        <tr>
+          <td class="order-detail-item order-detail-item--address">
+            {{ $data->shipping_address }}
+          </td>
+        </tr>
+        <tr>
+          <td class="order-detail-item order-detail-item--address">
+            {{ $data->shipping_location }}
+          </td>
+        </tr>
+        <tr>
+          <td class="order-detail-item order-detail-item--address">
+            {{ $data->shipping_country }}
+          </td>
+        </tr>
+      @endif
     </table>
     <table class="order-details">
       <tr>
@@ -146,13 +151,13 @@ $items = collect($items);
       </tr>
       <tr>
         <td class="order-detail-item">
-          Twint / 21.06.2024, 11:23
+          {{ $data->payment_info }}
         </td>
         <td class="order-detail-item order-detail-item--currency font-bold">
           CHF
         </td>
         <td class="order-detail-item order-detail-item--price align-right font-bold">
-          10'000.00
+          {{ $data->total }}
         </td>
       </tr>
       

@@ -14,9 +14,10 @@ class OrderConfirmationNotification extends Notification
    *
    * @return void
    */
-  public function __construct($data)
+  public function __construct($order, $invoice)
   {
-    $this->data = $data;
+    $this->order = $order;
+    $this->invoice = $invoice;
   }
 
   /**
@@ -42,8 +43,8 @@ class OrderConfirmationNotification extends Notification
       ->from(env('MAIL_FROM_ADDRESS'))
       ->replyTo(env('MAIL_REPLY_TO'))
       ->subject('Bestellbestätigung fiefelstein.ch')
-      //->attach(storage_path('app/wagi-lauf-2024-qr-rechnung.pdf'))
-      ->markdown('mail.order-confirmation', ['data' => $this->data]);
+      ->attach(storage_path('app/public/files/' . $this->invoice['name']))
+      ->markdown('mail.order-confirmation', ['data' => $this->order]);
   }
 
   /**
