@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use App\Actions\Product\GetProduct;
+use App\Actions\Product\GetProducts;
 use App\Models\Product;
 
 class ProductController extends BaseController
@@ -14,7 +15,6 @@ class ProductController extends BaseController
    */
   public function show(Product $product)
   {  
-    //dd((new GetProduct())->execute($product));
     return view('pages.product.show', [
       'product' => (new GetProduct())->execute($product),
     ]);
@@ -27,6 +27,8 @@ class ProductController extends BaseController
    */
   public function listing(Product $product)
   {  
-    return view('pages.product.listing');
+    return view('pages.product.listing', [
+      'products' => (new GetProducts())->execute(),
+    ]);
   }
 }

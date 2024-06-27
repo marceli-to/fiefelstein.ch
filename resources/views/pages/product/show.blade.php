@@ -20,7 +20,7 @@
         title="Versandinstruktionen verbergen">
         <x-icons.cross-large />
       </a>
-      <x-product.shipping-instructions />
+      <x-product.instructions />
     </div>
   </div>
   <x-swiper.wrapper 
@@ -73,7 +73,7 @@
   <x-table.row class="mt-64 lg:hidden">
     <div>
       <span class="font-europa-bold font-bold">Versandinformationen</span>
-      <x-product.shipping-instructions />
+      <x-product.instructions />
     </div>
   </x-table.row>
 

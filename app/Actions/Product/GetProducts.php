@@ -6,6 +6,6 @@ class GetProducts
 {
   public function execute()
   {
-    return Product::published()->get();
+    return Product::with('variations')->published()->get();
   }
 }

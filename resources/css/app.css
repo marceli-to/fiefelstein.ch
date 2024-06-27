@@ -1,5 +1,4 @@
 @import "typo/webfonts.css";
-@import "components/headings.css";
 @import "components/form.css";
 @import "vendor/swiper.css";
 
@@ -13,4 +12,12 @@ main {
 
 strong {
   @apply font-europa-bold font-bold;
+}
+
+h1, h2 {
+  @apply font-europa-regular
+}
+
+h3 {
+  @apply font-europa-bold font-bold
 }
