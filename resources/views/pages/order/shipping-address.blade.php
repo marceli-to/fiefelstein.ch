@@ -85,5 +85,10 @@
       </x-table.row>
     </form>
   </div>
+  <div class="hidden md:block md:col-span-3 lg:col-span-2 xl:col-span-2">
+    @foreach($cart['items'] as $item)
+      <x-media.picture :image="$item['image']" :alt="$item['title']" class="hidden md:block md:mb-16 xl:max-w-[240px]" />
+    @endforeach
+  </div>
 </div>
 @endsection

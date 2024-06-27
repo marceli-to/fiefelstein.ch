@@ -51,8 +51,10 @@
       </div>
 
     @endif
-
-    <livewire:cart-button :productUuid="$product->uuid" :key="$product->uuid" />
+    
+    @if ($product->stock > 0)
+      <livewire:cart-button :productUuid="$product->uuid" :key="$product->uuid" />
+    @endif
 
     <x-table.row class="hidden lg:flex mt-64 border-none">
       <a 

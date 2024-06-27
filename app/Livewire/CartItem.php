@@ -31,9 +31,9 @@ class CartItem extends Component
   public function decrement()
   {
     $this->quantity--;
-    if ($this->quantity == 0)
+    if ($this->quantity < 1)
     {
-      return $this->remove();
+      $this->quantity = 1;
     }
     $this->update();
   }

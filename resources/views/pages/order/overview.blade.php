@@ -15,11 +15,15 @@
         <livewire:cart-item :uuid="$item['uuid']" :key="$item['uuid']" />
       @endforeach
       <livewire:cart-total />
-
       <x-table.row class="border-none">
         <x-buttons.primary route="{{ route('order.invoice-address') }}" label="Rechnungsadresse" class="!min-h-34" />
       </x-table.row>
     @endempty
+  </div>
+  <div class="hidden md:block md:col-span-3 lg:col-span-2 xl:col-span-2">
+    @foreach($cart['items'] as $item)
+      <x-media.picture :image="$item['image']" :alt="$item['title']" class="hidden md:block md:mb-16 xl:max-w-[240px]" />
+    @endforeach
   </div>
 
 </div>
