@@ -4,6 +4,7 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use App\Actions\Product\GetProduct;
 use App\Actions\Product\GetProducts;
+use App\Actions\Product\GetCategories;
 use App\Models\Product;
 
 class ProductController extends BaseController
@@ -29,6 +30,7 @@ class ProductController extends BaseController
   {  
     return view('pages.product.listing', [
       'products' => (new GetProducts())->execute(),
+      'categories' => (new GetCategories())->execute(),
     ]);
   }
 }
