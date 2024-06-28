@@ -41,6 +41,10 @@ class LandingPageResource extends Resource
 
   protected static ?string $pluralModelLabel = 'Startseite';
 
+  protected static ?string $navigationGroup = 'Seiteninhalt';
+
+  protected static ?int $navigationSort = 1;
+
   public static function form(Form $form): Form
   {
     return $form
@@ -49,7 +53,14 @@ class LandingPageResource extends Resource
         ->schema([
           Repeater::make('cards')
             ->label('Produkte oder Texte')
-            ->itemLabel(fn (array $state): ?string => $state['type'] ?? null)
+            // add product title to item label if product is selected
+            ->itemLabel(function (array $state): ?string {
+              if ($state['type'] === 'Produkt' && isset($state['product_id'])) {
+                  $product = Product::find($state['product_id']);
+                  return $product ? "Produkt: {$product->title}" : "Produkt: (nicht gefunden)";
+              }
+              return $state['type'] ?? 'Unbekannt';
+          })
             ->addActionLabel('Produkt oder Text hinzufügen')
             ->columnSpan('full')
             ->collapsible()
