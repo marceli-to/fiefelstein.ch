@@ -39,7 +39,7 @@
             <x-media.picture :image="$card['image']" :alt="$product->title" :lazy="false" />
           @endif
           @if ($card['type'] == 'Text')
-            <x-product.cards.text :text="$card['text']" />
+            <x-product.cards.text :text="$card['text']" class="text-md p-32 bg-ivory" />
           @endif
         </x-swiper.slide>
       @endforeach
@@ -53,7 +53,7 @@
                 <x-media.picture :image="$card['image']" :alt="$product->title" :lazy="false" />
               @endif
               @if ($card['type'] == 'Text')
-                <x-product.cards.text :text="$card['text']" />
+                <x-product.cards.text :text="$card['text']" class="text-md p-32 bg-ivory" />
               @endif
             </x-swiper.slide>
           @endforeach

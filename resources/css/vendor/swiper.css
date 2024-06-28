@@ -11,6 +11,10 @@
   @apply h-[calc(100vh_-_60px)] w-full object-cover aspect-square
 }
 
+.swiper-wrapper.swiper-landing .swiper-slide article {
+  @apply h-[calc(100vh_-_60px)] w-full aspect-square
+}
+
 .swiper-wrapper.swiper-product {
   @apply aspect-square md:aspect-auto
 }
@@ -23,6 +27,6 @@
   @apply md:h-[calc(100vh_-_185px)] w-full object-cover aspect-square
 }
 
-.swiper-wrapper.swiper-product .swiper-slide div {
+.swiper-wrapper.swiper-product .swiper-slide article {
   @apply md:h-[calc(100vh_-_185px)] w-full object-cover 
 }

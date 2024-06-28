@@ -5,11 +5,17 @@ import 'swiper/css/navigation';
 
 const SwiperLanding = (function() {
 
-  let swiperInstance;
+  let swiper;
   
   const selectors = {
     body: 'body',
-    swiper: '.js-swiper-landing'
+    swiper: {
+      container: '.js-swiper-landing',
+      btns: {
+        prev: '.js-swiper-prev',
+        next: '.js-swiper-next',
+      },
+    },
   };
 
   const swiperOptions = {
@@ -30,10 +36,25 @@ const SwiperLanding = (function() {
   };
 
   const initialize = function() {
-    swiperInstance = new Swiper(
-      selectors.swiper, 
+    swiper = new Swiper(
+      selectors.swiper.container, 
       swiperOptions
     );
+
+    const prevBtn = document.querySelector(selectors.swiper.btns.prev);
+    const nextBtn = document.querySelector(selectors.swiper.btns.next);
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        swiper.slidePrev();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        swiper.slideNext();
+      });
+    }
   };
 
   return {

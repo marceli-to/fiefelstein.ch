@@ -1,4 +1,4 @@
-@props(['text' => ''])
-<div {{ $attributes->merge(['class' => 'text-md p-32 bg-ivory']) }}>
-  {{ $text }}
-</div>
+@props(['text' => '', 'class' => ''])
+<article class="{{ $class }}">
+  {!! nl2br($text) !!}
+</article>
