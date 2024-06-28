@@ -1,7 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 use App\Http\Controllers\BaseController;
-use App\Actions\Product\GetProducts;
+use App\Actions\Landing\GetCards;
+use App\Models\LandingPage;
 use Illuminate\Http\Request;
 
 class LandingController extends BaseController
@@ -13,8 +14,9 @@ class LandingController extends BaseController
    */
   public function index()
   {  
+    // dd((new GetCards())->execute());
     return view('pages.landing', [
-      'products' => (new GetProducts())->execute(),
+      'cards' =>  (new GetCards())->execute(),
     ]);
   }
 }

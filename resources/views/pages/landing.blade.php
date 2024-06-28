@@ -2,8 +2,12 @@
 @section('content')
 <section class="pb-20">
   <div class="flex flex-col gap-y-16 lg:hidden">
-    @foreach ($products as $product)
-      <x-product.cards.teaser :product="$product" />
+    @foreach ($cards as $card)
+      @if ($card['type'] == 'product')
+        <x-product.cards.teaser :product="$card['product']" />
+      @else
+        <x-product.cards.text :text="$card['text']" />
+      @endif
     @endforeach
   </div>
 
@@ -12,9 +16,13 @@
       type="landing"
       containerClass="js-swiper-landing"
       wrapperClass="swiper-landing">
-      @foreach ($products as $product)
+      @foreach ($cards as $card)
         <x-swiper.slide>
-          <x-product.cards.teaser :product="$product" />
+          @if ($card['type'] == 'product')
+            <x-product.cards.teaser :product="$card['product']" />
+          @else
+            <x-product.cards.text :text="$card['text']" />
+          @endif
         </x-swiper.slide>
       @endforeach
     </x-swiper.wrapper>
