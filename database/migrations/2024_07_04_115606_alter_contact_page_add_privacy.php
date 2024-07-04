@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contact_page', function (Blueprint $table) {
-            $table->id();
-            $table->text('imprint')->nullable();
-            $table->text('toc_title')->nullable();
-            $table->json('toc_items')->nullable();
-            $table->timestamps();
-        });
+      Schema::table('contact_page', function (Blueprint $table) {
+        $table->text('privacy')->nullable()->after('toc_items');
+      });
     }
 
     /**
@@ -25,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contact_pages');
+        //
     }
 };

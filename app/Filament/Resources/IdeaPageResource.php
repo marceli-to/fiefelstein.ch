@@ -97,7 +97,6 @@ class IdeaPageResource extends Resource
                   Textarea::make('description')
                     ->label('Beschreibung')
                     ->placeholder('Beschreibung'),
-     
                 ]),
             ])->columnSpan([
               'default' => 12,

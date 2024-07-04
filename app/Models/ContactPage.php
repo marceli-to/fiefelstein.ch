@@ -8,6 +8,12 @@ class ContactPage extends Model
 
   protected $fillable = [
     'imprint', 
-    'toc'
+    'toc_title',
+    'toc_items',
+    'privacy'
+  ];
+
+  protected $casts = [
+    'toc_items' => 'array'
   ];
 }

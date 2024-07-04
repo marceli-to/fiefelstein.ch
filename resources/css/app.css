@@ -24,7 +24,7 @@ h3 {
 
 /* Pages */
 .contact-page h2 {
-  @apply font-europa-bold font-bold mb-0
+  @apply font-europa-bold font-bold mb-0 leading-[1.2]
 }
 
 .contact-page h2:not(:first-of-type) {
@@ -35,10 +35,52 @@ h3 {
   @apply mb-16
 }
 
-.contact-page .contact-page__toc ol {
-  @apply list-decimal pl-8
+.contact-page h3:not(:first-of-type) {
+  @apply mt-32
 }
 
-.contact-page .contact-page__toc li {
-  @apply mb-16 indent-3
+.contact-page .contact-page__imprint p {
+  @apply leading-[1.35]
+}
+
+.contact-page .contact-page__toc h3 {
+  @apply font-europa-bold font-bold
+}
+
+.contact-page .contact-page__toc p:not(:first-of-type) {
+  @apply indent-16
+}
+
+.contact-page .contact-page__toc ul {
+  @apply list-inside mb-16
+}
+
+.contact-page .contact-page__toc ul + p,
+.contact-page .contact-page__toc ol + p {
+  @apply !indent-0
+}
+
+.contact-page .contact-page__toc ol {
+  @apply list-decimal list-inside mb-16
+}
+
+.contact-page .contact-page__toc ul {
+  @apply list-none pl-0;
+}
+
+.contact-page .contact-page__toc ul li,
+.contact-page .contact-page__toc ol li {
+  @apply pl-16 -indent-16;
+}
+
+.contact-page .contact-page__toc ul li::before {
+  content: "– ";
+  margin-right: 5px;
+}
+
+.contact-page .contact-page__toc__privacy {
+  @apply mt-64
+}
+.contact-page .contact-page__toc .contact-page__toc__privacy p {
+  @apply !indent-0
 }

@@ -71,18 +71,44 @@ class ContactPageResource extends Resource
             ]),
           Section::make('AGB')
             ->schema([
-              RichEditor::make('toc')
-                ->label('AGB')
+              Textarea::make('toc_title')
+                ->label('Titel')
+                ->placeholder('Titel der AGB'),
+              Repeater::make('toc_items')
+                ->label('AGB Elemente')
+                ->addActionLabel('AGB Element hinzufügen')
+                ->collapsible()
+                ->collapsed()
+                ->itemLabel(fn (array $state): ?string => $state['number'] . ' ' . $state['title'] ?? null)
+                ->schema([
+                TextInput::make('number')
+                  ->label('Nummer')
+                  ->placeholder('Nummer'),
+                TextInput::make('title')
+                  ->label('Titel')
+                  ->placeholder('Titel'),
+                RichEditor::make('text')
+                  ->label('Text')
+                  ->toolbarButtons([
+                    'bold',
+                    'orderedList',
+                    'bulletList',
+                    'link',
+                    'removeFormat',
+                  ]),
+                ]),
+              RichEditor::make('privacy')
+                ->label('Datenschutz')
                 ->toolbarButtons([
                   'bold',
-                  'bulletList',
                   'orderedList',
+                  'bulletList',
                   'h2',
                   'h3',
                   'link',
                   'redo',
                   'undo',
-              ])
+                ])
             ])
             ->columnSpan([
               'default' => 12,
@@ -124,7 +150,7 @@ class ContactPageResource extends Resource
   {
     return [
       'index' => Pages\ListContactPages::route('/'),
-      // 'create' => Pages\CreateContactPage::route('/create'),
+      'create' => Pages\CreateContactPage::route('/create'),
       'edit' => Pages\EditContactPage::route('/{record}/edit'),
     ];
   }
