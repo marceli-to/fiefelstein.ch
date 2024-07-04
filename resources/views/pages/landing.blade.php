@@ -1,12 +1,12 @@
 @extends('app')
 @section('content')
-<section class="pb-20">
+<section>
   <div class="flex flex-col gap-y-16 md:hidden">
     @foreach ($cards as $card)
       @if ($card['type'] == 'product')
         <x-product.cards.teaser :product="$card['product']" />
       @else
-        <x-product.cards.text :text="$card['text']" class="bg-white text-lg aspect-square flex items-center" />
+        <x-product.cards.text :text="$card['text']" class="bg-white text-lg aspect-square flex items-center font-europa-light font-light" />
       @endif
     @endforeach
   </div>

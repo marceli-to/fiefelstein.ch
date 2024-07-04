@@ -23,7 +23,8 @@ h3 {
 }
 
 /* Pages */
-.contact-page h2 {
+.contact-page h2,
+.idea-page h2 {
   @apply font-europa-bold font-bold mb-0 leading-[1.2]
 }
 
@@ -81,6 +82,11 @@ h3 {
 .contact-page .contact-page__toc__privacy {
   @apply mt-64
 }
+
 .contact-page .contact-page__toc .contact-page__toc__privacy p {
   @apply !indent-0
+}
+
+.idea-page .idea-page__text p:not(:last-of-type) {
+  @apply mb-16
 }

@@ -8,12 +8,16 @@ const ProductFilter = (function() {
 
   const init = () => {
     const btns = document.querySelectorAll(selectors.btnCategory);
-    btns.forEach(btn => {
-      btn.addEventListener('click', apply);
-    });
+    if (btns.length) {
+      btns.forEach(btn => {
+        btn.addEventListener('click', apply);
+      });
+    }
 
     const btnReset = document.querySelector(selectors.btnReset);
-    btnReset.addEventListener('click', reset);
+    if (btnReset) {
+      btnReset.addEventListener('click', reset);
+    }
   };
 
   const apply = (e) => {

@@ -63,7 +63,19 @@ class ContactPageResource extends Resource
                   'link',
                   'redo',
                   'undo',
-              ])
+                ]),
+              RichEditor::make('privacy')
+                ->label('Datenschutz')
+                ->toolbarButtons([
+                  'bold',
+                  'orderedList',
+                  'bulletList',
+                  'h2',
+                  'h3',
+                  'link',
+                  'redo',
+                  'undo',
+                ])
             ])
             ->columnSpan([
               'default' => 12,
@@ -97,18 +109,6 @@ class ContactPageResource extends Resource
                     'removeFormat',
                   ]),
                 ]),
-              RichEditor::make('privacy')
-                ->label('Datenschutz')
-                ->toolbarButtons([
-                  'bold',
-                  'orderedList',
-                  'bulletList',
-                  'h2',
-                  'h3',
-                  'link',
-                  'redo',
-                  'undo',
-                ])
             ])
             ->columnSpan([
               'default' => 12,

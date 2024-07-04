@@ -4,7 +4,7 @@
   {{ $product->group_title }}
 </x-layout.page-title>
 <div 
-  class="relative pb-32 md:pb-0 lg:mt-30"
+  class="relative lg:mt-30"
   x-data="{ shippingInfo: false }">
   <div 
     class="hidden lg:block absolute inset-0 z-20 m-32 left-[calc((100%_/_4))] top-0 w-[calc((100%/2)_-_64px)] h-[calc(100vh_-_249px)]"
@@ -62,20 +62,25 @@
     @endif
   </x-swiper.wrapper>
 
-  <x-product.info :product="$product" />
 
-  @if ($product->variations->count() > 0)
-    @foreach($product->variations as $variation)
-      <x-product.info :product="$variation" :parent="$product" class="hidden" />
-    @endforeach
-  @endif
+  <div class="md:grid md:grid-cols-12 md:gap-x-16 lg:block">
+    <div class="md:col-span-10 md:col-start-2">
+      <x-product.info :product="$product" />
 
-  <x-table.row class="mt-64 lg:hidden">
-    <div>
-      <span class="font-europa-bold font-bold">Versandinformationen</span>
-      <x-product.instructions />
+      @if ($product->variations->count() > 0)
+        @foreach($product->variations as $variation)
+          <x-product.info :product="$variation" :parent="$product" class="hidden" />
+        @endforeach
+      @endif
+
+      <x-table.row class="mt-64 lg:hidden">
+        <div class="pt-4">
+          <span class="font-europa-bold font-bold">Versandinformationen</span>
+          <x-product.instructions />
+        </div>
+      </x-table.row>
     </div>
-  </x-table.row>
+  </div>
 
 </div>
 @endsection

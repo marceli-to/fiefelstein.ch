@@ -52,7 +52,7 @@ class IdeaPageResource extends Resource
         Grid::make()->schema([
           Section::make('Zitat/Text')
             ->schema([
-              TextInput::make('quote_text')
+              Textarea::make('quote_text')
                 ->label('Zitat')
                 ->placeholder('Zitat'),
               TextInput::make('quote_author')
@@ -96,6 +96,7 @@ class IdeaPageResource extends Resource
                   
                   Textarea::make('description')
                     ->label('Beschreibung')
+                    ->rows(4)
                     ->placeholder('Beschreibung'),
                 ]),
             ])->columnSpan([

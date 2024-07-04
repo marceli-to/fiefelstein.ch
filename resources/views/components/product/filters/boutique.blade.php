@@ -1,4 +1,4 @@
-<div class="sm:ml-16">
+<div class="hidden md:block sm:ml-16">
   <a 
     href="javascript:;"
     class="js-filter-reset-btn">

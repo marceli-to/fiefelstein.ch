@@ -8,11 +8,11 @@
 }
 
 .swiper-wrapper.swiper-landing .swiper-slide img {
-  @apply h-[calc(100vh_-_60px)] w-full object-cover aspect-square
+  @apply lg:h-[calc(100vh_-_121px)] w-full object-cover aspect-square
 }
 
 .swiper-wrapper.swiper-landing .swiper-slide article {
-  @apply h-[calc(100vh_-_60px)] w-full aspect-square
+  @apply lg:h-[calc(100vh_-_121px)] w-full aspect-square
 }
 
 .swiper-wrapper.swiper-product {
@@ -24,9 +24,9 @@
 }
 
 .swiper-wrapper.swiper-product .swiper-slide img {
-  @apply md:h-[calc(100vh_-_185px)] w-full object-cover aspect-square
+  @apply lg:h-[calc(100vh_-_246px)] w-full object-cover aspect-square
 }
 
 .swiper-wrapper.swiper-product .swiper-slide article {
-  @apply md:h-[calc(100vh_-_185px)] w-full object-cover 
+  @apply lg:h-[calc(100vh_-_246px)] w-full object-cover aspect-square
 }
