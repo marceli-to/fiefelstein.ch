@@ -1,13 +1,13 @@
 @extends('app')
 @section('content')
 <x-layout.page-title>
-  {{ $product->group_title }}
+  Produkte: {{ $product->group_title }}
 </x-layout.page-title>
 <div 
   class="relative lg:mt-30"
   x-data="{ shippingInfo: false }">
   <div 
-    class="hidden lg:block absolute inset-0 z-20 m-32 left-[calc((100%_/_4))] top-0 w-[calc((100%/2)_-_64px)] h-[calc(100vh_-_249px)]"
+    class="hidden lg:block absolute inset-0 z-20 m-32 left-[calc((100%_/_4))] top-0 w-[calc((100%/2)_-_64px)] h-[calc(100vh_-_310px)]"
     x-cloak
     x-show="shippingInfo"
     x-on:click.outside="shippingInfo = false"
