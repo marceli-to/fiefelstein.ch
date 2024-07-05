@@ -73,12 +73,14 @@
         @endforeach
       @endif
 
-      <x-table.row class="mt-64 lg:hidden">
-        <div class="pt-4">
-          <span class="font-europa-bold font-bold">Versandinformationen</span>
-          <x-product.instructions />
-        </div>
-      </x-table.row>
+      @if ($product->state->value() == 'deliverable')
+        <x-table.row class="mt-64 lg:hidden">
+          <div class="pt-4">
+            <span class="font-europa-bold font-bold">Versandinformationen</span>
+            <x-product.instructions />
+          </div>
+        </x-table.row>
+      @endif
     </div>
   </div>
 

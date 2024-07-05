@@ -66,8 +66,15 @@ class HandleOrder
         'is_variation' => $product->isVariation ? 1 : 0,
       ]);
 
-      // Update product stock
-      $product->stock -= $item['quantity'];
+      // Update product stock but make sure it doesn't go below 0
+      $product->stock = $product->stock - $item['quantity'] > 0 ? $product->stock - $item['quantity'] : 0;
+
+      // If stock is 0, set product state to not available
+      if ($product->stock == 0)
+      {
+        $product->state = 'not_available';
+      }
+      
       $product->save();
 
     }

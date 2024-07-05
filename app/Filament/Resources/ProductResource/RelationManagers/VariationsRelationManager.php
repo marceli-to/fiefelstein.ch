@@ -1,6 +1,7 @@
 <?php
 namespace App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
+use App\Enums\ProductState;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\Grid;
@@ -63,6 +64,11 @@ class VariationsRelationManager extends RelationManager
             ->label('Attribute')
             ->addActionLabel('Attribut hinzufügen')
             ->columnSpan('full'),
+
+          Select::make('state')
+            ->label('Status')
+            ->options(collect(ProductState::cases())->mapWithKeys(fn ($state) => [$state->value => $state->label()]))
+            ->required(),
 
           TextInput::make('price')
             ->label('Preis')

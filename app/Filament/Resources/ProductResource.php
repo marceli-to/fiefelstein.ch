@@ -4,6 +4,7 @@ use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Enums\ProductState;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\Grid;
@@ -91,6 +92,11 @@ class ProductResource extends Resource
               return ProductCategory::create($data)->getKey();
             }),
 
+          Select::make('state')
+            ->label('Status')
+            ->options(collect(ProductState::cases())->mapWithKeys(fn ($state) => [$state->value => $state->label()]))
+            ->required(),
+
           TextInput::make('price')
             ->label('Preis')
             ->numeric()
@@ -111,6 +117,7 @@ class ProductResource extends Resource
           Toggle::make('publish')
             ->label('Publizieren')
             ->inline(false),
+
         ])->columnSpan([
           'default' => 12,
           'lg' => 7,

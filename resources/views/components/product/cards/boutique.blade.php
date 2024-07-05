@@ -17,10 +17,21 @@
   <x-table.row>
     CHF {{ $product->price }}
   </x-table.row>
-  <x-table.row class="italic border-b border-b-black">
-    {{ $product->stock }} Stück abholbereit
-  </x-table.row>
-  @if ($product->stock > 0)
-    <livewire:cart-button :productUuid="$product->uuid" :key="$product->uuid" />
+
+  @if ($product->state->value() == 'deliverable' || $product->state->value() == 'ready_for_pickup')
+    <x-table.row class="italic border-b border-b-black">
+      {{ $product->stock }} Stück {{ $product->state->label() }}
+    </x-table.row>
+    @if ($product->stock > 0)
+      <livewire:cart-button :productUuid="$product->uuid" :key="$product->uuid" />
+    @endif
+  @else
+    <x-table.row class="italic border-b border-b-black">
+      {{ $product->stateText }}
+    </x-table.row>
+    <div class="mt-32">
+      <livewire:product-notification :uuid="$product->uuid" :key="$product->uuid" />
+    </div>
   @endif
+
 </div>

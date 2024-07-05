@@ -96,8 +96,9 @@ class CartButton extends Component
       'isVariation' => $product->isVariation,
       'title' => $product->title,
       'description' => $product->description,
+      'state' => $product->state->value,
       'price' => $product->price,
-      'shipping' => $product->shipping,
+      'shipping' => $product->state->value == 'deliverable' ? $product->shipping : NULL,
       'quantity' => $quantity,
       'image' => $product->image,
     ];

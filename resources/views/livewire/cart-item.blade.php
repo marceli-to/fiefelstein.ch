@@ -35,15 +35,28 @@
         <span>{!! number_format($itemTotal, 2, '.', '&thinsp;') !!}</span>
       </x-table.row>
     </div>
-    <div class="grid grid-cols-4">
-      <x-table.row class="border-none col-span-3">
-        <span>Verpackung und Versand</span>
-      </x-table.row>
-      <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
-        <span>CHF</span>
-        <span>{!! number_format($itemTotalShipping, 2, '.', '&thinsp;') !!}</span>
-      </x-table.row>
-    </div>
+    @if ($item['state'] == 'deliverable')
+      <div class="grid grid-cols-4">
+        <x-table.row class="border-none col-span-3">
+          <span>Verpackung und Versand</span>
+        </x-table.row>
+        <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
+          <span>CHF</span>
+          <span>{!! number_format($itemTotalShipping, 2, '.', '&thinsp;') !!}</span>
+        </x-table.row>
+      </div>
+    @endif
+    @if ($item['state'] == 'ready_for_pickup')
+      <div class="grid grid-cols-4">
+        <x-table.row class="border-none col-span-3">
+          <span>Abholung</span>
+        </x-table.row>
+        <x-table.row class="border-none col-span-1 flex justify-between 2xl:pl-16">
+          <span></span>
+          <span>–</span>
+        </x-table.row>
+      </div>
+    @endif
     <div class="grid grid-cols-4 !border-b border-b-black">
       <x-table.row class="border-none col-span-3">
         <span>Total</span>

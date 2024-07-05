@@ -1,5 +1,6 @@
 <?php
 namespace App\Models;
+use App\Enums\ProductState;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +22,7 @@ class ProductVariation extends Model
     'cards',
     'image',
     'publish',
+    'state',
     'sort',
     'product_id',
     'user_id',
@@ -32,10 +34,12 @@ class ProductVariation extends Model
     'shipping' => 'decimal:2',
     'attributes' => 'array',
     'cards' => 'array',
+    'state' => ProductState::class,
   ];
 
   protected $appends = [
-    'isVariation'
+    'isVariation',
+    'stateText',
   ];
 
 
@@ -66,6 +70,21 @@ class ProductVariation extends Model
   public function getIsVariationAttribute(): bool
   {
     return true;
+  }
+
+  public function getStateTextAttribute(): string
+  {
+    // if state is 'NotAvailable' return 'Derzeit nicht verfügbar'
+    if ($this->state->value == 'not_available') {
+      return 'Derzeit nicht verfügbar';
+    }
+
+    // if state is 'OnRequest' return 'Auf Anfrage'
+    if ($this->state->value == 'on_request') {
+      return 'Wird auf Anfrage produziert';
+    }
+
+    return $this->state->value;
   }
 
 }
