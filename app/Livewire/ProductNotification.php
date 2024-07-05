@@ -4,6 +4,8 @@ use Livewire\Component;
 use App\Models\Product;
 use App\Enums\ProductState;
 use App\Actions\Product\FindProduct;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ProductNotification as ProductNotificationMail;
 
 class ProductNotification extends Component
 {
@@ -32,7 +34,15 @@ class ProductNotification extends Component
   {
     $this->validate();
 
-    // @todo: Send email to shop owner
+    try {
+      Notification::route('mail', env('MAIL_TO'))
+        ->notify(
+          new ProductNotificationMail($this->product, $this->email)
+        );
+    } 
+    catch (\Exception $e) {
+      \Log::error($e->getMessage());
+    }
 
     $this->email = '';
     $this->dispatch('hide-submited-form');
