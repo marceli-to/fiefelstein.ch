@@ -1,5 +1,5 @@
-@props(['product' => ''])
-{{ dd($product) }}
+@props(['product'])
+@if ($product)
 <a 
   href="{{ route('product.show', ['product' => $product->slug]) }}"
   title="{{ $product->title }}"
@@ -9,3 +9,4 @@
   </h2>
   <x-media.picture :image="$product->image" :alt="$product->title" />
 </a>
+@endif
