@@ -15,7 +15,7 @@ class GetCards
       {
         $cards[] = [
           'type' => 'product',
-          'product' => Product::where('publish', 1)->find($card['product_id']),
+          'product' => Product::find($card['product_id']),
         ];
       } 
       else
