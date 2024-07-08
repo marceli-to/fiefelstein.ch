@@ -1,4 +1,5 @@
 @props(['product' => ''])
+{{ dd($product) }}
 <a 
   href="{{ route('product.show', ['product' => $product->slug]) }}"
   title="{{ $product->title }}"
