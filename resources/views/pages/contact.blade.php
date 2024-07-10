@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 <div class="md:grid md:grid-cols-12 md:gap-x-16 mb-20 lg:mb-0 mt-16 md:pb-64 relative contact-page">
-  <div class="md:col-span-6 lg:col-span-3 lg:col-start-3 text-lg font-europa-light font-light contact-page__imprint">
+  <div class="md:col-span-6 lg:col-span-3 lg:col-start-3 mb-16 lg:mb-0 text-lg font-europa-light font-light contact-page__imprint">
     {!! $data->imprint !!}
   </div>
   <div class="md:col-span-6 lg:col-span-4 lg:col-start-6 contact-page__toc">
