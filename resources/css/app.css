@@ -44,6 +44,10 @@ h3 {
   @apply mt-32
 }
 
+.contact-page .contact-page__imprint strong {
+  @apply font-europa-regular font-normal
+}
+
 .contact-page .contact-page__imprint p {
   @apply leading-[1.35]
 }
