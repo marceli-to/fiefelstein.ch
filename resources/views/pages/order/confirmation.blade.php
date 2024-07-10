@@ -114,6 +114,9 @@
         <span>{{ $order->order_number }}</span>
       </x-table.row>
     </div>
+    <div class="mt-32">
+      <x-product.instructions />
+    </div>
   </div>
 </div>
 @endsection

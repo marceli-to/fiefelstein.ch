@@ -1,7 +1,7 @@
 <div 
   x-data="{ showForm: false }"
   @hide-submited-form.window="showForm = false">
-  <div>
+  <div class="px-16">
     @if ($product->state->value() === 'not_available')
       Gerne benachrichtigen wir Sie, sobald {{ $product->title }} wieder lieferbar ist.
     @elseif ($product->state->value() === 'on_request')

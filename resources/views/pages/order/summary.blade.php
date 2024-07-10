@@ -113,7 +113,7 @@
         <x-form.checkbox 
           name="accept_terms" 
           value="true" 
-          label="Hiermit akzeptiere ich die <a href='/downloads/fiefelstein.ch-agb.pdf' title='Allgemeinen Geschäftsbedingungen' target='_blank' class='hover:text-flame'><strong>Allgemeinen Geschäftsbedingungen</strong></a> und die <a href='/downloads/fiefelstein.ch-datenschutzerklaerung.pdf' title='Datenschutzerklärung' target='_blank' class='hover:text-flame'><strong>Datenschutzerklärung</strong></a>." 
+          label="Hiermit akzeptiere ich die <a href='/kontakt' title='Allgemeinen Geschäftsbedingungen' target='_blank' class='hover:text-flame'><strong>Allgemeinen Geschäftsbedingungen</strong></a> und die <a href='/kontakt' title='Datenschutzerklärung' target='_blank' class='hover:text-flame'><strong>Datenschutzerklärung</strong></a>." 
           checked="{{ $cart['accept_terms'] ?? old('accept_terms') }}"
           class="!items-start pt-4"
           iconClass="mt-5" />

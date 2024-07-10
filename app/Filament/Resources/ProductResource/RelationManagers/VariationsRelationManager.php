@@ -204,6 +204,7 @@ class VariationsRelationManager extends RelationManager
             ->label('Duplizieren')
             ->icon('heroicon-o-clipboard-document')
             ->action(function (array $data, $record): bool {
+              $record->uuid = \Str::uuid();
               $record->title = $record->title . ' (Kopie)';
               return $record->replicate()->save();
             Notification::make()
