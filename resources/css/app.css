@@ -6,6 +6,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-variant-ligatures: none;
+}
+
 main {
   @apply flex-1;
 }
