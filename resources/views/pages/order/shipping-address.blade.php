@@ -21,7 +21,7 @@
           <x-form.checkbox 
             name="use_invoice_address" 
             value="1" 
-            label="Die Rechnungsadresse entspricht der Lieferadresse" 
+            label="Die Lieferadresse entspricht der Rechnungsadresse" 
             checked="{{ $cart['shipping_address']['use_invoice_address'] ?? old('use_invoice_address') }}" />
         </x-table.row>
         <x-table.row class="!mt-32">

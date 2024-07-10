@@ -83,16 +83,6 @@
           <td class="amount text-right">{{ $data->total }}</td>
         </tr>
       </table>
-      <!--<table cellpadding="0" cellspacing="0" style="border-top: 0">
-        <tr>
-          <td>Transaktions-Nummer</td>
-          <td class="uuid">ea029ddd-fd2e-4c6e-a215-8db35e511cc8</td>
-        </tr>
-        <tr>
-          <td>Order ID</td>
-          <td class="uuid">e930518c-126b-4a5c-8404-92db710b4ad8</td>
-        </tr>
-      </table> -->
     </div>
     <div class="pt-lg">
       <p style="line-height: 1.54">Kleinere Produkte versenden wir innerhalb der Schweiz und des Fürstentums Lichtenstein. Grössere Produkte können auf Voranmeldung bei uns an der Binzstrasse abgeholt oder auf Anfrage persönlich oder per Kurier überbracht werden. Bitte kontaktiere uns hierfür per E-Mail: <a href="mailto:anliegen@fiefelstein.ch" style="text-decoration: none; color: #000000">anliegen@fiefelstein.ch</a></p>
