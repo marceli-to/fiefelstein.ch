@@ -10,7 +10,7 @@
 </div>
 <div class="md:grid md:grid-cols-12 md:gap-x-16 lg:mb-0 lg:mt-30 relative">
   <div class="md:col-span-full lg:col-span-6 lg:col-start-4 md:pb-64">
-    <div class="md:grid md:grid-cols-12 md:gap-x-16 md:gap-y-64 space-y-32 md:space-y-0">
+    <div class="md:grid md:grid-cols-12 md:gap-x-16 md:gap-y-64 space-y-64 md:space-y-0">
       @foreach($products->sortBy('sort') as $product)
         <x-product.cards.boutique :product="$product" :category="$product->product_category_id" />
         @if ($product->variations->count() > 0)

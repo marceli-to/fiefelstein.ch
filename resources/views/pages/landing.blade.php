@@ -6,7 +6,7 @@
       @if ($card['type'] == 'product')
         <x-product.cards.teaser :product="$card['product']" />
       @else
-        <x-product.cards.text :text="$card['text']" class="bg-white text-lg aspect-square flex items-center font-europa-light font-light" />
+        <x-product.cards.text :text="$card['text']" class="bg-white px-16 text-lg aspect-square flex items-center font-europa-light font-light" />
       @endif
     @endforeach
   </div>
