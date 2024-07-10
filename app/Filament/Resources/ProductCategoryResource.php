@@ -15,6 +15,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
@@ -24,7 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductCategoryResource extends Resource
 {
-  protected static bool $shouldRegisterNavigation = false;
+  protected static bool $shouldRegisterNavigation = true;
   
   protected static ?string $model = ProductCategory::class;
 
@@ -62,6 +63,9 @@ class ProductCategoryResource extends Resource
     return $table
     ->striped()
     ->defaultSort('name', 'ASC')
+    ->reorderable('sort')
+    ->defaultSort('sort', 'ASC')
+
     ->columns([
         TextColumn::make('name')
           ->label('Bezeichnung')
@@ -72,7 +76,10 @@ class ProductCategoryResource extends Resource
       Tables\Filters\TrashedFilter::make(),
     ])
     ->actions([
-      Tables\Actions\EditAction::make(),
+      ActionGroup::make([
+        EditAction::make(),
+        DeleteAction::make(),
+      ]),
     ])
     ->bulkActions([
       Tables\Actions\BulkActionGroup::make([

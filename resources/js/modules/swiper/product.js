@@ -76,19 +76,36 @@ const Product = (function() {
     
     const prevBtn = document.querySelector(selectors.swiper.btns.prev);
     const nextBtn = document.querySelector(selectors.swiper.btns.next);
-
+    
     if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        swiper.slidePrev();
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigate('prev');
       });
     }
-
+    
     if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        swiper.slideNext();
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigate('next');
       });
     }
+  };
 
+  const navigate = (direction) => {
+    const currentTranslate = swiper.translate;
+    const slideWidth = swiper.slides[0].offsetWidth;
+    const spaceBetween = swiper.params.spaceBetween;
+    const moveAmount = slideWidth + spaceBetween;
+
+    let targetTranslate;
+    if (direction === 'prev') {
+      targetTranslate = currentTranslate + moveAmount;
+    } else {
+      targetTranslate = currentTranslate;
+    }
+  
+    swiper.translateTo(targetTranslate, 300);
   };
 
   const toggleVariation = (uuid, changeSlides = true) => {

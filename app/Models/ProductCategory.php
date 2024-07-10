@@ -9,7 +9,10 @@ class ProductCategory extends Model
 {
   use SoftDeletes;
 
-  protected $fillable = ['name'];
+  protected $fillable = [
+    'name',
+    'sort'
+  ];
 
   public function user(): BelongsTo
   {

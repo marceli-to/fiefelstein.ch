@@ -31,7 +31,7 @@ class InvoiceAddressStoreRequest extends FormRequest
       'zip' => 'required',
       'city' => 'required',
       'country' => 'required',
-      'email' => 'required|email',
+      'email' => 'required|email:rfc,dns',
     ];
   }
 

@@ -39,13 +39,18 @@
             <x-media.picture :image="$card['image']" :alt="$product->title" :lazy="false" />
           @endif
           @if ($card['type'] == 'Text')
-            <x-product.cards.text :text="$card['text']" class="text-md p-32 bg-ivory" />
+            <x-product.cards.text :text="$card['text']" class="text-sm md:text-md p-32 lg:px-84 bg-ivory" />
           @endif
         </x-swiper.slide>
       @endforeach
     @endif
     @if ($product->variations->count() > 0)
       @foreach($product->variations as $variation)
+        @if ($variation->image)
+          <x-swiper.slide productUuid="{{ $variation->uuid }}">
+            <x-media.picture :image="$variation->image" :alt="$variation->title" />
+          </x-swiper.slide>
+        @endif
         @if ($variation->cards)
           @foreach($variation->cards as $card)
             <x-swiper.slide productUuid="{{ $variation->uuid }}">
