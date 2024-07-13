@@ -18,16 +18,16 @@
           </li>
         @endforeach
       @endif
-      <li class="my-12">
+      <li class="my-6">
         <x-menu.item title="Brocante" :url="route('brocante')" :current="request()->routeIs('brocante')" />
       </li>
-      <li class="my-12">
+      <li class="my-6">
         <x-menu.item title="Boutique" :url="route('product.listing')" :current="request()->routeIs('product.listing')" />
       </li>
-      <li class="my-12">
+      <li class="my-6">
         <x-menu.item title="Idee" :url="route('idea')" :current="request()->routeIs('idea')" />
       </li>
-      <li class="my-12">
+      <li class="my-6">
         <x-menu.item title="Kontakt" :url="route('contact')" :current="request()->routeIs('contact')" />
       </li>
     </ul>
