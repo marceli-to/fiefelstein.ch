@@ -17,14 +17,18 @@
     <form method="POST" action="{{ route('order.shipping-address-store') }}">
       @csrf
       <div class="space-y-1">
-        <x-table.row class="border-b border-b-black !min-h-34">
-          <x-form.checkbox 
-            name="use_invoice_address" 
-            value="1" 
-            label="Die Lieferadresse entspricht der Rechnungsadresse" 
-            checked="{{ $cart['shipping_address']['use_invoice_address'] ?? old('use_invoice_address') }}" />
-        </x-table.row>
-        <x-table.row class="!mt-32">
+
+        @if($can_use_invoice_address)
+          <x-table.row class="border-b border-b-black !min-h-34">
+            <x-form.checkbox 
+              name="use_invoice_address" 
+              value="1" 
+              label="Die Lieferadresse entspricht der Rechnungsadresse" 
+              checked="{{ $cart['shipping_address']['use_invoice_address'] ?? old('use_invoice_address') }}" />
+          </x-table.row>
+        @endif
+
+        <x-table.row class="{{ $can_use_invoice_address ? '!mt-32' : '' }}">
           <x-form.input 
             name="firstname" 
             placeholder="Vorname"
@@ -76,7 +80,7 @@
             name="country" 
             placeholder="Land" 
             required="true"
-             :options="config('countries.delivery')"
+            :options="config('countries.delivery')"
             value="{{ $cart['shipping_address']['country'] ?? old('country') }}" />
         </x-table.row>
       </div>

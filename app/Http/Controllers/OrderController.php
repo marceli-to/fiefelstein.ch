@@ -43,9 +43,16 @@ class OrderController extends BaseController
 
   public function shipping()
   {
+    $cart = (new GetCart())->execute();
+    $can_use_invoice_address = in_array(
+      $cart['invoice_address']['country'], 
+      config('countries.delivery')
+    ) ?? FALSE;
+
     return view('pages.order.shipping-address', [
       'cart' => (new GetCart())->execute(),
       'order_step' => $this->handleStep(2),
+      'can_use_invoice_address' => $can_use_invoice_address,
     ]);
   }
 
@@ -92,17 +99,70 @@ class OrderController extends BaseController
 
   public function finalize(OrderStoreRequest $request)
   {
-    // Todo: payment process
+    // Implement payment process
+    \Stripe\Stripe::setApiKey(env('PAYMENT_STRIPE_PRIVATE_KEY'));
+    $domain = config('app.url');
+
+    // Get cart and build items array
+    $cart = (new GetCart())->execute();
+    $items = [];
+
+    foreach ($cart['items'] as $item)
+    {
+      // set unit_amount
+      $unit_amount = (int) ($item['price'] * 100);
+
+      // add shipping if it's not 0
+      if (isset($item['shipping']) && $item['shipping'] > 0)
+      {
+        $unit_amount += (int) ($item['shipping'] * 100);
+      }
+
+      $items[] = [
+        'price_data' => [
+          'currency' => 'chf',
+          'unit_amount' => $unit_amount,
+          'product_data' => [
+            'name' => $item['title'],
+          ],
+        ],
+        'quantity' => $item['quantity'],
+      ];
+    }
+
+    // Create checkout session id
+    $checkout_session = \Stripe\Checkout\Session::create([
+      'customer_email' => $cart['invoice_address']['email'],
+      'submit_type' => 'pay',
+      'payment_method_types' => ['card'],
+      'line_items' => $items,
+      'mode' => 'payment',
+      'locale' => app()->getLocale(),
+      'success_url' => route('order.payment.success'),
+      'cancel_url' => route('order.payment.cancel'),
+    ]);
+
+    // Redirect to Stripe
+    return redirect()->away($checkout_session->url);
+
+    // // Redirect to the confirmation page
+    // return redirect()->route('order.confirmation', $order);
+  }
+
+  public function paymentSuccess()
+  {
     $cart = (new UpdateCart())->execute([
       'order_step' => $this->handleStep(6),
       'is_paid' => true,
     ]);
 
-    // Create the order
     $order = (new HandleOrder())->execute();
-
-    // Redirect to the confirmation page
     return redirect()->route('order.confirmation', $order);
+  }
+
+  public function paymentCancel()
+  {
+    dd('cancel');
   }
 
   public function confirmation(Order $order)

@@ -34,6 +34,9 @@ Route::middleware(['ensure.cart.not.empty'])->group(function () {
   Route::post('/bestellung/zahlungsmethode/speichern', [OrderController::class, 'storePaymentMethod'])->name('order.payment-method-store')->middleware('ensure.correct.order.step:3');
   Route::get('/bestellung/zusammenfassung', [OrderController::class, 'summary'])->name('order.summary')->middleware('ensure.correct.order.step:4');
   Route::post('/bestellung/abschliessen', [OrderController::class, 'finalize'])->name('order.finalize')->middleware('ensure.correct.order.step:5');
+
+  Route::get('/bestellung/zahlung-erfolgreich', [OrderController::class, 'paymentSuccess'])->name('order.payment.success')->middleware('ensure.correct.order.step:5');
+  Route::get('/bestellung/zahlung-storniert', [OrderController::class, 'paymentCancel'])->name('order.payment.cancel')->middleware('ensure.correct.order.step:5');
 });
 
 Route::get('/bestellung/bestaetigung/{order:uuid}', [OrderController::class, 'confirmation'])->name('order.confirmation');

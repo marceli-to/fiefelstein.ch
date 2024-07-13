@@ -9,7 +9,7 @@
     @endif
   </div>
 
-  <div x-show="!showForm" class="mt-32">
+  <div x-show="!showForm" class="mt-16">
     <button 
       @click="showForm = true"
       class="min-h-32 font-bold leading-none w-full bg-white border border-black hover:border-flame hover:bg-flame hover:text-white transition-all">
@@ -21,7 +21,7 @@
     </button>
     
     @if (session()->has('message'))
-      <div class="mt-32">
+      <div class="mt-16">
         {{ session('message') }}
       </div>
     @endif
@@ -40,11 +40,12 @@
         type="text" 
         name="email" 
         placeholder="Ihre E-Mail-Adresse"
+        @blur="if (!event.target.value) showForm = false"
         wire:model.defer="email"
         class="text-sm bg-flame text-white text-center font-europa-bold font-bold italic placeholder:text-center placeholder:italic placeholder:text-white placeholder:font-europa-bold placeholder:font-bold w-full border-none min-h-32 !ring-0 p-0" />
       <button 
         type="submit"
-        class="min-h-32 mt-32 font-bold leading-none w-full bg-white border border-black hover:border-flame hover:bg-flame hover:text-white transition-all"
+        class="min-h-32 mt-16 font-bold leading-none w-full bg-white border border-black hover:border-flame hover:bg-flame hover:text-white transition-all"
         wire:loading.class="pointer-events-none !bg-flame !border-flame !text-white">
         <span wire:loading.class="hidden">Senden</span>
         <span wire:loading class="hidden">Wird gesendet...</span>

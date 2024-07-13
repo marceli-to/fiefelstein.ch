@@ -47,7 +47,8 @@
               <x-table.row class="border-b border-b-black flex justify-center items-center">
                 <a 
                   href="javascript:;"
-                  wire:click="removeCartItem('{{ $item['uuid'] }}')">
+                  wire:click="removeCartItem('{{ $item['uuid'] }}')"
+                  class="block">
                   <x-icons.cross-small class="w-12 h-auto" />
                 </a>
               </x-table.row>
@@ -56,7 +57,7 @@
               <a 
                 href="javascript:;" 
                 wire:click="removeCartItem('{{ $item['uuid'] }}')" 
-                class="hover:text-flame group relative" 
+                class="block hover:text-flame group relative" 
                 title="Produkt entfernen">
                 <x-icons.cross-small 
                   class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 -mt-1 h-auto opacity-0 group-hover:opacity-100 bg-white" />
