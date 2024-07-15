@@ -79,7 +79,7 @@
       @endif
 
       @if ($product->state->value() == 'deliverable' || $product->state->value() == 'ready_for_pickup')
-        <x-table.row class="mt-64 lg:hidden">
+        <x-table.row class="mt-32 lg:hidden">
           <div class="pt-4">
             <span class="font-europa-bold font-bold">Versandinformationen</span>
             <x-product.instructions />
