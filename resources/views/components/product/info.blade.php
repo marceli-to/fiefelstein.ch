@@ -65,7 +65,7 @@
       <livewire:cart-button :productUuid="$product->uuid" :key="$product->uuid" />
     @endif
 
-    @if ($product->state->value() == 'deliverable')
+    @if ($product->state->value() == 'deliverable' || $product->state->value() == 'ready_for_pickup')
       <x-table.row class="hidden lg:flex mt-64 border-none">
         <a 
           href="javascript:;" 
