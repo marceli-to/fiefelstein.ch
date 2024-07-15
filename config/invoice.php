@@ -12,10 +12,10 @@ return [
    */
 
   'payment_methods' => [
-    'twint' => [
-      'name' => 'Twint',
-      'key' => 'twint',
-    ],
+    // 'twint' => [
+    //   'name' => 'Twint',
+    //   'key' => 'twint',
+    // ],
     'mastercard' => [
       'name' => 'Mastercard',
       'key' => 'mastercard',
@@ -24,10 +24,10 @@ return [
       'name' => 'Visa',
       'key' => 'visa',
     ],
-    'postfinance' => [
-      'name' => 'Postfinance',
-      'key' => 'postfinance',
-    ],
+    // 'postfinance' => [
+    //   'name' => 'Postfinance',
+    //   'key' => 'postfinance',
+    // ],
   ],
 
   /**
