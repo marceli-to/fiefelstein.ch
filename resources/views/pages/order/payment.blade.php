@@ -19,7 +19,6 @@
       <x-table.row class="border-b border-b-black min-h-34">
         <span>Zahlungsmittel</span>
       </x-table.row>
-        {{-- get payment methods from config (invoice.payment_methods) and loop through them --}}
         @foreach (config('invoice.payment_methods') as $payment_method)
           <x-table.row class="!min-h-64 !mt-1 flex items-center {{ $loop->first ? '!border-t-0' : '' }}">
             <x-form.radio 

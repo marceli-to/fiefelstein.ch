@@ -162,7 +162,7 @@ class OrderController extends BaseController
 
   public function paymentCancel()
   {
-    dd('cancel');
+    return redirect()->route('order.payment'); 
   }
 
   public function confirmation(Order $order)
