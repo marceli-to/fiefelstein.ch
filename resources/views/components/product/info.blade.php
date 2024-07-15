@@ -65,7 +65,7 @@
 
     @if ($product->state->value() != 'deliverable' && $product->state->value() != 'ready_for_pickup')
 
-    <div class="mt-32">
+    <div class="mt-16">
       <livewire:product-notification :uuid="$product->uuid" :key="$product->uuid" />
     </div>
     @endif
