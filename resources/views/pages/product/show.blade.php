@@ -12,7 +12,7 @@
     x-show="shippingInfo"
     x-on:click.outside="shippingInfo = false"
     x-on:keyup.escape.window="shippingInfo = false">
-    <div class="bg-flame font-europa-bold font-bold text-white text-lg w-full h-full p-22 pr-64 relative">
+    <div class="bg-flame font-europa-regular font-regular text-white text-lg w-full h-full p-22 pr-64 relative">
       <a
         href="javascript:;"
         x-on:click="shippingInfo = !shippingInfo"
