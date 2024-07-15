@@ -1,6 +1,6 @@
 <x-mail::message>
   <div class="main text-base">
-    <h1>Herzlichen Dank für Deine Bestellung</h1>
+    <h1>Herzlichen Dank für Ihre Bestellung</h1>
     <div class="table">
       <table cellpadding="0" cellspacing="0">
         @foreach($data->products as $product)
@@ -85,7 +85,7 @@
       </table>
     </div>
     <div class="pt-lg">
-      <p style="line-height: 1.54">Kleinere Produkte versenden wir innerhalb der Schweiz und des Fürstentums Lichtenstein. Grössere Produkte können auf Voranmeldung bei uns an der Binzstrasse abgeholt oder auf Anfrage persönlich oder per Kurier überbracht werden. Bitte kontaktiere uns hierfür per E-Mail: <a href="mailto:anliegen@fiefelstein.ch" style="text-decoration: none; color: #000000">anliegen@fiefelstein.ch</a></p>
+      <p style="line-height: 1.54">Kleinere Produkte versenden wir innerhalb der Schweiz und des Fürstentums Lichtenstein, die entsprechende Versandpauschale wird Ihnen im Warenkorb angezeigt. Grössere Produkte können auf Voranmeldung bei uns an der Binzstrasse abgeholt werden oder werden auf Anfrage persönlich oder per Kurier überbracht. Bitte kontaktieren Sie uns hierfür per E-Mail: <a href="mailto:anliegen@fiefelstein.ch" style="text-decoration: none; color: #000000">anliegen@fiefelstein.ch</a></p>
     </div>
     <div class="pt-xl">
       <a href="https://www.instagram.com/fiefelstein/" target="_blank" title="fiefelstein.ch auf Instagram">

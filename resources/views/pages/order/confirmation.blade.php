@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 <x-layout.page-title>
-  Herzlichen Dank für Deine Bestellung
+  Herzlichen Dank für Ihre Bestellung
 </x-layout.page-title>
 <div class="md:grid md:grid-cols-12 gap-x-16 lg:mt-30 pb-20 lg:pb-40">
   <div class="hidden md:block md:col-span-4 lg:col-span-2 lg:col-start-2">

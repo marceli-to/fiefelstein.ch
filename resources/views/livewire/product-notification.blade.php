@@ -30,7 +30,7 @@
   <div 
     x-cloak 
     x-show="showForm" 
-    class="mt-32">
+    class="mt-16">
     <form wire:submit.prevent="submit">
       @error('email') 
         <div class="mb-16 text-flame font-europa-bold font-bold">{{ $message }}</div>
