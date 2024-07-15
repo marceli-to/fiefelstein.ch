@@ -12,8 +12,8 @@ const SwiperLanding = (function() {
     swiper: {
       container: '.js-swiper-landing',
       btns: {
-        prev: '.js-swiper-prev',
-        next: '.js-swiper-next',
+        prev: '.js-swipe-landing-prev',
+        next: '.js-swiper-landing-next',
       },
     },
   };
@@ -30,8 +30,8 @@ const SwiperLanding = (function() {
       },
     },
     navigation: {
-      nextEl: '.js-swiper-next',
-      prevEl: '.js-swiper-prev',
+      nextEl: '.js-swiper-landing-next',
+      prevEl: '.js-swiper-landing-prev',
     },
   };
 
