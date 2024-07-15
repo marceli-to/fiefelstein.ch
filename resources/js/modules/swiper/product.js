@@ -78,6 +78,7 @@ const Product = (function() {
     const nextBtn = document.querySelector(selectors.swiper.btns.next);
     
     if (prevBtn) {
+      console.log('prevBtn');
       prevBtn.addEventListener('click', (e) => {
         e.preventDefault();
         navigate('prev');
@@ -85,6 +86,7 @@ const Product = (function() {
     }
     
     if (nextBtn) {
+      console.log('nextBtn');
       nextBtn.addEventListener('click', (e) => {
         e.preventDefault();
         navigate('next');
