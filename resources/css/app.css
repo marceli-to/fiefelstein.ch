@@ -26,6 +26,14 @@ h3 {
   @apply font-europa-regular
 }
 
+article.product-card p {
+  @apply mb-16
+}
+
+article.product-card p:last-of-type {
+  @apply mb-0
+}
+
 /* Pages */
 .contact-page h2,
 .idea-page h2 {
