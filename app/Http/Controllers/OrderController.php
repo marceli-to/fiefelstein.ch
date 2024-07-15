@@ -124,6 +124,7 @@ class OrderController extends BaseController
           'unit_amount' => $unit_amount,
           'product_data' => [
             'name' => $item['title'],
+            'images' => [env('APP_URL') . "/img/small/" . $item['image']],
           ],
         ],
         'quantity' => $item['quantity'],
