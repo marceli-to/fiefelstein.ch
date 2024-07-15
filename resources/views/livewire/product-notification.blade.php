@@ -3,7 +3,7 @@
   @hide-submited-form.window="showForm = false">
   <div class="px-16">
     @if ($product->state->value() === 'not_available')
-      Gerne benachrichtigen wir Sie, sobald {{ $product->title }} wieder lieferbar ist.
+      Gerne benachrichtigen wir Sie, sobald {{ $product->title }} wieder verfügbar ist.
     @elseif ($product->state->value() === 'on_request')
       Hinterlassen Sie uns Ihre E-Mail-Adresse und wir melden uns bei Ihnen.
     @endif
