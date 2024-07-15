@@ -31,8 +31,8 @@
           </x-table.row>
         @endforeach
 
-      <x-table.row class="border-none !min-h-34">
-        <x-buttons.primary label="Weiter" type="button" />
+      <x-table.row class="border-none">
+        <x-buttons.primary label="Weiter" type="button" class="!min-h-33" />
       </x-table.row>
     </form>
   </div>
