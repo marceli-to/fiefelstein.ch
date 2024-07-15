@@ -20,7 +20,7 @@
       CHF {{ $product->price }}
     </x-table.row>
 
-    @if ($product->state->value() == 'deliverable' || $product->state->value() == 'ready_for_pickup')
+    {{-- @if ($product->state->value() == 'deliverable' || $product->state->value() == 'ready_for_pickup')
     <x-table.row class="italic border-b border-b-black">
       {{ $product->stock }} Stück {{ $product->state->label() }}
     </x-table.row>
@@ -31,7 +31,18 @@
       <div class="mt-32">
         <livewire:product-notification :uuid="$product->uuid" :key="$product->uuid" />
       </div>
+    @endif --}}
+
+    @if ($product->state->value() == 'deliverable' || $product->state->value() == 'ready_for_pickup')
+      <x-table.row class="italic border-b border-b-black">
+        {{ $product->stock }} Stück {{ $product->state->label() }}
+      </x-table.row>
+    @else
+    <x-table.row class="italic border-b border-b-black">
+      {{ $product->stateText }}
+    </x-table.row>
     @endif
+
 
     @if ($parent && $parent->variations && $parent->variations->count() > 0)
 
@@ -63,6 +74,13 @@
     
     @if ($product->stock > 0 && ($product->state->value() == 'deliverable' || $product->state->value() == 'ready_for_pickup'))
       <livewire:cart-button :productUuid="$product->uuid" :key="$product->uuid" />
+    @endif
+
+    @if ($product->state->value() != 'deliverable' && $product->state->value() != 'ready_for_pickup')
+
+    <div class="mt-32">
+      <livewire:product-notification :uuid="$product->uuid" :key="$product->uuid" />
+    </div>
     @endif
 
     @if ($product->state->value() == 'deliverable' || $product->state->value() == 'ready_for_pickup')
