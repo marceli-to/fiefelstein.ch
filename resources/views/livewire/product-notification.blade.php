@@ -21,7 +21,7 @@
     </button>
     
     @if (session()->has('message'))
-      <div class="mt-16">
+      <div class="mt-16 px-16">
         {{ session('message') }}
       </div>
     @endif
