@@ -66,7 +66,7 @@
     @endif
 
     @if ($product->state->value() == 'deliverable' || $product->state->value() == 'ready_for_pickup')
-      <x-table.row class="hidden lg:flex mt-64 border-none">
+      <x-table.row class="hidden lg:flex mt-32 border-none">
         <a 
           href="javascript:;" 
           :class="{ '!border-y-flame !text-flame': shippingInfo }"
