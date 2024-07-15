@@ -2,7 +2,7 @@
 @section('content')
 @if ($errors->any())
   <x-form.errors>
-    Bitte fülle alle Pflichtfelder aus.
+    Bitte füllen Sie alle Pflichtfelder aus.
   </x-form.errors>
 @else
   <x-layout.page-title>
