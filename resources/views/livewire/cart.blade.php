@@ -35,7 +35,7 @@
         </div>
         <div class="w-full mt-36 space-y-32">
           @foreach($cart['items'] as $item)
-            <div class="lg:hidden">
+            <div class="cart-item-touch">
               <x-table.row class="font-europa-bold font-bold flex justify-between">
                 <span>{{ $item['title'] }}</span>
                 <span>{{ $item['quantity'] }}</span>
@@ -53,7 +53,7 @@
                 </a>
               </x-table.row>
             </div>
-            <div class="hidden lg:block">
+            <div class="cart-item-no-touch">
               <a 
                 href="javascript:;" 
                 wire:click="removeCartItem('{{ $item['uuid'] }}')" 

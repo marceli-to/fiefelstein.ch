@@ -106,3 +106,19 @@ article.product-card p:last-of-type {
 .idea-page .idea-page__text p:not(:last-of-type) {
   @apply mb-16
 }
+
+.cart-item-touch {
+  @apply lg:hidden
+}
+
+.cart-item-no-touch {
+  @apply hidden lg:block 
+}
+
+.is-touch .cart-item-touch {
+  @apply lg:!block
+}
+
+.is-touch .cart-item-no-touch {
+  @apply !hidden
+}

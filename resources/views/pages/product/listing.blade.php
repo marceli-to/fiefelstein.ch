@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-<div class="md:grid md:grid-cols-12 md:gap-x-16 mb-20 lg:mb-0 lg:mt-90 relative">
+<div class="md:grid md:grid-cols-12 md:gap-x-16 mb-20 lg:mb-0 -mt-10 lg:mt-90 relative">
   <div class="md:col-span-full lg:col-span-6 lg:col-start-4">
     <h1 class="text-lg sm:flex">
       Boutique<span class="hidden sm:inline">:</span>

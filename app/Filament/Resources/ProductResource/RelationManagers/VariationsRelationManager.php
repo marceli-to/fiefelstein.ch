@@ -13,6 +13,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -137,10 +138,16 @@ class VariationsRelationManager extends RelationManager
                     $name = $fileName . '-' . uniqid() . '.' . $file->extension();
                     return (string) str($name);
                   }),
-                Textarea::make('text')
+
+                RichEditor::make('text')
                   ->label('Text')
-                  ->rows(6)
-                  ->visible(fn ($get) => $get('type') === 'Text'),
+                  ->toolbarButtons([
+                    'bold',
+                    'orderedList',
+                    'bulletList',
+                    'link',
+                    'removeFormat',
+                  ])->visible(fn ($get) => $get('type') === 'Text'),
             ])
         ])->columnSpan([
           'default' => 12,

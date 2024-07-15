@@ -168,7 +168,6 @@ class ProductResource extends Resource
                     return (string) str($name);
                   }),
 
-                // Add rich editor
                 RichEditor::make('text')
                   ->label('Text')
                   ->toolbarButtons([

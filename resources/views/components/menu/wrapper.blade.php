@@ -18,9 +18,9 @@
           </li>
         @endforeach
       @endif
-      <li class="my-6">
+      {{-- <li class="my-6">
         <x-menu.item title="Brocante" :url="route('brocante')" :current="request()->routeIs('brocante')" />
-      </li>
+      </li> --}}
       <li class="my-6">
         <x-menu.item title="Boutique" :url="route('product.listing')" :current="request()->routeIs('product.listing')" />
       </li>
