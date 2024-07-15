@@ -15,6 +15,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\FileUpload;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Filament\Resources\Resource;
@@ -166,10 +167,17 @@ class ProductResource extends Resource
                     $name = $fileName . '-' . uniqid() . '.' . $file->extension();
                     return (string) str($name);
                   }),
-                Textarea::make('text')
+
+                // Add rich editor
+                RichEditor::make('text')
                   ->label('Text')
-                  ->rows(6)
-                  ->visible(fn ($get) => $get('type') === 'Text'),
+                  ->toolbarButtons([
+                    'bold',
+                    'orderedList',
+                    'bulletList',
+                    'link',
+                    'removeFormat',
+                  ])->visible(fn ($get) => $get('type') === 'Text'),
             ])
         ])->columnSpan([
           'default' => 12,
