@@ -9,7 +9,7 @@
   </div>
   <div class="md:col-span-8 lg:col-span-5 xl:col-span-4">
     @empty ($cart['items'])
-      <p class="text-lg -mt-4">Ihr Warenkorb ist leer.</p>
+      <p class="text-lg font-europa-light font-light -mt-4">Ihr Warenkorb ist leer.</p>
     @else
       @foreach($cart['items'] as $item)
         <livewire:cart-item :uuid="$item['uuid']" :key="$item['uuid']" />
