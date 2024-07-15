@@ -2,7 +2,7 @@
 <div 
   {{ $attributes->merge(['class' => 'bg-white w-full mt-32 lg:mt-0 lg:pl-16 lg:absolute lg:h-full lg:z-30 lg:top-0 lg:left-[calc((100%_/_12)_-_15px)] lg:w-[calc((100%/6)_+_19px)]']) }}
   data-variation-wrapper="{{ $product->uuid }}">
-  <div class="lg:pr-16">
+  <div class="lg:pr-16 lg:max-h-[calc(100vh_-_121px)] lg:overflow-y-scroll">
     <x-table.row class="font-europa-bold font-bold">
       {{ $product->title }}
     </x-table.row>
