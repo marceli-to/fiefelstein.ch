@@ -23,7 +23,7 @@
           @else
             <x-product.cards.text 
               :text="$card['text']" 
-              class="bg-white border-r border-r-white text-lg aspect-square flex justify-center lg:justify-start items-center lg:items-start lg:absolute lg:top-70 left-16 lg:left-[calc((100vw/12)_-_2px)]" />
+              class="bg-white border-r border-r-white text-lg font-europa-light font-light aspect-square flex justify-center lg:justify-start items-center lg:items-start lg:absolute lg:top-70 left-16 lg:left-[calc((100vw/12)_-_2px)]" />
           @endif
         </x-swiper.slide>
       @endforeach
