@@ -30,8 +30,8 @@ const SwiperLanding = (function() {
       },
     },
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      nextEl: '.js-swiper-next',
+      prevEl: '.js-swiper-prev',
     },
   };
 
