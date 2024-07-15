@@ -30,3 +30,7 @@
 .swiper-wrapper.swiper-product .swiper-slide article {
   @apply lg:h-[calc(100vh_-_246px)] w-full object-cover aspect-square
 }
+
+.swiper-button-disabled {
+  @apply hidden
+}
