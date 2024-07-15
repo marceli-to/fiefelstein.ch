@@ -33,7 +33,7 @@ class CartItem extends Component
     $this->quantity--;
     if ($this->quantity < 1)
     {
-      $this->quantity = 1;
+      return $this->remove();
     }
     $this->update();
   }
