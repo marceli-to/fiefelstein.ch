@@ -20,19 +20,6 @@
       CHF {{ $product->price }}
     </x-table.row>
 
-    {{-- @if ($product->state->value() == 'deliverable' || $product->state->value() == 'ready_for_pickup')
-    <x-table.row class="italic border-b border-b-black">
-      {{ $product->stock }} Stück {{ $product->state->label() }}
-    </x-table.row>
-    @else
-      <x-table.row class="italic border-b border-b-black">
-        {{ $product->stateText }}
-      </x-table.row>
-      <div class="mt-32">
-        <livewire:product-notification :uuid="$product->uuid" :key="$product->uuid" />
-      </div>
-    @endif --}}
-
     @if ($product->state->value() == 'deliverable' || $product->state->value() == 'ready_for_pickup')
       <x-table.row class="italic border-b border-b-black">
         {{ $product->stock }} Stück {{ $product->state->label() }}
