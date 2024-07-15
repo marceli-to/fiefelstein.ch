@@ -145,9 +145,6 @@ class OrderController extends BaseController
 
     // Redirect to Stripe
     return redirect()->away($checkout_session->url);
-
-    // // Redirect to the confirmation page
-    // return redirect()->route('order.confirmation', $order);
   }
 
   public function paymentSuccess()
