@@ -63,6 +63,7 @@ class ContactPageResource extends Resource
                   'link',
                   'redo',
                   'undo',
+                  'underline',
                 ]),
               RichEditor::make('privacy')
                 ->label('Datenschutz')
