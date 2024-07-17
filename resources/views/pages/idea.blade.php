@@ -15,7 +15,17 @@
     @foreach($data->partner as $partner)
       <div class="mb-16 3xl:max-w-lg">
         <h3 class="text-lg">
-          {{ $partner['title'] }}
+          @if ($partner['website'])
+            <a 
+              href="{{ $partner['website'] }}" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              title="{{ $partner['title'] }}">
+              {{ $partner['title'] }}
+            </a>
+          @else
+            {{ $partner['title'] }}
+          @endif
         </h3>
         {{ $partner['description'] }}
       </div>
