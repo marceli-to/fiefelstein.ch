@@ -60,6 +60,10 @@ article.product-card p:last-of-type {
   @apply leading-[1.35]
 }
 
+.contact-page .contact-page__imprint a {
+  @apply no-underline
+}
+
 .contact-page .contact-page__toc h3 {
   @apply font-europa-bold font-bold
 }
