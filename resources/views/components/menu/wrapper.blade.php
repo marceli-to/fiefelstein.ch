@@ -10,7 +10,9 @@
   class="fixed left-0 top-145 lg:top-0 bg-white bg-opacity-95 w-full h-[calc(100vh_-_145px)] lg:h-full z-60">
   <div class="px-16 lg:grid lg:grid-cols-12 lg:gap-x-16">
     <ul class="text-lg -mt-10 lg:mt-90 lg:col-span-5 lg:col-start-3">
-      <li>Produkte</li>
+      <li>
+        <x-menu.item title="Produkte" :url="route('home')" />
+      </li>
       @if ($menuItems)
         @foreach ($menuItems as $item)
           <li>

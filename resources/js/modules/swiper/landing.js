@@ -12,7 +12,7 @@ const SwiperLanding = (function() {
     swiper: {
       container: '.js-swiper-landing',
       btns: {
-        prev: '.js-swipe-landing-prev',
+        prev: '.js-swiper-landing-prev',
         next: '.js-swiper-landing-next',
       },
     },
