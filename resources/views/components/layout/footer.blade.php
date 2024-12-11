@@ -11,6 +11,15 @@
 </footer>
 @livewireScripts
 @vite('resources/js/app.js')
+@if (app()->environment('production'))
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EJK5HMNWMD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EJK5HMNWMD');
+</script>
+@endif
 </body>
 </html>
 <!-- made with ❤ by wbg.ch & marceli.to -->
