@@ -8,6 +8,7 @@ use App\Actions\Cart\DestroyCart;
 use App\Services\Pdf\Pdf;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\OrderConfirmationNotification;
+use App\Notifications\OrderInformationNotification;
 
 class HandleOrder
 {
@@ -103,9 +104,19 @@ class HandleOrder
   private function notify($order, $invoice)
   {
     try {
-      Notification::route('mail', env('MAIL_TO'))
+      Notification::route('mail', $order->email)
         ->notify(
           new OrderConfirmationNotification($order, $invoice)
+        );
+    } 
+    catch (\Exception $e) {
+      \Log::error($e->getMessage());
+    }
+
+    try {
+      Notification::route('mail', env('MAIL_TO'))
+        ->notify(
+          new OrderInformationNotification($order, $invoice)
         );
     } 
     catch (\Exception $e) {
