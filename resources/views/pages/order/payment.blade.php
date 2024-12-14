@@ -30,18 +30,16 @@
               @endforeach
             </div>
           </x-form.radio> --}}
-          <x-form.radio 
-            name="payment_method" 
-            value="credit_card" 
-            checked="true">
-            <div class="flex gap-x-16">
-              @foreach (config('invoice.payment_methods') as $payment_method)
-                <x-dynamic-component :component="'icons.' .  $payment_method['key']" />
-              @endforeach
-            </div>
-          </x-form.radio>
-
-
+        <x-form.radio 
+          name="payment_method" 
+          value="credit_card" 
+          checked="true">
+          <div class="flex gap-x-16">
+            @foreach (config('invoice.payment_methods') as $payment_method)
+              <x-dynamic-component :component="'icons.' .  $payment_method['key']" />
+            @endforeach
+          </div>
+        </x-form.radio>
       </x-table.row>
       <x-table.row class="border-none mt-1">
         <x-buttons.primary label="Weiter" type="button" class="!min-h-33" />
