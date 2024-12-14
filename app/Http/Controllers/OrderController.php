@@ -77,13 +77,8 @@ class OrderController extends BaseController
 
   public function storePaymentMethod(PaymentMethodStoreRequest $request)
   {
-    $payment_methods = config('invoice.payment_methods');
-
     $cart = (new UpdateCart())->execute([
-      'payment_method' => [
-        'name' => $payment_methods[$request->payment_method]['name'],
-        'key' => $payment_methods[$request->payment_method]['key'],
-      ],
+      'payment_method' => $request->payment_method,
       'order_step' => $this->handleStep(4),
     ]);
     return redirect()->route('order.summary');

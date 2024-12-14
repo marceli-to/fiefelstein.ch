@@ -46,7 +46,7 @@ class HandleOrder
       'shipping_zip' => $data['shipping_address']['zip'] ?? '',
       'shipping_city' => $data['shipping_address']['city'] ?? '',
       'shipping_country' => $data['shipping_address']['country'] ?? '',
-      'payment_method' => $data['payment_method']['name'],
+      'payment_method' => $data['payment_method'],
       'payed_at' => now(),
     ]);
    

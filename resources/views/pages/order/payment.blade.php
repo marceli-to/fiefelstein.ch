@@ -19,17 +19,30 @@
       <x-table.row class="border-b border-b-black min-h-34">
         <span>Zahlungsmittel</span>
       </x-table.row>
-        @foreach (config('invoice.payment_methods') as $payment_method)
-          <x-table.row class="!min-h-64 !mt-1 flex items-center {{ $loop->first ? '!border-t-0' : '' }}">
-            <x-form.radio 
-              name="payment_method" 
-              value="{{ $payment_method['key'] }}" 
-              checked="{{ isset($cart['payment_method']['key']) && $cart['payment_method']['key'] == $payment_method['key'] ? true : false  }}">
-              <x-dynamic-component :component="'icons.' .  $payment_method['key']" />
-            </x-form.radio>
-          </x-table.row>
-        @endforeach
+      <x-table.row class="!min-h-64 !mt-1 flex items-center !border-t-0">
+          {{-- <x-form.radio 
+            name="payment_method" 
+            value="credit_card" 
+            checked="{{ isset($cart['payment_method']) && $cart['payment_method'] == 'credit_card' ? true : false  }}">
+            <div class="flex gap-x-16">
+              @foreach (config('invoice.payment_methods') as $payment_method)
+                <x-dynamic-component :component="'icons.' .  $payment_method['key']" />
+              @endforeach
+            </div>
+          </x-form.radio> --}}
+          <x-form.radio 
+            name="payment_method" 
+            value="credit_card" 
+            checked="true">
+            <div class="flex gap-x-16">
+              @foreach (config('invoice.payment_methods') as $payment_method)
+                <x-dynamic-component :component="'icons.' .  $payment_method['key']" />
+              @endforeach
+            </div>
+          </x-form.radio>
 
+
+      </x-table.row>
       <x-table.row class="border-none mt-1">
         <x-buttons.primary label="Weiter" type="button" class="!min-h-33" />
       </x-table.row>

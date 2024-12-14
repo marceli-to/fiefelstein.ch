@@ -107,7 +107,8 @@
         <span>Zahlungsmittel</span>
       </x-table.row>
       <x-table.row>
-        <span>{{ $cart['payment_method']['name'] }}</span>
+        {{-- <span>{{ $cart['payment_method']['name'] }}</span> --}}
+        <span>Kreditkarte</span>
       </x-table.row>
       <x-table.row class="mt-32">
         <x-form.checkbox 

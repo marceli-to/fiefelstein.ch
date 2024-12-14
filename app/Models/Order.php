@@ -97,7 +97,8 @@ class Order extends Model
 
   public function getPaymentInfoAttribute()
   {
-    return $this->payment_method . ' / ' . \Carbon\Carbon::parse($this->paid_at)->format('d.m.Y, H:i');
+    return 'Kreditkarte / ' . \Carbon\Carbon::parse($this->paid_at)->format('d.m.Y, H:i');
+    //return $this->payment_method . ' / ' . \Carbon\Carbon::parse($this->paid_at)->format('d.m.Y, H:i');
   }
 
   /**
