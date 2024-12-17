@@ -51,9 +51,13 @@ class HandleOrder
     ]);
    
     // Create order products
+    $total = 0;
+
     foreach ($data['items'] as $item)
     {
       $product = (new FindProduct())->execute($item['uuid']);
+      $price = $item['price'] * $item['quantity'];
+      $shipping = $item['shipping'] * $item['quantity'];
       OrderProduct::create([
         'order_id' => $order->id,
         'product_id' => $product->isVariation ? $product->product_id : $product->id,
@@ -62,10 +66,13 @@ class HandleOrder
         'description' => $product->description,
         'image' => $product->image,
         'quantity' => $item['quantity'],
-        'price' => $item['price'] * $item['quantity'],
-        'shipping' => $item['shipping'] * $item['quantity'],
+        'price' => $price,
+        'shipping' => $shipping,
         'is_variation' => $product->isVariation ? 1 : 0,
       ]);
+
+      // Update running total
+      $total += $price + $shipping;
 
       // Update product stock but make sure it doesn't go below 0
       $product->stock = $product->stock - $item['quantity'] > 0 ? $product->stock - $item['quantity'] : 0;
@@ -77,15 +84,11 @@ class HandleOrder
       }
       
       $product->save();
-
     }
 
-    // Update order total
-    $order->total = $order->products->sum(function ($product) {
-      return $product->price + $product->shipping;
-    });
+    // Update order total with the calculated total
+    $order->total = $total;
     $order->save();
-
 
     // return order with products
     return Order::with('products')->find($order->id);

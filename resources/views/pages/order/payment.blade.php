@@ -35,9 +35,10 @@
           value="credit_card" 
           checked="true">
           <div class="flex gap-x-16">
-            @foreach (config('invoice.payment_methods') as $payment_method)
+            Kreditkarte
+            {{-- @foreach (config('invoice.payment_methods') as $payment_method)
               <x-dynamic-component :component="'icons.' .  $payment_method['key']" />
-            @endforeach
+            @endforeach --}}
           </div>
         </x-form.radio>
       </x-table.row>
