@@ -19,7 +19,7 @@
       <div class="font-bold">Rechnung {{ $data->order_number }}</div>
       <div>Zürich, {{ \Carbon\Carbon::now()->locale('de_CH')->isoFormat('D. MMMM YYYY') }}</div>
     </div>
-    @foreach($data->products as $product)
+    @foreach($data->orderProducts as $product)
       <table class="order-details">
         <tr>
           <td class="order-detail-item font-bold">

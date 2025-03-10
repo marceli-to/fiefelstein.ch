@@ -46,10 +46,12 @@ class Order extends Model
     'order_number',
   ];
 
-  // public function products()
-  // {
-  //   return $this->hasMany(OrderProduct::class);
-  // }
+  // Add a relation ship to order_product
+  public function orderProducts()
+  {
+    return $this->hasMany(OrderProduct::class);
+  }
+
   public function products()
   {
     return $this->belongsToMany(Product::class, 'order_product')->withPivot(

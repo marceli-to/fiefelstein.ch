@@ -3,7 +3,7 @@
     <h1>Folgende Bestellung ist eingegangen:</h1>
     <div class="table">
       <table cellpadding="0" cellspacing="0">
-        @foreach($data->products as $product)
+        @foreach($data->orderProducts as $product)
           <tr>
             <td colspan="2">{{ $product->title }}</td>
             <td class="quantity">{{ $product->quantity }}</td>

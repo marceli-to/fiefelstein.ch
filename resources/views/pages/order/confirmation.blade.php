@@ -8,8 +8,8 @@
     <x-order.menu order_step="{{ $order_step }}" />
   </div>
   <div class="md:col-span-8 lg:col-span-5 xl:col-span-4">
-    @foreach ($order->products as $product)
-      <div class="mb-32 last-of-type:mb-0 divide-y divide-black border-t border-t-black mt-1">
+    @foreach ($order->orderProducts as $product)
+      <div class="mb-32 last-of-type:mb-0 divide-y divide-black border-t border-t-black">
         <div class="grid grid-cols-4">
           <x-table.row class="border-none col-span-3 flex justify-between font-europa-bold font-bold">
             <span>{{ $product->title }}</span>

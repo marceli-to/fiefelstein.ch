@@ -58,6 +58,7 @@ class HandleOrder
       $product = (new FindProduct())->execute($item['uuid']);
       $price = $item['price'] * $item['quantity'];
       $shipping = $item['shipping'] * $item['quantity'];
+
       OrderProduct::create([
         'order_id' => $order->id,
         'product_id' => $product->isVariation ? $product->product_id : $product->id,
@@ -90,8 +91,8 @@ class HandleOrder
     $order->total = $total;
     $order->save();
 
-    // return order with products
-    return Order::with('products')->find($order->id);
+    // Return order with products and order products
+    return Order::with('orderProducts')->find($order->id);
   }
 
   private function invoice($order)
