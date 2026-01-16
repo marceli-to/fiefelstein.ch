@@ -52,19 +52,6 @@ class Product extends Model
     return SlugOptions::create()->generateSlugsFrom('group_title')->saveSlugsTo('slug');
   }
 
-  /**
-   * Get the indexable data array for the model.
-   *
-   * @return array<string, mixed>
-   */
-  public function toSearchableArray(): array
-  { 
-    return [
-      'title' => $this->title,
-      'description' => $this->description,
-      'publish' => $this->publish,
-    ];
-  }
   public function category(): BelongsTo
   {
     return $this->belongsTo(ProductCategory::class, 'product_category_id');
