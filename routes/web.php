@@ -4,7 +4,6 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +39,3 @@ Route::middleware(['ensure.cart.not.empty'])->group(function () {
 
 Route::get('/bestellung/bestaetigung/{order:uuid}', [OrderController::class, 'confirmation'])->name('order.confirmation');
 Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}/{ratio?}', [ImageController::class, 'getResponse']);
-
-/**
- * Test routes
- */
-Route::get('/pdf/invoice', [TestController::class, 'invoice']);
