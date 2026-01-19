@@ -18,6 +18,7 @@ yarn-error.log
 /.vscode
 INSTALL.txt
 /public/robots.txt
+/public/.htaccess
 
 SECURITY_README.md
 SECURITY_REMEDIATION_PLAN.md
