@@ -12,6 +12,88 @@ use App\Notifications\OrderInformationNotification;
 
 class HandleOrder
 {
+  /**
+   * Create a pending (unpaid) order before redirecting to Stripe.
+   * Prices are fetched from the database, not from the session.
+   */
+  public function createPending($data)
+  {
+    $order = Order::create([
+      'uuid' => \Str::uuid(),
+      'salutation' => $data['invoice_address']['salutation'] ?? '',
+      'company' => $data['invoice_address']['company'] ?? '',
+      'firstname' => $data['invoice_address']['firstname'],
+      'name' => $data['invoice_address']['name'],
+      'street' => $data['invoice_address']['street'],
+      'street_number' => $data['invoice_address']['street_number'] ?? '',
+      'zip' => $data['invoice_address']['zip'],
+      'city' => $data['invoice_address']['city'],
+      'country' => $data['invoice_address']['country'],
+      'email' => $data['invoice_address']['email'],
+      'use_invoice_address' => $data['shipping_address']['use_invoice_address'] ?? 0,
+      'shipping_company' => $data['shipping_address']['company'] ?? '',
+      'shipping_firstname' => $data['shipping_address']['firstname'] ?? '',
+      'shipping_name' => $data['shipping_address']['name'] ?? '',
+      'shipping_street' => $data['shipping_address']['street'] ?? '',
+      'shipping_street_number' => $data['shipping_address']['street_number'] ?? '',
+      'shipping_zip' => $data['shipping_address']['zip'] ?? '',
+      'shipping_city' => $data['shipping_address']['city'] ?? '',
+      'shipping_country' => $data['shipping_address']['country'] ?? '',
+      'payment_method' => $data['payment_method'],
+      // payed_at is NULL - order is not paid yet
+    ]);
+
+    // Create order products with prices from the database
+    $total = 0;
+
+    foreach ($data['items'] as $item)
+    {
+      // Fetch product from database to get the real price
+      $product = (new FindProduct())->execute($item['uuid']);
+
+      // Use price from database, not from session
+      $price = $product->price * $item['quantity'];
+      $shipping = $product->shipping * $item['quantity'];
+
+      OrderProduct::create([
+        'order_id' => $order->id,
+        'product_id' => $product->isVariation ? $product->product_id : $product->id,
+        'product_variation_id' => $product->isVariation ? $product->id : null,
+        'title' => $product->title,
+        'description' => $product->description,
+        'image' => $product->image,
+        'quantity' => $item['quantity'],
+        'price' => $price,
+        'shipping' => $shipping,
+        'is_variation' => $product->isVariation ? 1 : 0,
+      ]);
+
+      // Update running total
+      $total += $price + $shipping;
+
+      // Update product stock but make sure it doesn't go below 0
+      $product->stock = $product->stock - $item['quantity'] > 0 ? $product->stock - $item['quantity'] : 0;
+
+      // If stock is 0, set product state to not available
+      if ($product->stock == 0)
+      {
+        $product->state = 'not_available';
+      }
+
+      $product->save();
+    }
+
+    // Update order total with the calculated total
+    $order->total = $total;
+    $order->save();
+
+    // Return order with products
+    return Order::with('orderProducts')->find($order->id);
+  }
+
+  /**
+   * @deprecated Use createPending() instead. This method is kept for backwards compatibility.
+   */
   public function execute()
   {
     $order = $this->create(

@@ -22,6 +22,11 @@ class ImageController extends ImageCacheController
 
   public function getResponse($template, $filename, $maxSize = NULL, $coords = NULL, $ratio = FALSE)
   {
+    // Validate filename to prevent path traversal attacks
+    if (str_contains($filename, '..') || str_starts_with($filename, '/')) {
+      abort(403, 'Invalid filename');
+    }
+
     $this->maxSize  = $maxSize;
     $this->coords   = $coords;
     $this->ratio    = $ratio;

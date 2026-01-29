@@ -94,68 +94,98 @@ class OrderController extends BaseController
 
   public function finalize(OrderStoreRequest $request)
   {
-    // Implement payment process
-    \Stripe\Stripe::setApiKey(env('PAYMENT_STRIPE_PRIVATE_KEY'));
-    $domain = config('app.url');
+    // Set Stripe API key from config
+    \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
-    // Get cart and build items array
+    // Get cart
     $cart = (new GetCart())->execute();
+
+    // Create pending order (unpaid) before redirecting to Stripe
+    $order = (new HandleOrder())->createPending($cart);
+
+    // Build items array with prices from database
     $items = [];
-
-    foreach ($cart['items'] as $item)
+    foreach ($order->orderProducts as $orderProduct)
     {
-      // set unit_amount
-      $unit_amount = (int) ($item['price'] * 100);
-
-      // add shipping if it's not 0
-      if (isset($item['shipping']) && $item['shipping'] > 0)
-      {
-        $unit_amount += (int) ($item['shipping'] * 100);
-      }
+      // Calculate unit amount (price + shipping per item)
+      $unitPrice = $orderProduct->price / $orderProduct->quantity;
+      $unitShipping = $orderProduct->shipping / $orderProduct->quantity;
+      $unit_amount = (int) (($unitPrice + $unitShipping) * 100);
 
       $items[] = [
         'price_data' => [
           'currency' => 'chf',
           'unit_amount' => $unit_amount,
           'product_data' => [
-            'name' => $item['title'],
-            'images' => [env('APP_URL') . "/img/small/" . $item['image']],
+            'name' => $orderProduct->title,
+            'images' => $orderProduct->image ? [config('app.url') . "/img/small/" . $orderProduct->image] : [],
           ],
         ],
-        'quantity' => $item['quantity'],
+        'quantity' => $orderProduct->quantity,
       ];
     }
 
-    // Create checkout session id
+    // Create Stripe checkout session
     $checkout_session = \Stripe\Checkout\Session::create([
-      'customer_email' => $cart['invoice_address']['email'],
+      'customer_email' => $order->email,
       'submit_type' => 'pay',
       'payment_method_types' => ['card'],
       'line_items' => $items,
       'mode' => 'payment',
       'locale' => app()->getLocale(),
-      'success_url' => route('order.payment.success'),
-      'cancel_url' => route('order.payment.cancel'),
+      'success_url' => route('order.payment.success', ['order' => $order->uuid]),
+      'cancel_url' => route('order.payment.cancel', ['order' => $order->uuid]),
     ]);
+
+    // Store Stripe session ID on order
+    $order->stripe_session_id = $checkout_session->id;
+    $order->save();
+
+    // Note: Cart is NOT destroyed here. If payment is cancelled, user can retry.
+    // Cart will be destroyed on successful payment (via paymentSuccess redirect)
 
     // Redirect to Stripe
     return redirect()->away($checkout_session->url);
   }
 
-  public function paymentSuccess()
+  public function paymentSuccess(Order $order)
   {
-    $cart = (new UpdateCart())->execute([
-      'order_step' => $this->handleStep(6),
-      'is_paid' => true,
-    ]);
+    // Webhook handles payment confirmation - just redirect to confirmation page
+    // The order may still show "processing" until the webhook confirms payment
 
-    $order = (new HandleOrder())->execute();
+    // Destroy cart on successful redirect from Stripe
+    (new \App\Actions\Cart\DestroyCart())->execute();
+
     return redirect()->route('order.confirmation', $order);
   }
 
-  public function paymentCancel()
+  public function paymentCancel(Order $order)
   {
-    return redirect()->route('order.summary'); 
+    // If order is already paid (webhook processed), redirect to confirmation
+    if ($order->payed_at) {
+      return redirect()->route('order.confirmation', $order);
+    }
+
+    // User cancelled payment - delete the pending order and redirect back to summary
+    // Restore stock for the cancelled order products
+    foreach ($order->orderProducts as $orderProduct) {
+      // Handle product variations and regular products
+      $item = $orderProduct->is_variation
+        ? $orderProduct->productVariation
+        : $orderProduct->product;
+
+      if ($item) {
+        $item->stock += $orderProduct->quantity;
+        if ($item->state->value === 'not_available' && $item->stock > 0) {
+          $item->state = 'available';
+        }
+        $item->save();
+      }
+    }
+
+    $order->delete();
+
+    return redirect()->route('order.summary')->with('error', 'Zahlung wurde abgebrochen.');
   }
 
   public function confirmation(Order $order)

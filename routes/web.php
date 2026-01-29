@@ -4,6 +4,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +35,13 @@ Route::middleware(['ensure.cart.not.empty'])->group(function () {
   Route::post('/bestellung/zahlungsmethode/speichern', [OrderController::class, 'storePaymentMethod'])->name('order.payment-method-store')->middleware('ensure.correct.order.step:3');
   Route::get('/bestellung/zusammenfassung', [OrderController::class, 'summary'])->name('order.summary')->middleware('ensure.correct.order.step:4');
   Route::post('/bestellung/abschliessen', [OrderController::class, 'finalize'])->name('order.finalize')->middleware('ensure.correct.order.step:5');
-  Route::get('/bestellung/zahlung-erfolgreich', [OrderController::class, 'paymentSuccess'])->name('order.payment.success')->middleware('ensure.correct.order.step:5');
-  Route::get('/bestellung/zahlung-storniert', [OrderController::class, 'paymentCancel'])->name('order.payment.cancel')->middleware('ensure.correct.order.step:5');
+  Route::get('/bestellung/zahlung-erfolgreich/{order:uuid}', [OrderController::class, 'paymentSuccess'])->name('order.payment.success')->withoutMiddleware(['ensure.cart.not.empty']);
+  Route::get('/bestellung/zahlung-storniert/{order:uuid}', [OrderController::class, 'paymentCancel'])->name('order.payment.cancel')->withoutMiddleware(['ensure.cart.not.empty']);
 });
 
 Route::get('/bestellung/bestaetigung/{order:uuid}', [OrderController::class, 'confirmation'])->name('order.confirmation');
+
+// Stripe webhook (excluded from CSRF in VerifyCsrfToken middleware)
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle'])->name('stripe.webhook');
+
 Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}/{ratio?}', [ImageController::class, 'getResponse']);
