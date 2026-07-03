@@ -13,6 +13,8 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\FileUpload;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -52,16 +54,19 @@ class LandingPageResource extends Resource
         Section::make('Slides')
         ->schema([
           Repeater::make('cards')
-            ->label('Produkte oder Texte')
+            ->label('Produkte, Texte oder Teaser')
             // add product title to item label if product is selected
             ->itemLabel(function (array $state): ?string {
-              if ($state['type'] === 'Produkt' && isset($state['product_id'])) {
+              if (($state['type'] ?? null) === 'Produkt' && isset($state['product_id'])) {
                   $product = Product::find($state['product_id']);
                   return $product ? "Produkt: {$product->title}" : "Produkt: (nicht gefunden)";
               }
+              if (($state['type'] ?? null) === 'Brocante') {
+                  return 'Teaser';
+              }
               return $state['type'] ?? 'Unbekannt';
           })
-            ->addActionLabel('Produkt oder Text hinzufügen')
+            ->addActionLabel('Element hinzufügen')
             ->columnSpan('full')
             ->collapsible()
             ->collapsed()
@@ -71,6 +76,7 @@ class LandingPageResource extends Resource
               ->options([
                   'Produkt' => 'Produkt',
                   'Text' => 'Text',
+                  'Brocante' => 'Teaser',
               ])
               ->live()
               ->reactive(),
@@ -80,11 +86,27 @@ class LandingPageResource extends Resource
                 ->searchable()
                 ->visible(fn ($get) => $get('type') === 'Produkt')
                 ->required(fn ($get) => $get('type') === 'Produkt'),
+              FileUpload::make('image')
+                ->label('Bild')
+                ->image()
+                ->imageEditor()
+                ->visible(fn ($get) => $get('type') === 'Brocante')
+                ->required(fn ($get) => $get('type') === 'Brocante')
+                ->helperText('Erlaubte Dateitypen: JPG, PNG')
+                ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file, $get): string {
+                  $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                  $name = $fileName . '-' . uniqid() . '.' . $file->extension();
+                  return (string) str($name);
+                }),
               Textarea::make('text')
                 ->label('Text')
                 ->rows(6)
-                ->visible(fn ($get) => $get('type') === 'Text')
+                ->visible(fn ($get) => in_array($get('type'), ['Text', 'Brocante']))
                 ->required(fn ($get) => $get('type') === 'Text'),
+              TextInput::make('link')
+                ->label('Link (Seiten-Slug)')
+                ->helperText('Slug der Zielseite, z.B. brocante')
+                ->visible(fn ($get) => $get('type') === 'Brocante'),
             ])
         ]),
       ]);

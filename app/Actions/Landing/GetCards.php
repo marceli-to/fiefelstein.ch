@@ -17,7 +17,16 @@ class GetCards
           'type' => 'product',
           'product' => Product::find($card['product_id']),
         ];
-      } 
+      }
+      elseif ($card['type'] === 'Brocante')
+      {
+        $cards[] = [
+          'type' => 'brocante',
+          'image' => $card['image'] ?? null,
+          'text' => $card['text'] ?? null,
+          'link' => $card['link'] ?? null,
+        ];
+      }
       else
       {
         $cards[] = [
