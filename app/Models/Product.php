@@ -72,6 +72,25 @@ class Product extends Model
     return $query->where('publish', true);
   }
 
+  /**
+   * Products of the main shop (i.e. not in a standalone category like Brocante).
+   */
+  public function scopeShop($query)
+  {
+    return $query->where(function ($q) {
+      $q->whereDoesntHave('category')
+        ->orWhereHas('category', fn ($c) => $c->where('is_standalone', false));
+    });
+  }
+
+  /**
+   * Products of standalone categories (e.g. Brocante).
+   */
+  public function scopeStandalone($query)
+  {
+    return $query->whereHas('category', fn ($q) => $q->where('is_standalone', true));
+  }
+
   public function getRouteKeyName(): string
   {
     return 'slug';

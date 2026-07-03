@@ -7,7 +7,7 @@ class GetCategories
 {
   public function execute()
   {
-    return ProductCategory::whereHas('products', function ($query) {
+    return ProductCategory::shop()->whereHas('products', function ($query) {
       $query->published();
     })->get();
   }

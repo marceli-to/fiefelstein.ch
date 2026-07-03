@@ -20,7 +20,8 @@ use App\Http\Controllers\ImageController;
 
 Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::get('/produkt/{product}', [ProductController::class, 'show'])->name('product.show');
-Route::get('/boutique', [ProductController::class, 'listing'])->name('product.listing');
+Route::get('/produkte', [ProductController::class, 'listing'])->name('product.listing');
+Route::redirect('/boutique', '/produkte', 301);
 Route::get('/brocante', [PageController::class, 'brocante'])->name('brocante');
 Route::get('/idee', [PageController::class, 'idea'])->name('idea');
 Route::get('/kontakt', [PageController::class, 'contact'])->name('contact');

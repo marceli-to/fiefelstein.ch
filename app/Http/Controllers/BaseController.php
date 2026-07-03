@@ -9,7 +9,7 @@ class BaseController extends Controller
   protected $cart;
   public function __construct()
   {
-    $products = Product::published()->orderBy('sort')->get();
+    $products = Product::published()->shop()->orderBy('sort')->get();
     $menuItems = [];
     foreach($products as $product)
     {

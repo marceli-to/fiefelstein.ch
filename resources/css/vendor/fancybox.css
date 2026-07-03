@@ -1,0 +1,37 @@
+/* Fiefelstein-customised Fancybox — used for the Brocante image galleries.
+   Scoped via `mainClass: 'fancybox-fiefelstein'` (see modules/lightbox.js). */
+
+/* White, 95% backdrop */
+.fancybox-fiefelstein .fancybox__backdrop {
+  @apply bg-white/95;
+}
+
+/* Hide the floating cart icon while a lightbox is open — it sits top-right and
+   would otherwise overlap the close cross. Fancybox adds `with-fancybox` to
+   <html> while any lightbox is open. */
+.with-fancybox .js-cart-icon {
+  @apply hidden;
+}
+
+/* Flatten the arrow and close buttons: no gray circle, no shadow/border, just
+   the plain black site icon. Target the elements directly (the default gray
+   comes from --f-arrow-bg, which a scoped variable override doesn't reliably
+   win). */
+.fancybox-fiefelstein .f-button.is-arrow,
+.fancybox-fiefelstein .f-button.is-close-button {
+  @apply !bg-transparent !shadow-none !border-0 !text-black;
+}
+
+/* Pin the close button to the top-right corner of the viewport. Fancybox's
+   default places it with a negative top offset (relative to the toolbar, which
+   we removed), so override its position explicitly. */
+.fancybox-fiefelstein .f-button.is-close-button {
+  @apply fixed top-20 right-20 z-[40];
+}
+
+/* Render the site's own (fill-based) chevron/cross SVGs at their intrinsic
+   size, instead of Fancybox's stroke-based defaults. */
+.fancybox-fiefelstein .f-button svg {
+  @apply w-auto h-auto fill-current filter-none;
+  stroke: none; /* no Tailwind utility for stroke: none */
+}

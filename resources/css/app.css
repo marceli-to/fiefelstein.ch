@@ -1,6 +1,7 @@
 @import "typo/webfonts.css";
 @import "components/form.css";
 @import "vendor/swiper.css";
+@import "vendor/fancybox.css";
 
 @tailwind base;
 @tailwind components;

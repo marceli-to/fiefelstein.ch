@@ -10,10 +10,12 @@ use Filament\Forms\Form;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -31,11 +33,11 @@ class ProductCategoryResource extends Resource
 
   protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';
 
-  protected static ?string $navigationLabel = 'Kategorien';
+  protected static ?string $navigationLabel = 'Produktkategorien';
 
-  protected static ?string $modelLabel = 'Kategorie';
+  protected static ?string $modelLabel = 'Produktkategorie';
 
-  protected static ?string $pluralModelLabel = 'Kategorien';
+  protected static ?string $pluralModelLabel = 'Produktkategorien';
 
   protected static ?string $navigationGroup = 'Einstellungen';
 
@@ -48,6 +50,10 @@ class ProductCategoryResource extends Resource
           TextInput::make('name')
             ->label('Bezeichnung')
             ->required()
+            ->columnSpan('full'),
+          Toggle::make('is_standalone')
+            ->label('Eigenständige Kategorie (z.B. Brocante)')
+            ->helperText('Wird nicht in der Produkte-Übersicht angezeigt, sondern auf einer eigenen Seite.')
             ->columnSpan('full'),
         ])->columnSpan([
           'default' => 12,
@@ -71,6 +77,9 @@ class ProductCategoryResource extends Resource
           ->label('Bezeichnung')
           ->searchable()
           ->sortable(),
+        IconColumn::make('is_standalone')
+          ->label('Eigenständig')
+          ->boolean(),
     ])
     ->filters([
       Tables\Filters\TrashedFilter::make(),

@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 <x-layout.page-title>
-  Produkte: {{ $product->group_title }}
+  {{ $product->group_title }}
 </x-layout.page-title>
 <div 
   class="relative lg:mt-30"

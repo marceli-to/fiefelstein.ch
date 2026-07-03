@@ -6,3 +6,4 @@ import './modules/swiper/product.js';
 import './modules/filter.js';
 import './modules/detectTouch.js';
 import './modules/linkTarget.js';
+import './modules/lightbox.js';

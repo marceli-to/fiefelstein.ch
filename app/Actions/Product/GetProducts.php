@@ -6,6 +6,6 @@ class GetProducts
 {
   public function execute()
   {
-    return Product::with(['variations', 'category'])->published()->get();
+    return Product::with(['variations', 'category'])->published()->shop()->get();
   }
 }

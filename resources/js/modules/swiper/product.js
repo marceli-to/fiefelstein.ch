@@ -33,6 +33,22 @@ const Product = (function() {
       });
     });
 
+    preselectVariationFromHash();
+
+  };
+
+  // When arriving via a variation card link (#variation-<slug>), preselect that
+  // variation on load, reusing the same logic as the on-page switcher. The slug
+  // is mapped back to the variation uuid via [data-variation-slug].
+  const preselectVariationFromHash = () => {
+    const match = window.location.hash.match(/^#variation-(.+)$/);
+    if (!match) return;
+
+    const slug = match[1];
+    const wrapper = document.querySelector(`[data-variation-slug="${slug}"]`);
+    if (wrapper) {
+      toggleVariation(wrapper.dataset.variationWrapper);
+    }
   };
 
   const initSwiper = () => {
@@ -127,6 +143,7 @@ const Product = (function() {
 
   const goToSlide = (uuid) => {
     const slide = document.querySelector(`[data-product-uuid="${uuid}"]`);
+    if (!slide) return;
     const slides = document.querySelectorAll('.swiper-slide');
     const index = Array.from(slides).indexOf(slide);
     swiper.slideTo(index, 900);
