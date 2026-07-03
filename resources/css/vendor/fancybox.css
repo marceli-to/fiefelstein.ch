@@ -35,3 +35,33 @@
   @apply w-auto h-auto fill-current filter-none;
   stroke: none; /* no Tailwind utility for stroke: none */
 }
+
+/* Align the lightbox image with the product listing and give it top/bottom
+   padding. The listing content lives in a 12-col, gap-16 grid inside body px-16,
+   at col-start-4 / span-6 → a symmetric inset of calc(25vw + 12px). We inset the
+   image via the slide padding (which insets the panzoom/image area).
+   Raw CSS: --f-carousel-slide-padding is a Fancybox variable + calc, no utility. */
+.fancybox-fiefelstein .fancybox__slide {
+  /* mobile/tablet: align to the body padding, 64px top/bottom */
+  --f-carousel-slide-padding: 4rem 1rem; /* = spacing-64 / spacing-16 */
+}
+@media (min-width: 1024px) {
+  .fancybox-fiefelstein .fancybox__slide {
+    /* top spacing-90 · left/right = listing column inset · bottom spacing-64 */
+    --f-carousel-slide-padding: 5.25rem calc(25vw + 8px) 4rem;
+  }
+
+  /* Bring the chevrons in next to the image instead of the viewport edges.
+     Column edge is at calc(25vw + 8px); minus the 46px arrow-button width leaves
+     the button's inner edge ~8px shy of the image. Adjust the offset to taste. */
+  .fancybox-fiefelstein .fancybox__carousel {
+    --f-arrow-pos: calc(25vw - 96px);
+  }
+}
+
+/* Left-align the image within that column (flush with the first listing card),
+   instead of Fancybox's default horizontal centering. */
+.fancybox-fiefelstein .f-panzoom,
+.fancybox-fiefelstein .f-zoomable {
+  @apply items-start;
+}
