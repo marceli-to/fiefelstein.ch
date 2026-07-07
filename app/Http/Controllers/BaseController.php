@@ -19,6 +19,9 @@ class BaseController extends Controller
         'current' => request()->route()->parameter('product') == $product->slug,
       ];
     }
-    view()->share(['menuItems' => $menuItems]);
+    view()->share([
+      'menuItems' => $menuItems,
+      'hasBrocante' => Product::published()->standalone()->exists(),
+    ]);
   }
 }

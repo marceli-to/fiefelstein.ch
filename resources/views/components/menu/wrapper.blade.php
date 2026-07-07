@@ -20,9 +20,11 @@
           </li>
         @endforeach
       @endif
-      <li class="my-6">
-        <x-menu.item title="Brocante" :url="route('brocante')" :current="request()->routeIs('brocante')" />
-      </li>
+      @if ($hasBrocante)
+        <li class="my-6">
+          <x-menu.item title="Brocante" :url="route('brocante')" :current="request()->routeIs('brocante')" />
+        </li>
+      @endif
       <li class="my-6">
         <x-menu.item title="Idee" :url="route('idea')" :current="request()->routeIs('idea')" />
       </li>
